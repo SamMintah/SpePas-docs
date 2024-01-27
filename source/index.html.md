@@ -1,15 +1,11 @@
 ---
-title: API Reference
+title: SpePas API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-  - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - <a href='https://github.com/slatedocs/slate'>© 2024 Bitblue Documentation Powered by Bitblue</a>
 
 includes:
   - errors
@@ -20,226 +16,440 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the spare-part API
 ---
 
-# Introduction
+# SpePas API Documentation
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the SpePas API documentation. Read this page to gain a high-level understanding of the API and its key features
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## Overview
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+The SpePas API is built using [**vendure**](https://docs.vendure.io/guides/developer-guide/overview/)
+, a headless e-commerce platform specifically tailored to guide developers in seamlessly integrating the SpePas API with the storefront mobile app. SpePas, your dedicated e-commerce platform for spare parts, presents a host of features curated to elevate the spare parts shopping experience.
 
-# Authentication
+## APIs
 
-> To authorize, use this code:
+Vendure exposes all of its functionality via APIs. Specifically,featuring two GraphQL APIs
 
-```ruby
-require 'kittn'
+ [**Shop API**](https://spare-part-server.onrender.com/shop-api)
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+ [**Admin API**](https://spare-part-server.onrender.com/admin-api)
+
+
+# Key Features
+
+## Communication Architecture
+
+1. **Real-Time Interaction:**
+   Ensure seamless communication by leveraging the SpePas mobile app and server in real-time. This architecture supports instant updates, guaranteeing a dynamic and responsive spare parts shopping experience for your users.
+
+2. **GraphQL for Effortless Integration:**
+   Streamline data exchange with GraphQL, simplifying the communication between the frontend and backend. Use GraphQL's flexible query language to request specific data, minimizing unnecessary transfers and optimizing mobile app performance.
+
+## Data Exchange Format
+
+3. **Structured Data with GraphQL:**
+   Utilize GraphQL for structured and efficient data exchange. Access information with a single, well-defined endpoint, reducing the complexity of data retrieval for frontend developers.
+
+4. **Rich Product Information:**
+   Retrieve detailed spare parts information, including part specifications, vendor details, pricing, and availability. Enhance the user experience by showcasing comprehensive product data within the mobile app.
+
+## Authentication and Authorization
+
+5. **Secure User Authentication:**
+   Implement secure user registration and login processes. Allow users to access personalized data, such as saved carts and order history, securely.
+
+6. **Social Logins and OTP Support:**
+   Facilitate a seamless onboarding experience by integrating social logins. Enhance security with OTP authentication, providing an additional layer of verification for user accounts.
+
+## Error Handling
+
+7. **Clear and Informative Error Responses:**
+   Simplify troubleshooting with clear error responses. The documentation provides detailed messages to help developers quickly identify and resolve issues during integration.
+
+## API Services
+
+**Customer Account Management:**
+Integrate features for easy customer account management, including account creation, password management, and secure login methods. Support social logins and OTP for enhanced user authentication.
+
+**Product Management:**
+Effortlessly manage product data with support for multiple images and custom fields. Showcase detailed product information within the mobile app for a comprehensive user experience.
+
+**Admin Portal for Store Management:**
+Facilitate store management with a dedicated [**admin portal**](https://spare-part-server.onrender.com/admin). Admins can efficiently handle tasks such as inventory management, order processing, and vendor coordination.
+
+**Multi-Vendor Support:**
+Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seamlessly manage their inventory, update product details, and process orders through specialized API services.
+
+# Customer Account Management
+
+## Account Creation
+
+To create a new customer account, you can utilize the `createAccount` mutation. Below is an example of how to perform an account creation API call using GraphQL.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to create a new account:
+
+```graphql
+mutation {
+  createAccount(
+    input: {
+      email: "sample@email.com"
+      password: "pass122"
+      firstName: "Sall"
+      lastName: "sample"
+    }
+  ) {
+    id
+    email
+    firstName
+    lastName
+    createdAt
+  }
+}
 ```
 
-```python
-import kittn
+### Test Environment
 
-api = kittn.authorize('meowmeowmeow')
-```
+Visit the SpePas Shop API endpoint to perform account creation tests:
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation <code>createdAt</code>.
 </aside>
 
-# Kittens
+### Expected Response
 
-## Get All Kittens
+Upon a successful account creation, the API will respond with the newly created account details:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
 
-### HTTP Request
+## Changing password
 
-`GET http://example.com/api/kittens`
+To reset a customer's password, you can utilize the `changePassword` mutation. Below is an example of how to perform Changing password API call using GraphQL.
 
-### Query Parameters
+### Sample Mutation
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Execute the following GraphQL mutation to change a password:
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+```graphql
+
+mutation {
+  changePassword(
+    customerId: "4", 
+    oldPassword: "pass122",
+    newPassword: "secure"
+  ){
+    id
+    email
+    lastName
+    firstName
+  }
+}
+```
+
+### Test Environment
+
+Visit the SpePas Shop API endpoint to perform account creation tests:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
 </aside>
 
-## Get a Specific Kitten
+### Expected Response
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+Upon a successful account creation, the API will respond with the newly created account details:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+## Generating OTP
 
-### HTTP Request
+To Generate an OTP, you can utilize the `generateOTP` mutation. Below is an example of how to Generate OTP  API call using GraphQL.
 
-`GET http://example.com/kittens/<ID>`
+### Sample Mutation
 
-### URL Parameters
+Execute the following GraphQL mutation to Generate OTP:
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+```graphql
 
-## Delete a Specific Kitten
+mutation {
+  generateOTP(customerId: "4")
+}
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
 ```
 
-```python
-import kittn
+### Test Environment
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+Visit the SpePas Shop API endpoint to perform account creation tests:
 
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
 
-```javascript
-const kittn = require('kittn');
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+</aside>
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+### Expected Response
 
-> The above command returns JSON structured like this:
+Upon a successful account creation, the API will respond with the newly created account details:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
 }
 ```
 
-This endpoint deletes a specific kitten.
 
-### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+## Verify OTP
 
-### URL Parameters
+To Verify an OTP, you can utilize the `verifyOTP` mutation. Below is an example of how to Generate OTP  API call using GraphQL.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+### Sample Mutation
 
+Execute the following GraphQL mutation to Generate OTP:
+
+```graphql
+
+mutation {
+  verifyOTP(
+    customerId: "4",
+    otp:  "971020"
+  ){
+    id
+    email
+    firstName
+    lastName
+  }
+}
+```
+
+### Test Environment
+
+Visit the SpePas Shop API endpoint to perform account creation tests:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+</aside>
+
+### Expected Response
+
+Upon a successful account creation, the API will respond with the newly created account details:
+
+```json
+{
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
+}
+```
+
+## Social login
+
+To authenticate user using social logins like facebook and Gmail, you can utilize the `verifyOTP` mutation. Below is an example of how to Generate OTP  API call using GraphQL.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to Generate OTP:
+
+```graphql
+
+mutation {
+  verifyOTP(
+    customerId: "4",
+    otp:  "971020"
+  ){
+    id
+    email
+    firstName
+    lastName
+  }
+}
+```
+
+### Test Environment
+
+Visit the SpePas Shop API endpoint to perform account creation tests:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+</aside>
+
+### Expected Response
+
+Upon a successful account creation, the API will respond with the newly created account details:
+
+```json
+{
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
+}
+```
+
+
+# Multi-Vendor Support
+
+## Register Seller
+
+To Register a new Seller, you can utilize the `RegisterSeller` mutation. Below is an example of how to register a new Seller using GraphQL.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to RegisterSeller:
+
+```graphql
+
+mutation RegisterSeller {
+  registerNewSeller(input: {
+    shopName: "Sam's on Render SP",
+    seller: {
+      firstName: "Kay"
+      lastName: "Mintah"
+      emailAddress: "kay.seller@example.com"
+      password: "test",
+    }
+  }) {
+    id
+    code
+    token
+  }
+}
+```
+
+### Test Environment
+
+Visit the SpePas Shop API endpoint to  Register Seller:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+</aside>
+
+### Expected Response
+
+Upon a successful account creation, the API will respond with the newly created account details:
+
+```json
+{
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
+}
+```
+
+## Add Payment To Order
+
+To Register a new Seller, you can utilize the `addPaymentToOrder` mutation. Below is an example of how to register a new Seller using GraphQL.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to addPaymentToOrder:
+
+```graphql
+
+ mutation {
+  addPaymentToOrder(input: { method: "connected-payment-method", metadata: {} }) {
+    ... on Order { id }
+    ... on ErrorResult {
+      errorCode
+      message
+    }
+    ... on PaymentFailedError {
+      paymentErrorMessage
+    }
+  }
+}
+
+```
+
+### Test Environment
+
+Visit the SpePas Shop API endpoint to  Register Seller:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+<aside class="notice">
+The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+</aside>
+
+### Expected Response
+
+Upon a successful account creation, the API will respond with the newly created account details:
+
+```json
+{
+  "data": {
+    "createAccount": {
+      "id": "5",
+      "email": "new@email.com",
+       "firstName": "Sall",
+      "lastName": "sample",
+      "createdAt": "2024-01-27T04:52:09.000Z"
+    }
+  }
+}
+```
