@@ -305,7 +305,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-d2ad13d8.png" class="logo" alt="" />
+      <img src="images/logo-1a2782b4.png" class="logo" alt="" />
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -315,7 +315,7 @@
             <a href="#spepas-api-documentation" class="toc-h1 toc-link" data-title="SpePas API Documentation">SpePas API Documentation</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                    <a href="#developer-guide-overview" class="toc-h2 toc-link" data-title="Developer-guide Overview">Developer-guide Overview</a>
                   </li>
                   <li>
                     <a href="#apis" class="toc-h2 toc-link" data-title="APIs">APIs</a>
@@ -349,16 +349,16 @@
                     <a href="#account-creation" class="toc-h2 toc-link" data-title="Account Creation">Account Creation</a>
                   </li>
                   <li>
-                    <a href="#changing-password" class="toc-h2 toc-link" data-title="Changing password">Changing password</a>
+                    <a href="#changepassword" class="toc-h2 toc-link" data-title="changePassword">changePassword</a>
                   </li>
                   <li>
-                    <a href="#generating-otp" class="toc-h2 toc-link" data-title="Generating OTP">Generating OTP</a>
+                    <a href="#generate-otp" class="toc-h2 toc-link" data-title="Generate OTP">Generate OTP</a>
                   </li>
                   <li>
-                    <a href="#verify-otp" class="toc-h2 toc-link" data-title="Verify OTP">Verify OTP</a>
+                    <a href="#verifyotp" class="toc-h2 toc-link" data-title="verifyOTP">verifyOTP</a>
                   </li>
                   <li>
-                    <a href="#social-login" class="toc-h2 toc-link" data-title="Social login">Social login</a>
+                    <a href="#social-logins" class="toc-h2 toc-link" data-title="Social Logins">Social Logins</a>
                   </li>
               </ul>
           </li>
@@ -366,12 +366,20 @@
             <a href="#multi-vendor-support" class="toc-h1 toc-link" data-title="Multi-Vendor Support">Multi-Vendor Support</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#register-seller" class="toc-h2 toc-link" data-title="Register Seller">Register Seller</a>
-                  </li>
-                  <li>
-                    <a href="#add-payment-to-order" class="toc-h2 toc-link" data-title="Add Payment To Order">Add Payment To Order</a>
+                    <a href="#registering-a-new-seller" class="toc-h2 toc-link" data-title="Registering a New Seller">Registering a New Seller</a>
                   </li>
               </ul>
+          </li>
+          <li>
+            <a href="#payment-management" class="toc-h1 toc-link" data-title="Payment Management">Payment Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#add-payment-to-order" class="toc-h2 toc-link" data-title="Add Payment to Order">Add Payment to Order</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#stay-tuned-for-more" class="toc-h1 toc-link" data-title="Stay Tuned for More!">Stay Tuned for More!</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -387,11 +395,11 @@
       <div class="content">
         <h1 id='spepas-api-documentation'>SpePas API Documentation</h1>
 <p>Welcome to the SpePas API documentation. Read this page to gain a high-level understanding of the API and its key features</p>
-<h2 id='overview'>Overview</h2>
+<h2 id='developer-guide-overview'>Developer-guide Overview</h2>
 <p>The SpePas API is built using <a href="https://docs.vendure.io/guides/developer-guide/overview/"><strong>vendure</strong></a>
-, a headless e-commerce platform specifically tailored to guide developers in seamlessly integrating the SpePas API with the storefront mobile app. SpePas, your dedicated e-commerce platform for spare parts, presents a host of features curated to elevate the spare parts shopping experience.</p>
+,this doc is tailored to guide developers in integrating the SpePas API with it&#39;s mobile app (storefront).</p>
 <h2 id='apis'>APIs</h2>
-<p>Vendure exposes all of its functionality via APIs. Specifically,featuring two GraphQL APIs</p>
+<p>Vendure exposes all of its functionality via APIs. Specifically, featuring two GraphQL APIs</p>
 
 <p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API</strong></a></p>
 
@@ -399,9 +407,9 @@
 <h1 id='key-features'>Key Features</h1><h2 id='communication-architecture'>Communication Architecture</h2>
 <ol>
 <li><p><strong>Real-Time Interaction:</strong>
-Ensure seamless communication by leveraging the SpePas mobile app and server in real-time. This architecture supports instant updates, guaranteeing a dynamic and responsive spare parts shopping experience for your users.</p></li>
+Real-Time Interaction: The API ensures seamless communication by leveraging the SpePas mobile app and server in real-time. This architecture supports instant updates, guaranteeing a dynamic and responsive spare parts shopping experience for your users</p></li>
 <li><p><strong>GraphQL for Effortless Integration:</strong>
-Streamline data exchange with GraphQL, simplifying the communication between the frontend and backend. Use GraphQL&#39;s flexible query language to request specific data, minimizing unnecessary transfers and optimizing mobile app performance.</p></li>
+Streamline data exchange with GraphQL, simplifying communication between the frontend (storefront) and backend. Utilize GraphQL&#39;s flexible query language to request specific data, minimizing unnecessary transfers and optimizing the performance of the mobile app.</p></li>
 </ol>
 <h2 id='data-exchange-format'>Data Exchange Format</h2>
 <ol>
@@ -441,10 +449,11 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">createAccount</span><span class="p">(</span><span class="w">
     </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="w">
-      </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass122"</span><span class="w">
       </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="w">
       </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="w">
+      </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="w">
+      </span><span class="n">Phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"022337544"</span><span class="w">
+      </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass122"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
@@ -462,210 +471,208 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <aside class="notice">
 The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation <code>createdAt</code>.
 </aside>
+
+<p>Learn more from <a href="https://docs.vendure.io/guides/core-concepts/auth/#customer-auth"><strong>Auth</strong></a></p>
 <h3 id='expected-response'>Expected Response</h3>
 <p>Upon a successful account creation, the API will respond with the newly created account details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='changing-password'>Changing password</h2>
-<p>To reset a customer&#39;s password, you can utilize the <code>changePassword</code> mutation. Below is an example of how to perform Changing password API call using GraphQL.</p>
+</span></code></pre></div><h2 id='changepassword'>changePassword</h2>
+<p>To update a customer&#39;s password on the SpePas platform, use the <code>changePassword</code> mutation. Here&#39;s an example of how to perform a password change API call using GraphQL.</p>
+<h3 id='test-environment-2'>Test Environment</h3>
+<p>Perform password change tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
 <h3 id='sample-mutation-2'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to change a password:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+<p>Execute the following GraphQL mutation to change a customer&#39;s password:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">changePassword</span><span class="p">(</span><span class="w">
-    </span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w"> 
-    </span><span class="n">oldPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass122"</span><span class="p">,</span><span class="w">
+    </span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+    </span><span class="n">oldPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass122"</span><span class="w">
     </span><span class="n">newPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"secure"</span><span class="w">
-  </span><span class="p">){</span><span class="w">
+  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
     </span><span class="n">email</span><span class="w">
     </span><span class="n">lastName</span><span class="w">
     </span><span class="n">firstName</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='test-environment-2'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to perform account creation tests:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
+</span></code></pre></div>
 <aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+The <code>changePassword</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and after the password change.
 </aside>
 <h3 id='expected-response-2'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
+<p>Upon a successful password change, the API will respond with the updated customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
+    </span><span class="nl">"changePassword"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salome@email.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIntah"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='generating-otp'>Generating OTP</h2>
-<p>To Generate an OTP, you can utilize the <code>generateOTP</code> mutation. Below is an example of how to Generate OTP  API call using GraphQL.</p>
+</span></code></pre></div><h2 id='generate-otp'>Generate OTP</h2>
+<p>To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for customer accounts. Utilize the <code>generateOTP</code> mutation to generate a unique OTP for a specified customer ID.</p>
+<h3 id='test-environment-3'>Test Environment</h3>
+<p>Initiate OTP generation tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
 <h3 id='sample-mutation-3'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to Generate OTP:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+<p>Execute the following GraphQL mutation to generate an OTP for a specific customer:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">generateOTP</span><span class="p">(</span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
-</span></code></pre></div><h3 id='test-environment-3'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to perform account creation tests:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
+</span></code></pre></div>
 <aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+The <code>generateOTP</code> mutation returns the generated OTP as a string. This OTP can be used for additional authentication or verification steps.
 </aside>
 <h3 id='expected-response-3'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
+<p>Upon successful OTP generation, the API will respond with the generated OTP:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"generateOTP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"443569"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='verify-otp'>Verify OTP</h2>
-<p>To Verify an OTP, you can utilize the <code>verifyOTP</code> mutation. Below is an example of how to Generate OTP  API call using GraphQL.</p>
+</span></code></pre></div><h2 id='verifyotp'>verifyOTP</h2>
+<p>As an additional layer of security, SpePas provides the ability to verify a customer&#39;s identity using a one-time password (OTP). Utilize the <code>verifyOTP</code> mutation to confirm the authenticity of the OTP associated with a specific customer.</p>
+<h3 id='test-environment-4'>Test Environment</h3>
+<p>Conduct OTP verification tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
 <h3 id='sample-mutation-4'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to Generate OTP:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">verifyOTP</span><span class="p">(</span><span class="w">
-    </span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="n">otp</span><span class="p">:</span><span class="w">  </span><span class="s2">"971020"</span><span class="w">
-  </span><span class="p">){</span><span class="w">
+<p>Execute the following GraphQL mutation to verify the OTP for a specific customer:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">verifyOTP</span><span class="p">(</span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="n">otp</span><span class="p">:</span><span class="w"> </span><span class="s2">"971020"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
     </span><span class="n">email</span><span class="w">
     </span><span class="n">firstName</span><span class="w">
     </span><span class="n">lastName</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='test-environment-4'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to perform account creation tests:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
+</span></code></pre></div>
 <aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
+The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and `lastName` of the customer upon successful OTP verification.
 </aside>
 <h3 id='expected-response-4'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
+<p>Upon successful OTP verification, the API will respond with the customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
+    </span><span class="nl">"verifyOTP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salome@email.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIntah"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='social-login'>Social login</h2>
-<p>To authenticate user using social logins like facebook and Gmail, you can utilize the <code>verifyOTP</code> mutation. Below is an example of how to Generate OTP  API call using GraphQL.</p>
-<h3 id='sample-mutation-5'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to Generate OTP:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">verifyOTP</span><span class="p">(</span><span class="w">
-    </span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="n">otp</span><span class="p">:</span><span class="w">  </span><span class="s2">"971020"</span><span class="w">
-  </span><span class="p">){</span><span class="w">
+</span></code></pre></div><h2 id='social-logins'>Social Logins</h2>
+<p>SpePas supports seamless onboarding and login experiences through social logins. Customers can conveniently use their existing social media accounts to create or log in to their SpePas account.</p>
+<h3 id='supported-social-platforms'>Supported Social Platforms</h3>
+<ol>
+<li><strong>Google Login</strong></li>
+<li><strong>Facebook Login</strong></li>
+<li><strong>Twitter Login</strong></li>
+</ol>
+<h3 id='how-to-perform-social-logins'>How to Perform Social Logins</h3>
+<p>To initiate a social login, follow these steps:</p>
+
+<ol>
+<li><p>Visit the SpePas Shop API endpoint for social logins:
+<a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p></li>
+<li><p>Choose the social platform you want to use for login.</p></li>
+<li><p>Follow the authentication prompts provided by the selected social platform.</p></li>
+</ol>
+<h3 id='sample-social-login-mutation-for-illustration-purposes'>Sample Social Login Mutation (For Illustration Purposes)</h3>
+<p>Below is an illustrative example of how a social login mutation might look:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">socialLogin</span><span class="p">(</span><span class="n">platform</span><span class="p">:</span><span class="w"> </span><span class="s2">"google"</span><span class="p">,</span><span class="w"> </span><span class="n">accessToken</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_google_access_token"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
     </span><span class="n">email</span><span class="w">
     </span><span class="n">firstName</span><span class="w">
     </span><span class="n">lastName</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='test-environment-5'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to perform account creation tests:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
-<aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
-</aside>
-<h3 id='expected-response-5'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
+</span></code></pre></div><h3 id='expected-response-5'>Expected Response</h3>
+<p>Upon successful social login, the API will respond with the customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
+    </span><span class="nl">"socialLogin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='register-seller'>Register Seller</h2>
-<p>To Register a new Seller, you can utilize the <code>RegisterSeller</code> mutation. Below is an example of how to register a new Seller using GraphQL.</p>
-<h3 id='sample-mutation-6'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to RegisterSeller:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="n">RegisterSeller</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">registerNewSeller</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sam's on Render SP"</span><span class="p">,</span><span class="w">
-    </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kay"</span><span class="w">
-      </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mintah"</span><span class="w">
-      </span><span class="n">emailAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"kay.seller@example.com"</span><span class="w">
-      </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+</span></code></pre></div>
+<p>The <code>socialLogin</code> mutation returns the <code>id</code>, <code>email</code>, <code>firstName</code>, and <code>lastName</code> of the customer upon successful social login.</p>
+<h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='registering-a-new-seller'>Registering a New Seller</h2>
+<p>In SpePas, multi-vendor support allows sellers to register their shops and manage their inventory through the admin portal. Follow the steps below to register a new seller.</p>
+<h3 id='mutation'>Mutation</h3>
+<p>Use the <code>RegisterSeller</code> mutation to register a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">RegisterSeller</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">registerNewSeller</span><span class="p">(</span><span class="w">
+    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"new Sam' on Render SP"</span><span class="w">
+      </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s2">"san"</span><span class="w">
+        </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kay"</span><span class="w">
+        </span><span class="n">emailAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.seller@example.com"</span><span class="w">
+        </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
-    </span><span class="n">code</span><span class="w">
-    </span><span class="n">token</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='test-environment-6'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to  Register Seller:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
-<aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
-</aside>
-<h3 id='expected-response-6'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
+    </span><span class="n">createdAt</span><span class="w">
+    </span><span class="n">seller</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='add-payment-to-order'>Add Payment To Order</h2>
-<p>To Register a new Seller, you can utilize the <code>addPaymentToOrder</code> mutation. Below is an example of how to register a new Seller using GraphQL.</p>
-<h3 id='sample-mutation-7'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to addPaymentToOrder:</p>
+</span></code></pre></div><h3 id='usage-notes'>Usage Notes</h3>
+<ul>
+<li>The <code>registerNewSeller</code> mutation creates a new seller account and associates it with the specified shop.</li>
+<li>The seller can use the provided shop name for branding and identification.</li>
+<li>Vendure&#39;s Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.</li>
+</ul>
+
+<p>This process enables sellers to seamlessly register and begin managing their shops through the <a href="https://spare-part-server.onrender.com/shop-api"><strong>admin portal.</strong></a></p>
+<h3 id='expected-response-6'>Expected Response</h3>
+<p>Upon successful registration, the API will respond with the newly created seller&#39;s information, including the ID, creation timestamp, and the shop name.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"registerNewSeller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-28T02:09:29.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"seller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new Sam' on Render SP"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id='payment-management'>Payment Management</h1><h2 id='add-payment-to-order'>Add Payment to Order</h2>
+<p>To handle payments for orders in SpePas, utilize the <code>addPaymentToOrder</code> mutation. This mutation allows you to associate a payment method with an order.</p>
+<h3 id='mutation-2'>Mutation</h3>
+<p>Execute the following GraphQL mutation to add a payment to an order:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
- </span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">addPaymentToOrder</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="s2">"connected-payment-method"</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">addPaymentToOrder</span><span class="p">(</span><span class="w">
+    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="s2">"connected-payment-method"</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
     </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">ErrorResult</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="n">errorCode</span><span class="w">
       </span><span class="n">message</span><span class="w">
@@ -675,38 +682,64 @@ The <code>createAccount</code>  mutation returns the <code>id</code> of the newl
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='usage-notes-2'>Usage Notes</h3>
+<ul>
+<li>The <code>addPaymentToOrder</code> mutation associates the specified payment method with the order.</li>
+<li>Check the response to determine the success or failure of the payment addition.</li>
+<li>The <code>Order</code> type includes the <code>id</code> field, providing the order ID after a successful payment.</li>
+<li>Errors or payment failures are communicated through the relevant fields in the response.</li>
+</ul>
 
-</span></code></pre></div><h3 id='test-environment-7'>Test Environment</h3>
-<p>Visit the SpePas Shop API endpoint to  Register Seller:</p>
+<p>This mutation is crucial for managing the financial aspects of orders within the SpePas e-commerce platform.</p>
 
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-
-<aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation (`createdAt`).
-</aside>
-<h3 id='expected-response-7'>Expected Response</h3>
-<p>Upon a successful account creation, the API will respond with the newly created account details:</p>
+<blockquote>
+<p><strong>Successful Payment:</strong></p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new@email.com"</span><span class="p">,</span><span class="w">
-       </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-27T04:52:09.000Z"</span><span class="w">
+    </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_order_id"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='errors'>Errors</h1>
+</span></code></pre></div>
+<blockquote>
+<p><strong>Error Result:</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_error_code"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error_message"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Payment Failed:</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"paymentErrorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_error_message"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='expected-response-7'>Expected Response</h3>
+<p>The API will respond based on the outcome of the payment addition:</p>
+<h1 id='stay-tuned-for-more'>Stay Tuned for More!</h1>
+<p>We are constantly working to add more features and functionality to our platform. Please keep an eye out for
+updates, as they will be announced here. We value your feedback and would love to hear from you. Feel free to reach out if you have any questions or need assistance.</p>
+<h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+This error section
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The SpePas API uses the following error codes:</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
+<th>Error-Code</th>
 <th>Meaning</th>
 </tr>
 </thead><tbody>
@@ -715,36 +748,28 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <td>Bad Request -- Your request is invalid.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The data requested is hidden for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified data could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access a SpePas with an invalid query.</td>
 </tr>
 <tr>
 <td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+<td>Not Acceptable -- You requested a format that isn&#39;t Acceptable.</td>
 </tr>
 <tr>
 <td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>Gone -- The Data requested has been removed from our servers.</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests --! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
