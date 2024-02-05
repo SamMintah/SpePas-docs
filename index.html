@@ -372,6 +372,18 @@
                     <a href="#password-recovery" class="toc-h2 toc-link" data-title="Password Recovery">Password Recovery</a>
                   </li>
                   <li>
+                    <a href="#password-reset-reset-user-password" class="toc-h2 toc-link" data-title="Password Reset: Reset User Password">Password Reset: Reset User Password</a>
+                  </li>
+                  <li>
+                    <a href="#sample-mutation-6" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                  </li>
+                  <li>
+                    <a href="#usage-notes-2" class="toc-h2 toc-link" data-title="Usage Notes">Usage Notes</a>
+                  </li>
+                  <li>
+                    <a href="#expected-response-6" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
+                  </li>
+                  <li>
                     <a href="#social-logins" class="toc-h2 toc-link" data-title="Social Logins">Social Logins</a>
                   </li>
               </ul>
@@ -636,7 +648,34 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='social-logins'>Social Logins</h2>
+</span></code></pre></div><h2 id='password-reset-reset-user-password'>Password Reset: Reset User Password</h2>
+<p>To reset a user&#39;s password, utilize the <code>resetUserPassword</code> mutation. This mutation requires the user&#39;s identifier (email or phone number) and the new desired password.</p>
+<h2 id='sample-mutation-6'>Sample Mutation</h2>
+<p>Execute the following GraphQL mutation to reset a user&#39;s password:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">resetUserPassword</span><span class="p">(</span><span class="n">input</span><span class="p">:{</span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"km.graphicz1@gmail.com"</span><span class="p">,</span><span class="w"> </span><span class="n">newPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"newpassword"</span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='usage-notes-2'>Usage Notes</h2>
+<ul>
+<li>The <code>resetUserPassword</code> mutation resets the password for the user associated with the provided identifier (email or phone number).</li>
+<li>Provide the user&#39;s identifier and the new desired password in the mutation input.</li>
+</ul>
+<h2 id='expected-response-6'>Expected Response</h2>
+<p>Upon successful password reset, the API will respond with the user&#39;s ID:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"resetUserPassword"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The user's ID (`id`) indicates that the password reset was successful. Ensure that your user data includes this detail for reference.
+</aside>
+<h2 id='social-logins'>Social Logins</h2>
 <p>SpePas supports seamless onboarding and login experiences through social logins. Customers can conveniently use their existing social media accounts to create or log in to their SpePas account.</p>
 <h3 id='supported-social-platforms'>Supported Social Platforms</h3>
 <ol>
@@ -663,7 +702,7 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
     </span><span class="n">lastName</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='expected-response-6'>Expected Response</h3>
+</span></code></pre></div><h3 id='expected-response-7'>Expected Response</h3>
 <p>Upon successful social login, the API will respond with the customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -679,7 +718,7 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
 <p>The <code>socialLogin</code> mutation returns the <code>id</code>, <code>email</code>, <code>firstName</code>, and <code>lastName</code> of the customer upon successful social login.</p>
 <h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='seller-registration'>Seller Registration</h2>
 <p>Use the <code>registerNewSeller</code> mutation to register a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
-<h5 id='sample-mutation-6'>Sample Mutation</h5>
+<h5 id='sample-mutation-7'>Sample Mutation</h5>
 <p>Execute the following GraphQL mutation to register a new seller:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">RegisterSeller</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">registerNewSeller</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -696,13 +735,13 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
     </span><span class="n">token</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h5 id='usage-notes-2'>Usage Notes</h5>
+</span></code></pre></div><h5 id='usage-notes-3'>Usage Notes</h5>
 <ul>
 <li>The <code>registerNewSeller</code> mutation creates a new seller account and associates it with the specified shop.</li>
 <li>The seller can use the provided shop name for branding and identification.</li>
 <li>Vendure&#39;s Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.</li>
 </ul>
-<h5 id='expected-response-7'>Expected Response</h5>
+<h5 id='expected-response-8'>Expected Response</h5>
 <p>Upon successful registration, the API will respond with the newly created seller&#39;s information, including the ID, shop code, and authentication token.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -715,7 +754,7 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='adding-items-to-order'>Adding Items to Order</h2>
 <p>To add items to the order from different sellers, utilize the <code>addItemToOrder</code> mutation. This mutation allows customers to specify the product variant ID and quantity for each item they want to purchase.</p>
-<h4 id='sample-mutation-7'>Sample Mutation</h4>
+<h4 id='sample-mutation-8'>Sample Mutation</h4>
 <p>Execute the following GraphQL mutation to add items to the order:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">addItemToOrder</span><span class="p">(</span><span class="n">productVariantId</span><span class="p">:</span><span class="w"> </span><span class="s2">"56"</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -741,7 +780,7 @@ The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</cod
 <aside class="notice">
 The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
 </aside>
-<h4 id='expected-response-8'>Expected Response</h4>
+<h4 id='expected-response-9'>Expected Response</h4>
 <p>Upon successfully adding items to the order, the API will respond with the order ID:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -773,14 +812,14 @@ The <code>addItemToOrder</code> mutation includes the <code>__typename</code> fi
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='usage-notes-3'>Usage Notes</h3>
+</span></code></pre></div><h3 id='usage-notes-4'>Usage Notes</h3>
 <ul>
 <li>The <code>addPaymentToOrder</code> mutation associates the specified payment method with the order.</li>
 <li>Check the response to determine the success or failure of the payment addition.</li>
 <li>The <code>Order</code> type includes the <code>id</code> field, providing the order ID after a successful payment.</li>
 <li>Errors or payment failures are communicated through the relevant fields in the response.</li>
 </ul>
-<h5 id='expected-response-9'>Expected Response</h5>
+<h5 id='expected-response-10'>Expected Response</h5>
 <p>The API will respond based on the outcome of the payment addition:</p>
 
 <ul>
@@ -818,7 +857,7 @@ The <code>addItemToOrder</code> mutation includes the <code>__typename</code> fi
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='set-order-billing-address'>Set Order Billing Address</h2>
 <p>To provide a billing address for the order, use the <code>setOrderBillingAddress</code> mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.</p>
-<h4 id='sample-mutation-8'>Sample Mutation</h4>
+<h4 id='sample-mutation-9'>Sample Mutation</h4>
 <p>Execute the following GraphQL mutation to set the order billing address:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">setOrderBillingAddress</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -842,7 +881,7 @@ The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</
 
  the order ID accordingly.
 </aside>
-<h4 id='expected-response-10'>Expected Response</h4>
+<h4 id='expected-response-11'>Expected Response</h4>
 <p>Upon successfully setting the order billing address, the API will respond with the order ID:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -862,7 +901,7 @@ The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</
     </span><span class="n">priceWithTax</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h4 id='expected-response-11'>Expected Response</h4>
+</span></code></pre></div><h4 id='expected-response-12'>Expected Response</h4>
 <p>The API will respond with a list of eligible shipping methods:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -882,7 +921,7 @@ The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='assign-shipping-method-to-order'>Assign Shipping Method to Order</h2>
 <p>To assign shipping methods to the order, use the <code>setOrderShippingMethod</code> mutation. This mutation allows customers to specify the shipping method IDs for their order.</p>
-<h4 id='sample-mutation-9'>Sample Mutation</h4>
+<h4 id='sample-mutation-10'>Sample Mutation</h4>
 <p>Execute the following GraphQL mutation to assign shipping methods to the order:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">AssignShipping</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">setOrderShippingMethod</span><span class="p">(</span><span class="n">shippingMethodId</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -895,7 +934,7 @@ The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</
 <aside class="notice">
 The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
 </aside>
-<h4 id='expected-response-12'>Expected Response</h4>
+<h4 id='expected-response-13'>Expected Response</h4>
 <p>Upon successfully assigning shipping methods to the order, the API will respond with the order ID:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
