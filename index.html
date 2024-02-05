@@ -348,14 +348,28 @@
                   <li>
                     <a href="#account-creation" class="toc-h2 toc-link" data-title="Account Creation">Account Creation</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#user-authentication-custom-login" class="toc-h1 toc-link" data-title="User Authentication: Custom Login">User Authentication: Custom Login</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#changepassword" class="toc-h2 toc-link" data-title="changePassword">changePassword</a>
+                    <a href="#sample-mutation-2" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
-                    <a href="#generate-otp" class="toc-h2 toc-link" data-title="Generate OTP">Generate OTP</a>
+                    <a href="#usage-notes" class="toc-h2 toc-link" data-title="Usage Notes">Usage Notes</a>
                   </li>
                   <li>
-                    <a href="#verifyotp" class="toc-h2 toc-link" data-title="verifyOTP">verifyOTP</a>
+                    <a href="#expected-response-2" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
+                  </li>
+                  <li>
+                    <a href="#token-usage" class="toc-h2 toc-link" data-title="Token Usage">Token Usage</a>
+                  </li>
+                  <li>
+                    <a href="#note" class="toc-h2 toc-link" data-title="Note">Note</a>
+                  </li>
+                  <li>
+                    <a href="#password-recovery" class="toc-h2 toc-link" data-title="Password Recovery">Password Recovery</a>
                   </li>
                   <li>
                     <a href="#social-logins" class="toc-h2 toc-link" data-title="Social Logins">Social Logins</a>
@@ -366,15 +380,22 @@
             <a href="#multi-vendor-support" class="toc-h1 toc-link" data-title="Multi-Vendor Support">Multi-Vendor Support</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#registering-a-new-seller" class="toc-h2 toc-link" data-title="Registering a New Seller">Registering a New Seller</a>
+                    <a href="#seller-registration" class="toc-h2 toc-link" data-title="Seller Registration">Seller Registration</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#payment-management" class="toc-h1 toc-link" data-title="Payment Management">Payment Management</a>
-              <ul class="toc-list-h2">
                   <li>
-                    <a href="#add-payment-to-order" class="toc-h2 toc-link" data-title="Add Payment to Order">Add Payment to Order</a>
+                    <a href="#adding-items-to-order" class="toc-h2 toc-link" data-title="Adding Items to Order">Adding Items to Order</a>
+                  </li>
+                  <li>
+                    <a href="#adding-payment-to-order" class="toc-h2 toc-link" data-title="Adding payment to Order">Adding payment to Order</a>
+                  </li>
+                  <li>
+                    <a href="#set-order-billing-address" class="toc-h2 toc-link" data-title="Set Order Billing Address">Set Order Billing Address</a>
+                  </li>
+                  <li>
+                    <a href="#eligible-shipping-methods" class="toc-h2 toc-link" data-title="Eligible Shipping Methods">Eligible Shipping Methods</a>
+                  </li>
+                  <li>
+                    <a href="#assign-shipping-method-to-order" class="toc-h2 toc-link" data-title="Assign Shipping Method to Order">Assign Shipping Method to Order</a>
                   </li>
               </ul>
           </li>
@@ -486,93 +507,132 @@ The <code>createAccount</code>  mutation returns the <code>id</code> of the newl
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='changepassword'>changePassword</h2>
-<p>To update a customer&#39;s password on the SpePas platform, use the <code>changePassword</code> mutation. Here&#39;s an example of how to perform a password change API call using GraphQL.</p>
-<h3 id='test-environment-2'>Test Environment</h3>
-<p>Perform password change tests using the SpePas Shop API endpoint:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-<h3 id='sample-mutation-2'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to change a customer&#39;s password:</p>
+</span></code></pre></div><h1 id='user-authentication-custom-login'>User Authentication: Custom Login</h1>
+<p>To authenticate a user and obtain an authentication token, use the <code>customLogin</code> mutation. This mutation requires the user&#39;s identifier (email or phone number) and password.</p>
+<h2 id='sample-mutation-2'>Sample Mutation</h2>
+<p>Execute the following GraphQL mutation to perform a custom login:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">changePassword</span><span class="p">(</span><span class="w">
-    </span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
-    </span><span class="n">oldPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass122"</span><span class="w">
-    </span><span class="n">newPassword</span><span class="p">:</span><span class="w"> </span><span class="s2">"secure"</span><span class="w">
-  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">id</span><span class="w">
-    </span><span class="n">email</span><span class="w">
-    </span><span class="n">lastName</span><span class="w">
-    </span><span class="n">firstName</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-The <code>changePassword</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and after the password change.
-</aside>
-<h3 id='expected-response-2'>Expected Response</h3>
-<p>Upon a successful password change, the API will respond with the updated customer details:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"changePassword"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salome@email.com"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIntah"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="w">
+  </span><span class="n">customLogin</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"newpassword"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">token</span><span class="w">
+    </span><span class="n">user</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+      </span><span class="n">firstName</span><span class="w">
+      </span><span class="n">lastName</span><span class="w">
+      </span><span class="n">email</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='generate-otp'>Generate OTP</h2>
-<p>To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for customer accounts. Utilize the <code>generateOTP</code> mutation to generate a unique OTP for a specified customer ID.</p>
-<h3 id='test-environment-3'>Test Environment</h3>
-<p>Initiate OTP generation tests using the SpePas Shop API endpoint:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-<h3 id='sample-mutation-3'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to generate an OTP for a specific customer:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">generateOTP</span><span class="p">(</span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-The <code>generateOTP</code> mutation returns the generated OTP as a string. This OTP can be used for additional authentication or verification steps.
-</aside>
-<h3 id='expected-response-3'>Expected Response</h3>
-<p>Upon successful OTP generation, the API will respond with the generated OTP:</p>
+</span></code></pre></div><h2 id='usage-notes'>Usage Notes</h2>
+<ul>
+<li>The <code>customLogin</code> mutation returns an authentication token (<code>token</code>) and user details (<code>user</code>) upon successful login.</li>
+<li>Provide the user&#39;s identifier (email or phone number) and password in the mutation input.</li>
+<li>The user details include the user&#39;s ID (<code>id</code>), first name (<code>firstName</code>), last name (<code>lastName</code>), and email address (<code>email</code>).</li>
+</ul>
+<h2 id='expected-response-2'>Expected Response</h2>
+<p>Upon successful authentication, the API will respond with the authentication token and user details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"generateOTP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"443569"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='verifyotp'>verifyOTP</h2>
-<p>As an additional layer of security, SpePas provides the ability to verify a customer&#39;s identity using a one-time password (OTP). Utilize the <code>verifyOTP</code> mutation to confirm the authenticity of the OTP associated with a specific customer.</p>
-<h3 id='test-environment-4'>Test Environment</h3>
-<p>Conduct OTP verification tests using the SpePas Shop API endpoint:</p>
-
-<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
-<h3 id='sample-mutation-4'>Sample Mutation</h3>
-<p>Execute the following GraphQL mutation to verify the OTP for a specific customer:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">verifyOTP</span><span class="p">(</span><span class="n">customerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="n">otp</span><span class="p">:</span><span class="w"> </span><span class="s2">"971020"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">id</span><span class="w">
-    </span><span class="n">email</span><span class="w">
-    </span><span class="n">firstName</span><span class="w">
-    </span><span class="n">lastName</span><span class="w">
+    </span><span class="nl">"customLogin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"km.graphicz1@gmail.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="notice">
-The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and `lastName` of the customer upon successful OTP verification.
+The user's first name (`firstName`) and last name (`lastName`) may appear as null in this example. Ensure that your user data includes these details for a complete user profile.
 </aside>
-<h3 id='expected-response-4'>Expected Response</h3>
+<h2 id='token-usage'>Token Usage</h2>
+<p>Use the obtained authentication token (<code>token</code>) in the <code>Authorization</code> header of your GraphQL requests to authenticate the user and access protected resources.</p>
+<div class="highlight"><pre class="highlight http tab-http"><code><span class="err">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw
+</span></code></pre></div><h2 id='note'>Note</h2>
+<p>Always secure the authentication token and transmit it securely over HTTPS. Regularly rotate tokens and follow best practices to ensure the security of your authentication process.</p>
+<h2 id='password-recovery'>Password Recovery</h2><h3 id='generate-password-recovery-otp'>Generate Password Recovery OTP</h3>
+<p>To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for password recovery. Utilize the <code>generatePasswordRecoveryOtp</code> mutation to generate a unique OTP for a specified customer&#39;s email address.</p>
+<h4 id='test-environment-2'>Test Environment</h4>
+<p>Initiate OTP generation for password recovery tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
+<h4 id='sample-mutation-3'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to generate an OTP for password recovery:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">generatePasswordRecoveryOtp</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">success</span><span class="w">
+    </span><span class="n">message</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>generatePasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was generated successfully, along with a corresponding <code>message</code>.
+</aside>
+<h4 id='expected-response-3'>Expected Response</h4>
+<p>Upon successful OTP generation, the API will respond with a success message:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"generatePasswordRecoveryOtp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTP sent successfully"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='verify-password-recovery-otp'>Verify Password Recovery OTP</h3>
+<p>As part of the password recovery process, SpePas allows users to verify their identity using a one-time password (OTP). Utilize the <code>verifyPasswordRecoveryOtp</code> mutation to confirm the authenticity of the OTP associated with a specific customer.</p>
+<h4 id='test-environment-3'>Test Environment</h4>
+<p>Conduct OTP verification for password recovery tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
+<h4 id='sample-mutation-4'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to verify the OTP for password recovery:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">verifyPasswordRecoveryOtp</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">otp</span><span class="p">:</span><span class="w"> </span><span class="s2">"462452"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">email</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>verifyPasswordRecoveryOtp</code> mutation returns the <code>id</code> and <code>email</code> of the customer upon successful OTP verification.
+</aside>
+<h4 id='expected-response-4'>Expected Response</h4>
 <p>Upon successful OTP verification, the API will respond with the customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"verifyOTP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salome@email.com"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIntah"</span><span class="w">
+    </span><span class="nl">"verifyPasswordRecoveryOtp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='resend-password-recovery-otp'>Resend Password Recovery OTP</h3>
+<p>In scenarios where the initial OTP for password recovery might be lost or expired, SpePas provides the functionality to resend the OTP. Utilize the <code>resendPasswordRecoveryOtp</code> mutation to resend the OTP to the customer&#39;s email address.</p>
+<h4 id='test-environment-4'>Test Environment</h4>
+<p>Initiate OTP resend for password recovery tests using the SpePas Shop API endpoint:</p>
+
+<p><a href="https://spare-part-server.onrender.com/shop-api"><strong>Shop API Test Endpoint</strong></a></p>
+<h4 id='sample-mutation-5'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to resend the OTP for password recovery:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">resendPasswordRecoveryOtp</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample@email.com"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">success</span><span class="w">
+    </span><span class="n">message</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was resent successfully, along with a corresponding <code>message</code>.
+</aside>
+<h4 id='expected-response-5'>Expected Response</h4>
+<p>Upon successful OTP resend, the API will respond with a success message:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"resendPasswordRecoveryOtp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTP resent successfully"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -603,7 +663,7 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
     </span><span class="n">lastName</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='expected-response-5'>Expected Response</h3>
+</span></code></pre></div><h3 id='expected-response-6'>Expected Response</h3>
 <p>Upon successful social login, the API will respond with the customer details:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -617,62 +677,93 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>The <code>socialLogin</code> mutation returns the <code>id</code>, <code>email</code>, <code>firstName</code>, and <code>lastName</code> of the customer upon successful social login.</p>
-<h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='registering-a-new-seller'>Registering a New Seller</h2>
-<p>In SpePas, multi-vendor support allows sellers to register their shops and manage their inventory through the admin portal. Follow the steps below to register a new seller.</p>
-<h3 id='mutation'>Mutation</h3>
-<p>Use the <code>RegisterSeller</code> mutation to register a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
+<h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='seller-registration'>Seller Registration</h2>
+<p>Use the <code>registerNewSeller</code> mutation to register a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
+<h5 id='sample-mutation-6'>Sample Mutation</h5>
+<p>Execute the following GraphQL mutation to register a new seller:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">RegisterSeller</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">registerNewSeller</span><span class="p">(</span><span class="w">
-    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"new Sam' on Render SP"</span><span class="w">
-      </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s2">"san"</span><span class="w">
-        </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kay"</span><span class="w">
-        </span><span class="n">emailAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.seller@example.com"</span><span class="w">
-        </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+  </span><span class="n">registerNewSeller</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Ent."</span><span class="p">,</span><span class="w">
+    </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">firstName</span><span class="p">:</span><span class="w"> </span><span class="s2">"New"</span><span class="w">
+      </span><span class="n">lastName</span><span class="p">:</span><span class="w"> </span><span class="s2">"kwamz"</span><span class="w">
+      </span><span class="n">emailAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"new.seller@example.com"</span><span class="w">
+      </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">id</span><span class="w">
-    </span><span class="n">createdAt</span><span class="w">
-    </span><span class="n">seller</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">name</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="n">code</span><span class="w">
+    </span><span class="n">token</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='usage-notes'>Usage Notes</h3>
+</span></code></pre></div><h5 id='usage-notes-2'>Usage Notes</h5>
 <ul>
 <li>The <code>registerNewSeller</code> mutation creates a new seller account and associates it with the specified shop.</li>
 <li>The seller can use the provided shop name for branding and identification.</li>
 <li>Vendure&#39;s Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.</li>
 </ul>
-
-<p>This process enables sellers to seamlessly register and begin managing their shops through the <a href="https://spare-part-server.onrender.com/shop-api"><strong>admin portal.</strong></a></p>
-<h3 id='expected-response-6'>Expected Response</h3>
-<p>Upon successful registration, the API will respond with the newly created seller&#39;s information, including the ID, creation timestamp, and the shop name.</p>
+<h5 id='expected-response-7'>Expected Response</h5>
+<p>Upon successful registration, the API will respond with the newly created seller&#39;s information, including the ID, shop code, and authentication token.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"registerNewSeller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-28T02:09:29.000Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"seller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new Sam' on Render SP"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-ent."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-ent.-token"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='payment-management'>Payment Management</h1><h2 id='add-payment-to-order'>Add Payment to Order</h2>
-<p>To handle payments for orders in SpePas, utilize the <code>addPaymentToOrder</code> mutation. This mutation allows you to associate a payment method with an order.</p>
-<h3 id='mutation-2'>Mutation</h3>
-<p>Execute the following GraphQL mutation to add a payment to an order:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
-</span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">addPaymentToOrder</span><span class="p">(</span><span class="w">
-    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="s2">"connected-payment-method"</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">}</span><span class="w">
-  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></code></pre></div><h2 id='adding-items-to-order'>Adding Items to Order</h2>
+<p>To add items to the order from different sellers, utilize the <code>addItemToOrder</code> mutation. This mutation allows customers to specify the product variant ID and quantity for each item they want to purchase.</p>
+<h4 id='sample-mutation-7'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to add items to the order:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">addItemToOrder</span><span class="p">(</span><span class="n">productVariantId</span><span class="p">:</span><span class="w"> </span><span class="s2">"56"</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">__typename</span><span class="w">
     </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="n">id</span><span class="w">
     </span><span class="p">}</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">ErrorResult</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">errorCode</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">add2</span><span class="p">:</span><span class="w"> </span><span class="n">addItemToOrder</span><span class="p">(</span><span class="n">productVariantId</span><span class="p">:</span><span class="w"> </span><span class="s2">"58"</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">__typename</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">ErrorResult</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">errorCode</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
+</aside>
+<h4 id='expected-response-8'>Expected Response</h4>
+<p>Upon successfully adding items to the order, the API will respond with the order ID:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"addItemToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"__typename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"add2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"__typename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>In a multi-vendor setup, SpePas allows customers to add items from different sellers to their cart and proceed to checkout. This section covers the process of adding items to the cart and setting up order fulfillment.</p>
+<h2 id='adding-payment-to-order'>Adding payment to Order</h2>
+<p>To handle orders in SpePas, utilize the <code>addPaymentToOrder</code> mutation. This mutation allows you to associate a payment method with an order.</p>
+<h3 id='mutation'>Mutation</h3>
+<p>Execute the following GraphQL mutation to add a payment to an order:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">addPaymentToOrder</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="s2">"connected-payment-method"</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">}</span><span class="w">
     </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">ErrorResult</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="n">errorCode</span><span class="w">
       </span><span class="n">message</span><span class="w">
@@ -682,19 +773,19 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='usage-notes-2'>Usage Notes</h3>
+</span></code></pre></div><h3 id='usage-notes-3'>Usage Notes</h3>
 <ul>
 <li>The <code>addPaymentToOrder</code> mutation associates the specified payment method with the order.</li>
 <li>Check the response to determine the success or failure of the payment addition.</li>
 <li>The <code>Order</code> type includes the <code>id</code> field, providing the order ID after a successful payment.</li>
 <li>Errors or payment failures are communicated through the relevant fields in the response.</li>
 </ul>
+<h5 id='expected-response-9'>Expected Response</h5>
+<p>The API will respond based on the outcome of the payment addition:</p>
 
-<p>This mutation is crucial for managing the financial aspects of orders within the SpePas e-commerce platform.</p>
-
-<blockquote>
-<p><strong>Successful Payment:</strong></p>
-</blockquote>
+<ul>
+<li><strong>Successful Payment:</strong></li>
+</ul>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -703,9 +794,9 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<blockquote>
-<p><strong>Error Result:</strong></p>
-</blockquote>
+<ul>
+<li><strong>Error Result:</strong></li>
+</ul>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -715,9 +806,9 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<blockquote>
-<p><strong>Payment Failed:</strong></p>
-</blockquote>
+<ul>
+<li><strong>Payment Failed:</strong></li>
+</ul>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"addPaymentToOrder"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -725,11 +816,96 @@ The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='expected-response-7'>Expected Response</h3>
-<p>The API will respond based on the outcome of the payment addition:</p>
-<h1 id='stay-tuned-for-more'>Stay Tuned for More!</h1>
-<p>We are constantly working to add more features and functionality to our platform. Please keep an eye out for
-updates, as they will be announced here. We value your feedback and would love to hear from you. Feel free to reach out if you have any questions or need assistance.</p>
+</span></code></pre></div><h2 id='set-order-billing-address'>Set Order Billing Address</h2>
+<p>To provide a billing address for the order, use the <code>setOrderBillingAddress</code> mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.</p>
+<h4 id='sample-mutation-8'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to set the order billing address:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">setOrderBillingAddress</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">company</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="n">streetLine1</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 james town"</span><span class="w">
+    </span><span class="n">streetLine2</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="n">city</span><span class="p">:</span><span class="w"> </span><span class="s2">"accra"</span><span class="w">
+    </span><span class="n">province</span><span class="p">:</span><span class="w"> </span><span class="s2">"G.Accra"</span><span class="w">
+    </span><span class="n">postalCode</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
+    </span><span class="n">countryCode</span><span class="p">:</span><span class="w"> </span><span class="s2">"GH"</span><span class="w">
+    </span><span class="n">customFields</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">houseNumber</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
+
+ the order ID accordingly.
+</aside>
+<h4 id='expected-response-10'>Expected Response</h4>
+<p>Upon successfully setting the order billing address, the API will respond with the order ID:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"setOrderBillingAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='eligible-shipping-methods'>Eligible Shipping Methods</h2>
+<p>To determine eligible shipping methods for the order, use the <code>eligibleShippingMethods</code> query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.</p>
+<h4 id='sample-query'>Sample Query</h4>
+<p>Execute the following GraphQL query to retrieve eligible shipping methods:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">Elig</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">eligibleShippingMethods</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">priceWithTax</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id='expected-response-11'>Expected Response</h4>
+<p>The API will respond with a list of eligible shipping methods:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"eligibleShippingMethods"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Standard Shipping"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"priceWithTax"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Express Shipping"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"priceWithTax"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='assign-shipping-method-to-order'>Assign Shipping Method to Order</h2>
+<p>To assign shipping methods to the order, use the <code>setOrderShippingMethod</code> mutation. This mutation allows customers to specify the shipping method IDs for their order.</p>
+<h4 id='sample-mutation-9'>Sample Mutation</h4>
+<p>Execute the following GraphQL mutation to assign shipping methods to the order:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">AssignShipping</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">setOrderShippingMethod</span><span class="p">(</span><span class="n">shippingMethodId</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
+</aside>
+<h4 id='expected-response-12'>Expected Response</h4>
+<p>Upon successfully assigning shipping methods to the order, the API will respond with the order ID:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"setOrderShippingMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id='stay-tuned-for-more'>Stay Tuned for More!</h1>
+<p>We are continually expanding our platform&#39;s features and functionality. Stay tuned for updates, as they will be announced here. We value your feedback and are here to assist you. If you have any questions or need further assistance, please don&#39;t hesitate to reach out.</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section
