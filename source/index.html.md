@@ -336,6 +336,45 @@ Upon successful OTP resend, the API will respond with a success message:
 }
 ```
 
+## Password Reset: Reset User Password
+
+To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's identifier (email or phone number) and the new desired password.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to reset a user's password:
+
+```graphql
+mutation {
+  resetUserPassword(input:{identifier: "km.graphicz1@gmail.com", newPassword: "newpassword"}) {
+    id
+  }
+}
+```
+
+## Usage Notes
+
+- The `resetUserPassword` mutation resets the password for the user associated with the provided identifier (email or phone number).
+- Provide the user's identifier and the new desired password in the mutation input.
+
+## Expected Response
+
+Upon successful password reset, the API will respond with the user's ID:
+
+```json
+{
+  "data": {
+    "resetUserPassword": {
+      "id": "5"
+    }
+  }
+}
+```
+
+<aside class="notice">
+The user's ID (`id`) indicates that the password reset was successful. Ensure that your user data includes this detail for reference.
+</aside>
+
 ## Social Logins
 
 SpePas supports seamless onboarding and login experiences through social logins. Customers can conveniently use their existing social media accounts to create or log in to their SpePas account.
