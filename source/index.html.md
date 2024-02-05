@@ -141,133 +141,196 @@ Upon a successful account creation, the API will respond with the newly created 
 }
 ```
 
-## changePassword
+# User Authentication: Custom Login
 
-To update a customer's password on the SpePas platform, use the `changePassword` mutation. Here's an example of how to perform a password change API call using GraphQL.
+To authenticate a user and obtain an authentication token, use the `customLogin` mutation. This mutation requires the user's identifier (email or phone number) and password.
 
-### Test Environment
+## Sample Mutation
 
-Perform password change tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to change a customer's password:
+Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
 mutation {
-  changePassword(
-    customerId: "4"
-    oldPassword: "pass122"
-    newPassword: "secure"
-  ) {
-    id
-    email
-    lastName
-    firstName
-  }
-}
-```
-
-<aside class="notice">
-The <code>changePassword</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and after the password change.
-</aside>
-
-### Expected Response
-
-Upon a successful password change, the API will respond with the updated customer details:
-
-```json
-{
-  "data": {
-    "changePassword": {
-      "id": "4",
-      "email": "salome@email.com",
-      "lastName": "MIntah",
-      "firstName": "Sall"
+  customLogin(input: { identifier: "0536369414", password: "newpassword" }) {
+    token
+    user {
+      id
+      firstName
+      lastName
+      email
     }
   }
 }
 ```
 
-## Generate OTP
+## Usage Notes
 
-To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for customer accounts. Utilize the `generateOTP` mutation to generate a unique OTP for a specified customer ID.
+- The `customLogin` mutation returns an authentication token (`token`) and user details (`user`) upon successful login.
+- Provide the user's identifier (email or phone number) and password in the mutation input.
+- The user details include the user's ID (`id`), first name (`firstName`), last name (`lastName`), and email address (`email`).
 
-### Test Environment
+## Expected Response
 
-Initiate OTP generation tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to generate an OTP for a specific customer:
-
-```graphql
-mutation {
-  generateOTP(customerId: "4")
-}
-```
-
-<aside class="notice">
-The <code>generateOTP</code> mutation returns the generated OTP as a string. This OTP can be used for additional authentication or verification steps.
-</aside>
-
-### Expected Response
-
-Upon successful OTP generation, the API will respond with the generated OTP:
+Upon successful authentication, the API will respond with the authentication token and user details:
 
 ```json
 {
   "data": {
-    "generateOTP": "443569"
-  }
-}
-```
-
-## verifyOTP
-
-As an additional layer of security, SpePas provides the ability to verify a customer's identity using a one-time password (OTP). Utilize the `verifyOTP` mutation to confirm the authenticity of the OTP associated with a specific customer.
-
-### Test Environment
-
-Conduct OTP verification tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to verify the OTP for a specific customer:
-
-```graphql
-mutation {
-  verifyOTP(customerId: "4", otp: "971020") {
-    id
-    email
-    firstName
-    lastName
+    "customLogin": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw",
+      "user": {
+        "id": "5",
+        "firstName": null,
+        "lastName": null,
+        "email": "km.graphicz1@gmail.com"
+      }
+    }
   }
 }
 ```
 
 <aside class="notice">
-The <code>verifyOTP</code> mutation returns the `id`, `email`, `firstName`, and `lastName` of the customer upon successful OTP verification.
+The user's first name (`firstName`) and last name (`lastName`) may appear as null in this example. Ensure that your user data includes these details for a complete user profile.
 </aside>
 
-### Expected Response
+## Token Usage
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw
+```
+
+## Note
+
+Always secure the authentication token and transmit it securely over HTTPS. Regularly rotate tokens and follow best practices to ensure the security of your authentication process.
+
+
+
+
+## Password Recovery
+
+### Generate Password Recovery OTP
+
+To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for password recovery. Utilize the `generatePasswordRecoveryOtp` mutation to generate a unique OTP for a specified customer's email address.
+
+#### Test Environment
+
+Initiate OTP generation for password recovery tests using the SpePas Shop API endpoint:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to generate an OTP for password recovery:
+
+```graphql
+mutation {
+  generatePasswordRecoveryOtp(input: { identifier: "sample@email.com" }) {
+    success
+    message
+  }
+}
+```
+
+<aside class="notice">
+The <code>generatePasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was generated successfully, along with a corresponding <code>message</code>.
+</aside>
+
+#### Expected Response
+
+Upon successful OTP generation, the API will respond with a success message:
+
+```json
+{
+  "data": {
+    "generatePasswordRecoveryOtp": {
+      "success": true,
+      "message": "OTP sent successfully"
+    }
+  }
+}
+```
+
+### Verify Password Recovery OTP
+
+As part of the password recovery process, SpePas allows users to verify their identity using a one-time password (OTP). Utilize the `verifyPasswordRecoveryOtp` mutation to confirm the authenticity of the OTP associated with a specific customer.
+
+#### Test Environment
+
+Conduct OTP verification for password recovery tests using the SpePas Shop API endpoint:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to verify the OTP for password recovery:
+
+```graphql
+mutation {
+  verifyPasswordRecoveryOtp(input: { otp: "462452" }) {
+    id
+    email
+  }
+}
+```
+
+<aside class="notice">
+The <code>verifyPasswordRecoveryOtp</code> mutation returns the <code>id</code> and <code>email</code> of the customer upon successful OTP verification.
+</aside>
+
+#### Expected Response
 
 Upon successful OTP verification, the API will respond with the customer details:
 
 ```json
 {
   "data": {
-    "verifyOTP": {
-      "id": "4",
-      "email": "salome@email.com",
-      "firstName": "Sall",
-      "lastName": "MIntah"
+    "verifyPasswordRecoveryOtp": {
+      "id": "5",
+      "email": "sample@email.com"
+    }
+  }
+}
+```
+
+### Resend Password Recovery OTP
+
+In scenarios where the initial OTP for password recovery might be lost or expired, SpePas provides the functionality to resend the OTP. Utilize the `resendPasswordRecoveryOtp` mutation to resend the OTP to the customer's email address.
+
+#### Test Environment
+
+Initiate OTP resend for password recovery tests using the SpePas Shop API endpoint:
+
+[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to resend the OTP for password recovery:
+
+```graphql
+mutation {
+  resendPasswordRecoveryOtp(input: { identifier: "sample@email.com" }) {
+    success
+    message
+  }
+}
+```
+
+<aside class="notice">
+The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was resent successfully, along with a corresponding <code>message</code>.
+</aside>
+
+#### Expected Response
+
+Upon successful OTP resend, the API will respond with a success message:
+
+```json
+{
+  "data": {
+    "resendPasswordRecoveryOtp": {
+      "success": true,
+      "message": "OTP resent successfully"
     }
   }
 }
@@ -328,83 +391,125 @@ Upon successful social login, the API will respond with the customer details:
 
 The `socialLogin` mutation returns the `id`, `email`, `firstName`, and `lastName` of the customer upon successful social login.
 
+
 # Multi-Vendor Support
 
-## Registering a New Seller
+## Seller Registration
 
-In SpePas, multi-vendor support allows sellers to register their shops and manage their inventory through the admin portal. Follow the steps below to register a new seller.
+Use the `registerNewSeller` mutation to register a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
 
-### Mutation
+##### Sample Mutation
 
-Use the `RegisterSeller` mutation to register a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
+Execute the following GraphQL mutation to register a new seller:
 
 ```graphql
 mutation RegisterSeller {
-  registerNewSeller(
-    input: {
-      shopName: "new Sam' on Render SP"
-      seller: {
-        firstName: "san"
-        lastName: "Kay"
-        emailAddress: "test.seller@example.com"
-        password: "test"
-      }
+  registerNewSeller(input: {
+    shopName: "Test Ent.",
+    seller: {
+      firstName: "New"
+      lastName: "kwamz"
+      emailAddress: "new.seller@example.com"
+      password: "test",
     }
-  ) {
+  }) {
     id
-    createdAt
-    seller {
-      name
-    }
+    code
+    token
   }
 }
 ```
 
-### Usage Notes
+##### Usage Notes
 
 - The `registerNewSeller` mutation creates a new seller account and associates it with the specified shop.
 - The seller can use the provided shop name for branding and identification.
 - Vendure's Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.
 
-This process enables sellers to seamlessly register and begin managing their shops through the [**admin portal.**](https://spare-part-server.onrender.com/shop-api)
+##### Expected Response
 
-### Expected Response
-
-Upon successful registration, the API will respond with the newly created seller's information, including the ID, creation timestamp, and the shop name.
+Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
 
 ```json
 {
   "data": {
     "registerNewSeller": {
-      "id": "3",
-      "createdAt": "2024-01-28T02:09:29.000Z",
-      "seller": {
-        "name": "new Sam' on Render SP"
-      }
+      "id": "5",
+      "code": "test-ent.",
+      "token": "test-ent.-token"
     }
   }
 }
 ```
 
-# Payment Management
+## Adding Items to Order
 
-## Add Payment to Order
+To add items to the order from different sellers, utilize the `addItemToOrder` mutation. This mutation allows customers to specify the product variant ID and quantity for each item they want to purchase.
 
-To handle payments for orders in SpePas, utilize the `addPaymentToOrder` mutation. This mutation allows you to associate a payment method with an order.
+#### Sample Mutation
+
+Execute the following GraphQL mutation to add items to the order:
+
+```graphql
+mutation {
+  addItemToOrder(productVariantId: "56", quantity: 1) {
+    __typename
+    ... on Order {
+      id
+    }
+    ... on ErrorResult {
+      errorCode
+    }
+  }
+  add2: addItemToOrder(productVariantId: "58", quantity: 1) {
+    __typename
+    ... on Order {
+      id
+    }
+    ... on ErrorResult {
+      errorCode
+    }
+  }
+}
+```
+
+<aside class="notice">
+The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
+</aside>
+
+#### Expected Response
+
+Upon successfully adding items to the order, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "addItemToOrder": {
+      "__typename": "Order",
+      "id": "4"
+    },
+    "add2": {
+      "__typename": "Order",
+      "id": "4"
+    }
+  }
+}
+```
+
+In a multi-vendor setup, SpePas allows customers to add items from different sellers to their cart and proceed to checkout. This section covers the process of adding items to the cart and setting up order fulfillment.
+
+## Adding payment to Order
+
+To handle orders in SpePas, utilize the `addPaymentToOrder` mutation. This mutation allows you to associate a payment method with an order.
 
 ### Mutation
 
 Execute the following GraphQL mutation to add a payment to an order:
 
 ```graphql
-
 mutation {
-  addPaymentToOrder(
-    input: { method: "connected-payment-method", metadata: {} }
-  ) {
-    ... on Order {
-      id
-    }
+  addPaymentToOrder(input: { method: "connected-payment-method", metadata: {} }) {
+    ... on Order { id }
     ... on ErrorResult {
       errorCode
       message
@@ -423,9 +528,11 @@ mutation {
 - The `Order` type includes the `id` field, providing the order ID after a successful payment.
 - Errors or payment failures are communicated through the relevant fields in the response.
 
-This mutation is crucial for managing the financial aspects of orders within the SpePas e-commerce platform.
+##### Expected Response
 
-> **Successful Payment:**
+The API will respond based on the outcome of the payment addition:
+
+- **Successful Payment:**
 
 ```json
 {
@@ -437,7 +544,7 @@ This mutation is crucial for managing the financial aspects of orders within the
 }
 ```
 
-> **Error Result:**
+- **Error Result:**
 
 ```json
 {
@@ -450,7 +557,7 @@ This mutation is crucial for managing the financial aspects of orders within the
 }
 ```
 
-> **Payment Failed:**
+- **Payment Failed:**
 
 ```json
 {
@@ -462,11 +569,131 @@ This mutation is crucial for managing the financial aspects of orders within the
 }
 ```
 
-### Expected Response
+## Set Order Billing Address
 
-The API will respond based on the outcome of the payment addition:
+To provide a billing address for the order, use the `setOrderBillingAddress` mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to set the order billing address:
+
+```graphql
+mutation {
+  setOrderBillingAddress(input: {
+    company: null
+    streetLine1: "123 james town"
+    streetLine2: ""
+    city: "accra"
+    province: "G.Accra"
+    postalCode: "12345"
+    countryCode: "GH"
+    customFields: { houseNumber: "25" }
+  }) {
+    ... on Order {
+      id
+    }
+  }
+}
+```
+
+<aside class="notice">
+The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
+
+ the order ID accordingly.
+</aside>
+
+#### Expected Response
+
+Upon successfully setting the order billing address, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "setOrderBillingAddress": {
+      "id": "4"
+    }
+  }
+}
+```
+
+## Eligible Shipping Methods
+
+To determine eligible shipping methods for the order, use the `eligibleShippingMethods` query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.
+
+#### Sample Query
+
+Execute the following GraphQL query to retrieve eligible shipping methods:
+
+```graphql
+query Elig {
+  eligibleShippingMethods {
+    id
+    name
+    priceWithTax
+  }
+}
+```
+
+#### Expected Response
+
+The API will respond with a list of eligible shipping methods:
+
+```json
+{
+  "data": {
+    "eligibleShippingMethods": [
+      {
+        "id": "1",
+        "name": "Standard Shipping",
+        "priceWithTax": 500
+      },
+      {
+        "id": "2",
+        "name": "Express Shipping",
+        "priceWithTax": 1000
+      }
+    ]
+  }
+}
+```
+
+## Assign Shipping Method to Order
+
+To assign shipping methods to the order, use the `setOrderShippingMethod` mutation. This mutation allows customers to specify the shipping method IDs for their order.
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to assign shipping methods to the order:
+
+```graphql
+mutation AssignShipping {
+  setOrderShippingMethod(shippingMethodId: ["1", "2"]) {
+    ... on Order {
+      id
+    }
+  }
+}
+```
+
+<aside class="notice">
+The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
+</aside>
+
+#### Expected Response
+
+Upon successfully assigning shipping methods to the order, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "setOrderShippingMethod": {
+      "id": "4"
+    }
+  }
+}
+```
 
 # Stay Tuned for More!
 
-We are constantly working to add more features and functionality to our platform. Please keep an eye out for
-updates, as they will be announced here. We value your feedback and would love to hear from you. Feel free to reach out if you have any questions or need assistance.
+We are continually expanding our platform's features and functionality. Stay tuned for updates, as they will be announced here. We value your feedback and are here to assist you. If you have any questions or need further assistance, please don't hesitate to reach out.
+
