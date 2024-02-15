@@ -83,63 +83,257 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 
 # Customer Account Management
 
-## Account Creation
+# User Account Creation
 
-To create a new customer account, you can utilize the `createAccount` mutation. Below is an example of how to perform an account creation API call using GraphQL.
+To create a user account, initiate the account creation process using the `initiateAccountCreation` mutation. This mutation requires the user's phone number and desired password.
 
-### Sample Mutation
+## Sample Mutation
 
-Execute the following GraphQL mutation to create a new account:
+Execute the following GraphQL mutation to initiate the account creation process:
 
 ```graphql
 mutation {
-  createAccount(
-    input: {
-      firstName: "Sall"
-      lastName: "sample"
-      email: "sample@email.com"
-      Phone: "022337544"
-      password: "pass122"
-    }
-  ) {
-    id
-    email
-    firstName
-    lastName
-    createdAt
+  initiateAccountCreation(phone: "055308582", password: "securePassword") {
+    success
+    message
   }
 }
 ```
 
-### Test Environment
+## Usage Notes
 
-Visit the SpePas Shop API endpoint to perform account creation tests:
+- The `initiateAccountCreation` mutation initiates the account creation process by sending an OTP (One-Time Password) to the provided phone number.
+- Provide the user's phone number and desired password in the mutation input.
 
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
+## Expected Response
 
-<aside class="notice">
-The <code>createAccount</code>  mutation returns the <code>id</code> of the newly created account, along with the provided <code>email</code>, <code>firstName</code>, <code>lastName</code>, and the timestamp of the account's creation <code>createdAt</code>.
-</aside>
-
-Learn more from [**Auth**](https://docs.vendure.io/guides/core-concepts/auth/#customer-auth)
-
-### Expected Response
-
-Upon a successful account creation, the API will respond with the newly created account details:
+Upon successful initiation of the account creation process, the API will respond with a success message:
 
 ```json
 {
   "data": {
-    "createAccount": {
-      "id": "5",
-      "email": "sample@email.com",
-      "firstName": "Sall",
-      "lastName": "sample",
-      "createdAt": "2024-01-27T04:52:09.000Z"
+    "initiateAccountCreation": {
+      "success": true,
+      "message": "OTP sent successfully"
     }
   }
 }
 ```
+
+## OTP Verification
+
+After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to verify the OTP for account creation:
+
+```graphql
+mutation {
+  verifyOtp(otp: "462452") {
+    token
+  }
+}
+
+```
+
+### Expected Response
+
+Upon successful OTP verification, the API will respond with an authentication token:
+
+```json
+{
+  "data": {
+    "verifyOtp": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs"
+    }
+  }
+}
+```
+
+## Token Usage
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs
+```
+
+## Complete Account Creation
+
+After verifying the OTP for account creation, complete the account creation process by providing additional user details using the `completeAccountCreation` mutation. This mutation requires the user's ID, full name, city, street address, and GPS coordinates.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to complete the account creation process:
+
+```graphql
+mutation {
+  completeAccountCreation(
+    fullName: "John Doe",
+    city: "New York",
+    street: "123 Street",
+    gps: "40.7128° N, 74.0060° W",
+  ) {
+    token
+  }
+}
+```
+
+## Usage Notes
+
+- The `completeAccountCreation` mutation finalizes the account creation process by providing additional user details.
+- Provide the full name (`fullName`), city, street address, and GPS coordinates in the mutation input.
+
+## Expected Response
+
+Upon successful completion of the account creation process, the API will respond with an authentication token:
+
+```json
+{
+  "data": {
+    "completeAccountCreation": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs"
+    }
+  }
+}
+```
+
+## Token Usage
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+```http
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs
+```
+
+Ensure the secure usage and transmission of the authentication token over HTTPS.
+
+## Change Password
+
+To change a user's password, utilize the `changePassword` mutation. This mutation requires the user's ID, old password, and the new desired password.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to change a user's password:
+
+```graphql
+mutation {
+  changePassword(
+    userId: "21",
+    oldPassword: "securePassword",
+    newPassword: "newww"
+  ) {
+    id
+    phone
+    fullName
+    city
+  }
+}
+```
+
+### Usage Notes
+
+- The `changePassword` mutation updates the password for the user associated with the provided user ID.
+- Provide the user's ID, old password, and the new desired password in the mutation input.
+
+### Expected Response
+
+Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
+
+```json
+{
+  "data": {
+    "changePassword": {
+      "id": "21",
+      "phone": "055301582",
+      "fullName": "John Doe",
+      "city": "New York"
+    }
+  }
+}
+```
+
+## Reset User Password
+
+To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's ID and the new desired password.
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to reset a user's password:
+
+```graphql
+mutation {
+  resetUserPassword(input: { userId: "21", newPassword: "new_password" }) {
+    id
+    fullName
+    city
+    street
+    gps
+  }
+}
+```
+
+### Usage Notes
+
+- The `resetUserPassword` mutation resets the password for the user associated with the provided user ID.
+- Provide the user's ID and the new desired password in the mutation input.
+
+### Expected Response
+
+Upon successful password reset, the API will respond with the user's ID and other relevant details:
+
+```json
+{
+  "data": {
+    "resetUserPassword": {
+      "id": "21",
+      "fullName": "John Doe",
+      "city": "New York",
+      "street": "123 Street",
+      "gps": "40.7128° N, 74.0060° W"
+    }
+  }
+}
+```
+
+## Initiate Password Reset
+
+To initiate a password reset for a user, utilize the `initiatePasswordReset` mutation. This mutation requires the user's identifier (phone number or email).
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to initiate a password reset:
+
+```graphql
+mutation {
+  initiatePasswordReset(input: { identifier: "055301582" }) {
+    success
+    message
+  }
+}
+```
+
+## Usage Notes
+
+- The `initiatePasswordReset` mutation initiates the password reset process for the user associated with the provided identifier (phone number or email).
+- Provide the user's identifier in the mutation input.
+
+## Expected Response
+
+Upon successful initiation of the password reset process, the API will respond with a success flag and a corresponding message indicating that the OTP (One-Time Password) was sent successfully:
+
+```json
+{
+  "data": {
+    "initiatePasswordReset": {
+      "success": true,
+      "message": "OTP sent successfully"
+    }
+  }
+}
+```
+
 
 # User Authentication: Custom Login
 
@@ -151,13 +345,14 @@ Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
 mutation {
-  customLogin(input: { identifier: "0536369414", password: "newpassword" }) {
+  customLogin(identifier: "055308582", password: "securePassword") {
     token
     user {
       id
-      firstName
-      lastName
       email
+      fullName
+      city
+      gps
     }
   }
 }
@@ -167,7 +362,7 @@ mutation {
 
 - The `customLogin` mutation returns an authentication token (`token`) and user details (`user`) upon successful login.
 - Provide the user's identifier (email or phone number) and password in the mutation input.
-- The user details include the user's ID (`id`), first name (`firstName`), last name (`lastName`), and email address (`email`).
+- The user details include the user's ID (`id`), email address (`email`), full name (`fullName`), city, and GPS coordinates (`gps`).
 
 ## Expected Response
 
@@ -177,12 +372,13 @@ Upon successful authentication, the API will respond with the authentication tok
 {
   "data": {
     "customLogin": {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqF_Uoo7MI33lSOIwI",
       "user": {
-        "id": "5",
-        "firstName": null,
-        "lastName": null,
-        "email": "km.graphicz1@gmail.com"
+        "id": "22",
+        "email": null,
+        "fullName": "John Doe",
+        "city": "New York",
+        "gps": "40.7128° N, 74.0060° W"
       }
     }
   }
@@ -190,7 +386,7 @@ Upon successful authentication, the API will respond with the authentication tok
 ```
 
 <aside class="notice">
-The user's first name (`firstName`) and last name (`lastName`) may appear as null in this example. Ensure that your user data includes these details for a complete user profile.
+The user's email address (`email`) may appear as null in this example. Ensure that your user data includes this detail for a complete user profile.
 </aside>
 
 ## Token Usage
@@ -198,238 +394,10 @@ The user's first name (`firstName`) and last name (`lastName`) may appear as nul
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
 ```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MDcwOTU0MjIsImV4cCI6MTcwNzcwMDIyMn0.NRv85gsObfOowpFyqcZlpLMSdrz7Vpitwo-c6T0J-Pw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqF_Uoo7MI33lSOIwI
 ```
 
-## Note
-
-Always secure the authentication token and transmit it securely over HTTPS. Regularly rotate tokens and follow best practices to ensure the security of your authentication process.
-
-
-
-
-## Password Recovery
-
-### Generate Password Recovery OTP
-
-To enhance account security, SpePas provides the functionality to generate a one-time password (OTP) for password recovery. Utilize the `generatePasswordRecoveryOtp` mutation to generate a unique OTP for a specified customer's email address.
-
-#### Test Environment
-
-Initiate OTP generation for password recovery tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-#### Sample Mutation
-
-Execute the following GraphQL mutation to generate an OTP for password recovery:
-
-```graphql
-mutation {
-  generatePasswordRecoveryOtp(input: { identifier: "sample@email.com" }) {
-    success
-    message
-  }
-}
-```
-
-<aside class="notice">
-The <code>generatePasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was generated successfully, along with a corresponding <code>message</code>.
-</aside>
-
-#### Expected Response
-
-Upon successful OTP generation, the API will respond with a success message:
-
-```json
-{
-  "data": {
-    "generatePasswordRecoveryOtp": {
-      "success": true,
-      "message": "OTP sent successfully"
-    }
-  }
-}
-```
-
-### Verify Password Recovery OTP
-
-As part of the password recovery process, SpePas allows users to verify their identity using a one-time password (OTP). Utilize the `verifyPasswordRecoveryOtp` mutation to confirm the authenticity of the OTP associated with a specific customer.
-
-#### Test Environment
-
-Conduct OTP verification for password recovery tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-#### Sample Mutation
-
-Execute the following GraphQL mutation to verify the OTP for password recovery:
-
-```graphql
-mutation {
-  verifyPasswordRecoveryOtp(input: { otp: "462452" }) {
-    id
-    email
-  }
-}
-```
-
-<aside class="notice">
-The <code>verifyPasswordRecoveryOtp</code> mutation returns the <code>id</code> and <code>email</code> of the customer upon successful OTP verification.
-</aside>
-
-#### Expected Response
-
-Upon successful OTP verification, the API will respond with the customer details:
-
-```json
-{
-  "data": {
-    "verifyPasswordRecoveryOtp": {
-      "id": "5",
-      "email": "sample@email.com"
-    }
-  }
-}
-```
-
-### Resend Password Recovery OTP
-
-In scenarios where the initial OTP for password recovery might be lost or expired, SpePas provides the functionality to resend the OTP. Utilize the `resendPasswordRecoveryOtp` mutation to resend the OTP to the customer's email address.
-
-#### Test Environment
-
-Initiate OTP resend for password recovery tests using the SpePas Shop API endpoint:
-
-[**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-#### Sample Mutation
-
-Execute the following GraphQL mutation to resend the OTP for password recovery:
-
-```graphql
-mutation {
-  resendPasswordRecoveryOtp(input: { identifier: "sample@email.com" }) {
-    success
-    message
-  }
-}
-```
-
-<aside class="notice">
-The <code>resendPasswordRecoveryOtp</code> mutation returns a <code>success</code> flag indicating whether the OTP was resent successfully, along with a corresponding <code>message</code>.
-</aside>
-
-#### Expected Response
-
-Upon successful OTP resend, the API will respond with a success message:
-
-```json
-{
-  "data": {
-    "resendPasswordRecoveryOtp": {
-      "success": true,
-      "message": "OTP resent successfully"
-    }
-  }
-}
-```
-
-## Password Reset: Reset User Password
-
-To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's identifier (email or phone number) and the new desired password.
-
-## Sample Mutation
-
-Execute the following GraphQL mutation to reset a user's password:
-
-```graphql
-mutation {
-  resetUserPassword(input:{identifier: "km.graphicz1@gmail.com", newPassword: "newpassword"}) {
-    id
-  }
-}
-```
-
-## Usage Notes
-
-- The `resetUserPassword` mutation resets the password for the user associated with the provided identifier (email or phone number).
-- Provide the user's identifier and the new desired password in the mutation input.
-
-## Expected Response
-
-Upon successful password reset, the API will respond with the user's ID:
-
-```json
-{
-  "data": {
-    "resetUserPassword": {
-      "id": "5"
-    }
-  }
-}
-```
-
-<aside class="notice">
-The user's ID (`id`) indicates that the password reset was successful. Ensure that your user data includes this detail for reference.
-</aside>
-
-## Social Logins
-
-SpePas supports seamless onboarding and login experiences through social logins. Customers can conveniently use their existing social media accounts to create or log in to their SpePas account.
-
-### Supported Social Platforms
-
-1. **Google Login**
-2. **Facebook Login**
-3. **Twitter Login**
-
-### How to Perform Social Logins
-
-To initiate a social login, follow these steps:
-
-1. Visit the SpePas Shop API endpoint for social logins:
-   [**Shop API Test Endpoint**](https://spare-part-server.onrender.com/shop-api)
-
-2. Choose the social platform you want to use for login.
-
-3. Follow the authentication prompts provided by the selected social platform.
-
-### Sample Social Login Mutation (For Illustration Purposes)
-
-Below is an illustrative example of how a social login mutation might look:
-
-```graphql
-mutation {
-  socialLogin(platform: "google", accessToken: "your_google_access_token") {
-    id
-    email
-    firstName
-    lastName
-  }
-}
-```
-
-### Expected Response
-
-Upon successful social login, the API will respond with the customer details:
-
-```json
-{
-  "data": {
-    "socialLogin": {
-      "id": "4",
-      "email": "john.doe@example.com",
-      "firstName": "John",
-      "lastName": "Doe"
-    }
-  }
-}
-```
-
-The `socialLogin` mutation returns the `id`, `email`, `firstName`, and `lastName` of the customer upon successful social login.
-
+Ensure the secure usage and transmission of the authentication token over HTTPS.
 
 # Multi-Vendor Support
 
@@ -437,7 +405,7 @@ The `socialLogin` mutation returns the `id`, `email`, `firstName`, and `lastName
 
 Use the `registerNewSeller` mutation to register a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
 
-##### Sample Mutation
+## Sample Mutation
 
 Execute the following GraphQL mutation to register a new seller:
 
@@ -459,16 +427,13 @@ mutation RegisterSeller {
 }
 ```
 
-##### Usage Notes
+## Usage Notes
 
 - The `registerNewSeller` mutation creates a new seller account and associates it with the specified shop.
 - The seller can use the provided shop name for branding and identification.
 - Vendure's Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.
 
-##### Expected Response
-
-Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
-
+>
 ```json
 {
   "data": {
@@ -480,12 +445,17 @@ Upon successful registration, the API will respond with the newly created seller
   }
 }
 ```
+## Expected Response
+
+Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
+
+
 
 ## Adding Items to Order
 
 To add items to the order from different sellers, utilize the `addItemToOrder` mutation. This mutation allows customers to specify the product variant ID and quantity for each item they want to purchase.
 
-#### Sample Mutation
+## Sample Mutation
 
 Execute the following GraphQL mutation to add items to the order:
 
@@ -516,7 +486,7 @@ mutation {
 The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
 </aside>
 
-#### Expected Response
+## Expected Response
 
 Upon successfully adding items to the order, the API will respond with the order ID:
 
@@ -700,7 +670,7 @@ The API will respond with a list of eligible shipping methods:
 
 To assign shipping methods to the order, use the `setOrderShippingMethod` mutation. This mutation allows customers to specify the shipping method IDs for their order.
 
-#### Sample Mutation
+## Sample Mutation
 
 Execute the following GraphQL mutation to assign shipping methods to the order:
 
@@ -718,7 +688,7 @@ mutation AssignShipping {
 The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
 </aside>
 
-#### Expected Response
+## Expected Response
 
 Upon successfully assigning shipping methods to the order, the API will respond with the order ID:
 
@@ -731,6 +701,150 @@ Upon successfully assigning shipping methods to the order, the API will respond 
   }
 }
 ```
+
+# Products
+
+## Retrieve Product Variants with Pagination
+
+Use this query to fetch a subset of product variants with pagination.
+
+### Query:
+
+```graphql
+query {
+  products(options: { skip: 5, take: 10 }) {
+    totalItems
+    items {
+      variantList {
+        items {
+          productId
+          name
+          price
+          priceWithTax
+          currencyCode
+          stockLevel
+          createdAt
+        }
+      }
+    }
+  }
+}
+```
+---
+## Description:
+- **totalItems:** Total number of product variants available.
+- **items:** List of products with their respective variant details.
+  - **variantList:** List of variants for each product.
+    - **items:** Individual variant details including ID, name, price, price with tax, currency code, stock level, and creation date.
+
+This query allows you to paginate through product variants, skipping the specified number of items and taking the desired number of items per page. Adjust the `skip` and `take` parameters as needed for pagination.
+
+
+### Response:
+
+```json
+{
+  "data": {
+    "products": {
+      "totalItems": 58,
+      "items": [
+        {
+          "variantList": {
+            "items": [
+              {
+                "productId": "6",
+                "name": "High Performance RAM 4GB",
+                "price": 13785,
+                "priceWithTax": 16542,
+                "currencyCode": "USD",
+                "stockLevel": "IN_STOCK",
+                "createdAt": "2024-01-24T14:54:12.000Z"
+              },
+               {
+                "productId": "7",
+                "name": "High Performance RAM 4GB",
+                "price": 13785,
+                "priceWithTax": 16542,
+                "currencyCode": "USD",
+                "stockLevel": "IN_STOCK",
+                "createdAt": "2024-01-24T14:54:12.000Z"
+              },
+            ]
+          }
+        },
+      ]
+    }
+  }
+}
+```
+
+
+## Search Products and Sort
+
+You can use this query to search for products based on a search term and sort the results using various criteria such as top-selling, recommended, recently added, price low to high, or price high to low.
+
+### Query:
+
+```graphql
+{
+  search(input: {
+    term: "your_search_term",
+    sort: {
+      TOP_SELLING: DESC
+    }
+  }) {
+    totalItems
+    items {
+      productId
+      productName
+    }
+  }
+}
+```
+
+### Parameters:
+
+- **input:** Specifies the search term and sorting criteria.
+  - **term:** The search term you want to use to filter products.
+  - **sort:** Specifies the sorting criteria. You can choose from the following options:
+    - **TOP_SELLING:** Sort by top-selling items.
+    - **RECOMMENDED:** Sort by recommended items.
+    - **RECENTLY_ADDED:** Sort by recently added items.
+    - **PRICE_LOW_TO_HIGH:** Sort by price from low to high.
+    - **PRICE_HIGH_TO_LOW:** Sort by price from high to low.
+
+### Response:
+
+```json
+{
+  "data": {
+    "search": {
+      "totalItems": 10,
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Product 1"
+        },
+      ]
+    }
+  }
+}
+```
+
+### Description:
+
+- **totalItems:** Total number of products matching the search term.
+- **items:** List of products matching the search term, sorted according to the specified criteria.
+  - **productId:** The unique identifier of the product.
+  - **productName:** The name of the product.
+
+You can adjust the `term` parameter to your desired search term and choose the appropriate sorting option based on your requirements.
+
+
+<aside class="notice">
+  Please note that the sort functionality is currently under development and may not be fully functional. We are working to resolve this issue as soon as possible.
+</aside>
+
 
 # Stay Tuned for More!
 
