@@ -247,19 +247,6 @@ Upon successful authentication, the API will respond with the authentication tok
 }
 ```
 
-
-## Token Usage
-
-```json
-{
-  "Authorization": "Bearer <token>"
-}
-```
-
-Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
-Ensure the secure usage and transmission of the authentication token over HTTPS.
-
-
 ## Upload Profile Picture
 
 After verifying the OTP for account creation, complete the account creation process by providing additional user details using the `completeAccountCreation` mutation. This mutation requires the Bearer token , full name, city, street address, and GPS coordinates.
