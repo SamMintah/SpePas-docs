@@ -170,7 +170,6 @@ Upon successful OTP verification, the API will respond with an authentication to
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
 
-
 ## Sample Mutation
 
 ```graphql
