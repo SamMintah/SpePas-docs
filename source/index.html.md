@@ -94,7 +94,7 @@ Execute the following GraphQL mutation to initiate the account creation process:
 ```graphql
 
 mutation {
-  initiateAccountCreation(input: { phone: "0536369414", password: "securePassword" }) {
+  initiateAccountCreation(input: { phone: "0246215478", password: "securePassword" }) {
     success
     message
   }
@@ -207,7 +207,7 @@ Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
 mutation {
-  customLogin(input: { identifier: "0536369414", password: "securePass" }) {
+  customLogin(input: { identifier: "0246215478", password: "securePass" }) {
     token
     user {
       id
@@ -247,10 +247,6 @@ Upon successful authentication, the API will respond with the authentication tok
   }
 }
 ```
-
-<aside class="notice">
-The user's email address (`email`) may appear as null in this example. Ensure that your user data includes this detail for a complete user profile.
-</aside>
 
 
 ## Token Usage
@@ -350,11 +346,13 @@ mutation {
 ```
 Execute the following GraphQL mutation to change a user's password:
 
+### Usage Notes
+- The `changePassword` mutation updates the password for the user associated with the provided
+token, old password, and the new desired password in the mutation input
 
 
-### Expected Response
 
-Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
+## Expected Response
 
 ```json
 {
@@ -369,11 +367,7 @@ Upon successful password change, the API will respond with the user's ID, phone 
 }
 ```
 
-### Usage Notes
-
-- The `changePassword` mutation updates the password for the user associated with the provided user ID.
-- Provide the user's ID, old password, and the new desired password in the mutation input.
-
+Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
 
 
 ## Initiate Password Reset
@@ -485,9 +479,7 @@ mutation {
 
 ### Usage Notes
 
-- The `resetUserPassword` mutation resets the password for the user associated with the provided user ID.
-- Provide the user's ID and the new desired password in the mutation input.
-
+- The `resetUserPassword` mutation resets the password for the user associated with the provided token and the new desired password in the mutation input.
 
 
 ### Expected Response
