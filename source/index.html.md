@@ -527,13 +527,15 @@ mutation RegisterSeller {
 }
 ```
 
-## Usage Notes
-
+### Usage Notes
 - The `registerNewSeller` mutation creates a new seller account and associates it with the specified shop.
 - The seller can use the provided shop name for branding and identification.
 - Vendure's Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.
 
->
+
+
+## Expected Response
+
 ```json
 {
   "data": {
@@ -545,7 +547,6 @@ mutation RegisterSeller {
   }
 }
 ```
-## Expected Response
 
 Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
 
@@ -611,7 +612,7 @@ In a multi-vendor setup, SpePas allows customers to add items from different sel
 
 To handle orders in SpePas, utilize the `addPaymentToOrder` mutation. This mutation allows you to associate a payment method with an order.
 
-### Mutation
+## Mutation
 
 Execute the following GraphQL mutation to add a payment to an order:
 
@@ -637,7 +638,7 @@ mutation {
 - The `Order` type includes the `id` field, providing the order ID after a successful payment.
 - Errors or payment failures are communicated through the relevant fields in the response.
 
-##### Expected Response
+## Expected Response
 
 The API will respond based on the outcome of the payment addition:
 
@@ -729,7 +730,7 @@ Upon successfully setting the order billing address, the API will respond with t
 
 To determine eligible shipping methods for the order, use the `eligibleShippingMethods` query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.
 
-#### Sample Query
+## Sample Query
 
 Execute the following GraphQL query to retrieve eligible shipping methods:
 
@@ -743,7 +744,7 @@ query Elig {
 }
 ```
 
-#### Expected Response
+## Expected Response
 
 The API will respond with a list of eligible shipping methods:
 
@@ -808,7 +809,7 @@ Upon successfully assigning shipping methods to the order, the API will respond 
 
 Use this query to fetch a subset of product variants with pagination.
 
-### Query:
+## Query:
 
 ```graphql
 query {
@@ -840,7 +841,7 @@ query {
 This query allows you to paginate through product variants, skipping the specified number of items and taking the desired number of items per page. Adjust the `skip` and `take` parameters as needed for pagination.
 
 
-### Response:
+## Response:
 
 ```json
 {
@@ -931,7 +932,7 @@ You can use this query to search for products based on a search term and sort th
 }
 ```
 
-### Description:
+## Description:
 
 - **totalItems:** Total number of products matching the search term.
 - **items:** List of products matching the search term, sorted according to the specified criteria.
