@@ -414,6 +414,9 @@
                     <a href="#sample-mutation-6" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
+                    <a href="#expected-response-5" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
+                  </li>
+                  <li>
                     <a href="#initiate-password-reset" class="toc-h2 toc-link" data-title="Initiate Password Reset">Initiate Password Reset</a>
                   </li>
                   <li>
@@ -561,7 +564,7 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <p>Execute the following GraphQL mutation to initiate the account creation process:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="w">
 </span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">initiateAccountCreation</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePassword"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">initiateAccountCreation</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0246215478"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePassword"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">success</span><span class="w">
     </span><span class="n">message</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -634,7 +637,7 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <h2 id='sample-mutation-4'>Sample Mutation</h2>
 <p>Execute the following GraphQL mutation to perform a custom login:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">customLogin</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePass"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">customLogin</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"0246215478"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePass"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">token</span><span class="w">
     </span><span class="n">user</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="n">id</span><span class="w">
@@ -668,11 +671,7 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-The user's email address (`email`) may appear as null in this example. Ensure that your user data includes this detail for a complete user profile.
-</aside>
-<h2 id='token-usage-2'>Token Usage</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</span></code></pre></div><h2 id='token-usage-2'>Token Usage</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer &lt;token&gt;"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -727,9 +726,12 @@ Ensure the secure usage and transmission of the authentication token over HTTPS.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Execute the following GraphQL mutation to change a user&#39;s password:</p>
-<h3 id='expected-response-5'>Expected Response</h3>
-<p>Upon successful password change, the API will respond with the user&#39;s ID, phone number, full name, and city:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h3 id='usage-notes-5'>Usage Notes</h3>
+<ul>
+<li>The <code>changePassword</code> mutation updates the password for the user associated with the provided
+token, old password, and the new desired password in the mutation input</li>
+</ul>
+<h2 id='expected-response-5'>Expected Response</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"changePassword"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21"</span><span class="p">,</span><span class="w">
@@ -739,11 +741,8 @@ Ensure the secure usage and transmission of the authentication token over HTTPS.
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='usage-notes-5'>Usage Notes</h3>
-<ul>
-<li>The <code>changePassword</code> mutation updates the password for the user associated with the provided user ID.</li>
-<li>Provide the user&#39;s ID, old password, and the new desired password in the mutation input.</li>
-</ul>
+</span></code></pre></div>
+<p>Upon successful password change, the API will respond with the user&#39;s ID, phone number, full name, and city:</p>
 <h2 id='initiate-password-reset'>Initiate Password Reset</h2>
 <p>To initiate a password reset for a user, utilize the <code>initiatePasswordReset</code> mutation. This mutation requires the user&#39;s identifier (phone number or email).</p>
 <h3 id='sample-mutation-7'>Sample Mutation</h3>
@@ -809,8 +808,7 @@ Ensure the secure usage and transmission of the authentication token over HTTPS.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='usage-notes-7'>Usage Notes</h3>
 <ul>
-<li>The <code>resetUserPassword</code> mutation resets the password for the user associated with the provided user ID.</li>
-<li>Provide the user&#39;s ID and the new desired password in the mutation input.</li>
+<li>The <code>resetUserPassword</code> mutation resets the password for the user associated with the provided token and the new desired password in the mutation input.</li>
 </ul>
 <h3 id='expected-response-8'>Expected Response</h3>
 <p>Upon successful password reset, the API will respond with the user&#39;s ID and other relevant details:</p>
