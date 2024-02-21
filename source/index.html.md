@@ -92,8 +92,9 @@ To create a user account, initiate the account creation process using the `initi
 Execute the following GraphQL mutation to initiate the account creation process:
 
 ```graphql
+
 mutation {
-  initiateAccountCreation(phone: "055308582", password: "securePassword") {
+  initiateAccountCreation(input: { phone: "0536369414", password: "securePassword" }) {
     success
     message
   }
@@ -124,18 +125,20 @@ Upon successful initiation of the account creation process, the API will respond
 
 After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
 
-### Sample Mutation
-
-Execute the following GraphQL mutation to verify the OTP for account creation:
 
 ```graphql
 mutation {
-  verifyOtp(otp: "462452") {
+  verifyOtp(input: { otp: "567633" }) {
     token
   }
 }
 
 ```
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to verify the OTP for account creation:
+
 
 ### Expected Response
 
@@ -151,189 +154,48 @@ Upon successful OTP verification, the API will respond with an authentication to
 }
 ```
 
+
+## completeAccountCreation
+
+ complete the account creation process by uploading profile picture using the `completeAccountCreation` mutation. This mutation requires the Bearer token , file.
+
 ## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs
-```
 
-## Complete Account Creation
-
-After verifying the OTP for account creation, complete the account creation process by providing additional user details using the `completeAccountCreation` mutation. This mutation requires the user's ID, full name, city, street address, and GPS coordinates.
 
 ## Sample Mutation
 
-Execute the following GraphQL mutation to complete the account creation process:
-
 ```graphql
 mutation {
-  completeAccountCreation(
-    fullName: "John Doe",
-    city: "New York",
+  completeAccountCreation(input: {
+    fullName: "Sam Kafui",
+    city: "Accra",
     street: "123 Street",
     gps: "40.7128° N, 74.0060° W",
-  ) {
+  }) {
     token
+    user{
+      id
+      phone
+    }
   }
 }
+
 ```
+Execute the following GraphQL mutation to complete the account creation process:
 
 ## Usage Notes
 
 - The `completeAccountCreation` mutation finalizes the account creation process by providing additional user details.
 - Provide the full name (`fullName`), city, street address, and GPS coordinates in the mutation input.
-
-## Expected Response
-
-Upon successful completion of the account creation process, the API will respond with an authentication token:
-
-```json
-{
-  "data": {
-    "completeAccountCreation": {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs"
-    }
-  }
-}
-```
-
-## Token Usage
-
-Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
-
-```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs
-```
-
-Ensure the secure usage and transmission of the authentication token over HTTPS.
-
-## Change Password
-
-To change a user's password, utilize the `changePassword` mutation. This mutation requires the user's ID, old password, and the new desired password.
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to change a user's password:
-
-```graphql
-mutation {
-  changePassword(
-    userId: "21",
-    oldPassword: "securePassword",
-    newPassword: "newww"
-  ) {
-    id
-    phone
-    fullName
-    city
-  }
-}
-```
-
-### Usage Notes
-
-- The `changePassword` mutation updates the password for the user associated with the provided user ID.
-- Provide the user's ID, old password, and the new desired password in the mutation input.
-
-### Expected Response
-
-Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
-
-```json
-{
-  "data": {
-    "changePassword": {
-      "id": "21",
-      "phone": "055301582",
-      "fullName": "John Doe",
-      "city": "New York"
-    }
-  }
-}
-```
-
-## Reset User Password
-
-To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's ID and the new desired password.
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to reset a user's password:
-
-```graphql
-mutation {
-  resetUserPassword(input: { userId: "21", newPassword: "new_password" }) {
-    id
-    fullName
-    city
-    street
-    gps
-  }
-}
-```
-
-### Usage Notes
-
-- The `resetUserPassword` mutation resets the password for the user associated with the provided user ID.
-- Provide the user's ID and the new desired password in the mutation input.
-
-### Expected Response
-
-Upon successful password reset, the API will respond with the user's ID and other relevant details:
-
-```json
-{
-  "data": {
-    "resetUserPassword": {
-      "id": "21",
-      "fullName": "John Doe",
-      "city": "New York",
-      "street": "123 Street",
-      "gps": "40.7128° N, 74.0060° W"
-    }
-  }
-}
-```
-
-## Initiate Password Reset
-
-To initiate a password reset for a user, utilize the `initiatePasswordReset` mutation. This mutation requires the user's identifier (phone number or email).
-
-### Sample Mutation
-
-Execute the following GraphQL mutation to initiate a password reset:
-
-```graphql
-mutation {
-  initiatePasswordReset(input: { identifier: "055301582" }) {
-    success
-    message
-  }
-}
-```
-
-## Usage Notes
-
-- The `initiatePasswordReset` mutation initiates the password reset process for the user associated with the provided identifier (phone number or email).
-- Provide the user's identifier in the mutation input.
-
-## Expected Response
-
-Upon successful initiation of the password reset process, the API will respond with a success flag and a corresponding message indicating that the OTP (One-Time Password) was sent successfully:
-
-```json
-{
-  "data": {
-    "initiatePasswordReset": {
-      "success": true,
-      "message": "OTP sent successfully"
-    }
-  }
-}
-```
-
 
 # User Authentication: Custom Login
 
@@ -345,7 +207,7 @@ Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
 mutation {
-  customLogin(identifier: "055308582", password: "securePassword") {
+  customLogin(input: { identifier: "0536369414", password: "securePass" }) {
     token
     user {
       id
@@ -356,6 +218,7 @@ mutation {
     }
   }
 }
+
 ```
 
 ## Usage Notes
@@ -389,15 +252,261 @@ Upon successful authentication, the API will respond with the authentication tok
 The user's email address (`email`) may appear as null in this example. Ensure that your user data includes this detail for a complete user profile.
 </aside>
 
+
+## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+Ensure the secure usage and transmission of the authentication token over HTTPS.
+
+
+## Upload Profile Picture
+
+After verifying the OTP for account creation, complete the account creation process by providing additional user details using the `completeAccountCreation` mutation. This mutation requires the Bearer token , full name, city, street address, and GPS coordinates.
+
+
+## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+
+## Sample Mutation
+
+```graphql
+mutation UploadProfilePicture($file: Upload!) {
+  uploadProfilePicture( file: $file) {
+    id
+    phone
+    email
+    fullName
+  }
+}
+
+```
+Execute the following GraphQL mutation to complete the account creation process:
+
+## Expected Response
+
+Upon successful upload of the picture, the API will respond with image-url:
+
+```json
+{
+  "data": {
+    "UploadProfilePicture": {
+      "avater":"url"
+    }
+  }
+}
+```
+
+
+## Usage Notes
+
+complete the account creation process by uploading profile picture using the `UploadProfilePicture` mutation. This mutation requires the Bearer token , file.
+
+
+## Change Password
+
+To change a user's password, utilize the `changePassword` mutation. This mutation requires the Token, old password, and the new desired password.
+
+
+
+## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+
+## Sample Mutation
+
+```graphql
+mutation {
+  changePassword(
+    oldPassword: "securePassword",
+    newPassword: "securePass"
+  ){
+    id
+    phone
+    fullName
+    city
+  }
+}
+```
+Execute the following GraphQL mutation to change a user's password:
+
+
+
+### Expected Response
+
+Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
+
+```json
+{
+  "data": {
+    "changePassword": {
+      "id": "21",
+      "phone": "055301582",
+      "fullName": "John Doe",
+      "city": "New York"
+    }
+  }
+}
+```
+
+### Usage Notes
+
+- The `changePassword` mutation updates the password for the user associated with the provided user ID.
+- Provide the user's ID, old password, and the new desired password in the mutation input.
+
+
+
+## Initiate Password Reset
+
+To initiate a password reset for a user, utilize the `initiatePasswordReset` mutation. This mutation requires the user's identifier (phone number or email).
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to initiate a password reset:
+
+```graphql
+mutation {
+  initiatePasswordReset(input: { identifier: "055301582" }) {
+    success
+    message
+  }
+}
+```
+
+## Usage Notes
+
+- The `initiatePasswordReset` mutation initiates the password reset process for the user associated with the provided identifier (phone number or email).
+- Provide the user's identifier in the mutation input.
+
+
+## Expected Response
+
+Upon successful initiation of the password reset process, the API will respond with a success flag and a corresponding message indicating that the OTP (One-Time Password) was sent successfully:
+
+```json
+{
+  "data": {
+    "initiatePasswordReset": {
+      "success": true,
+      "message": "OTP sent successfully"
+    }
+  }
+}
+```
+
+## OTP Verification
+
+After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
+
+
+```graphql
+mutation {
+  verifyOtp(input: { otp: "567633" }) {
+    token
+  }
+}
+
+```
+
+### Sample Mutation
+
+Execute the following GraphQL mutation to verify the OTP for account creation:
+
+
+### Expected Response
+
+Upon successful OTP verification, the API will respond with an authentication token:
+
+```json
+{
+  "data": {
+    "verifyOtp": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEwMDA1LCJleHAiOjE3MDgwMTM2MDV9.m8fI_of_lg7wFj6zv59eaRqEsJqfF2oNOdkRLW6lKAs"
+    }
+  }
+}
+```
+
+
+## Reset User Password
+
+To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's ID and the new desired password.
+
+
+
 ## Token Usage
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqF_Uoo7MI33lSOIwI
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+
 ```
 
-Ensure the secure usage and transmission of the authentication token over HTTPS.
+### Sample Mutation
+
+Execute the following GraphQL mutation to reset a user's password:
+
+
+```graphql
+mutation {
+  resetUserPassword(input: { newPassword: "new_password" }) {
+    id
+    fullName
+    city
+    street
+    gps
+  }
+}
+```
+
+### Usage Notes
+
+- The `resetUserPassword` mutation resets the password for the user associated with the provided user ID.
+- Provide the user's ID and the new desired password in the mutation input.
+
+
+
+### Expected Response
+
+Upon successful password reset, the API will respond with the user's ID and other relevant details:
+
+```json
+{
+  "data": {
+    "resetUserPassword": {
+      "id": "21",
+      "fullName": "John Doe",
+      "city": "New York",
+      "street": "123 Street",
+      "gps": "40.7128° N, 74.0060° W"
+    }
+  }
+}
+```
 
 # Multi-Vendor Support
 
