@@ -92,9 +92,10 @@ To create a user account, initiate the account creation process using the `initi
 Execute the following GraphQL mutation to initiate the account creation process:
 
 ```graphql
-
 mutation {
-  initiateAccountCreation(input: { phone: "0246215478", password: "securePassword" }) {
+  initiateAccountCreation(
+    input: { phone: "0246215478", password: "securePassword" }
+  ) {
     success
     message
   }
@@ -125,20 +126,17 @@ Upon successful initiation of the account creation process, the API will respond
 
 After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
 
-
 ```graphql
 mutation {
   verifyOtp(input: { otp: "567633" }) {
     token
   }
 }
-
 ```
 
 ### Sample Mutation
 
 Execute the following GraphQL mutation to verify the OTP for account creation:
-
 
 ### Expected Response
 
@@ -154,10 +152,9 @@ Upon successful OTP verification, the API will respond with an authentication to
 }
 ```
 
-
 ## completeAccountCreation
 
- complete the account creation process by uploading profile picture using the `completeAccountCreation` mutation. This mutation requires the Bearer token , file.
+complete the account creation process by uploading profile picture using the `completeAccountCreation` mutation. This mutation requires the Bearer token , file.
 
 ## Token Usage
 
@@ -169,26 +166,27 @@ Upon successful OTP verification, the API will respond with an authentication to
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-
 ## Sample Mutation
 
 ```graphql
 mutation {
-  completeAccountCreation(input: {
-    fullName: "Sam Kafui",
-    city: "Accra",
-    street: "123 Street",
-    gps: "40.7128° N, 74.0060° W",
-  }) {
+  completeAccountCreation(
+    input: {
+      fullName: "Sam Kafui"
+      city: "Accra"
+      street: "123 Street"
+      gps: "40.7128° N, 74.0060° W"
+    }
+  ) {
     token
-    user{
+    user {
       id
       phone
     }
   }
 }
-
 ```
+
 Execute the following GraphQL mutation to complete the account creation process:
 
 ## Usage Notes
@@ -217,7 +215,6 @@ mutation {
     }
   }
 }
-
 ```
 
 ## Usage Notes
@@ -251,7 +248,6 @@ Upon successful authentication, the API will respond with the authentication tok
 
 After verifying the OTP for account creation, complete the account creation process by providing additional user details using the `completeAccountCreation` mutation. This mutation requires the Bearer token , full name, city, street address, and GPS coordinates.
 
-
 ## Token Usage
 
 ```json
@@ -262,20 +258,19 @@ After verifying the OTP for account creation, complete the account creation proc
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-
 ## Sample Mutation
 
 ```graphql
 mutation UploadProfilePicture($file: Upload!) {
-  uploadProfilePicture( file: $file) {
+  uploadProfilePicture(file: $file) {
     id
     phone
     email
     fullName
   }
 }
-
 ```
+
 Execute the following GraphQL mutation to complete the account creation process:
 
 ## Expected Response
@@ -286,23 +281,19 @@ Upon successful upload of the picture, the API will respond with image-url:
 {
   "data": {
     "UploadProfilePicture": {
-      "avater":"url"
+      "avater": "url"
     }
   }
 }
 ```
 
-
 ## Usage Notes
 
 complete the account creation process by uploading profile picture using the `UploadProfilePicture` mutation. This mutation requires the Bearer token , file.
 
-
 ## Change Password
 
 To change a user's password, utilize the `changePassword` mutation. This mutation requires the Token, old password, and the new desired password.
-
-
 
 ## Token Usage
 
@@ -314,15 +305,11 @@ To change a user's password, utilize the `changePassword` mutation. This mutatio
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-
 ## Sample Mutation
 
 ```graphql
 mutation {
-  changePassword(
-    oldPassword: "securePassword",
-    newPassword: "securePass"
-  ){
+  changePassword(oldPassword: "securePassword", newPassword: "securePass") {
     id
     phone
     fullName
@@ -330,13 +317,13 @@ mutation {
   }
 }
 ```
+
 Execute the following GraphQL mutation to change a user's password:
 
 ### Usage Notes
+
 - The `changePassword` mutation updates the password for the user associated with the provided
-token, old password, and the new desired password in the mutation input
-
-
+  token, old password, and the new desired password in the mutation input
 
 ## Expected Response
 
@@ -355,6 +342,116 @@ token, old password, and the new desired password in the mutation input
 
 Upon successful password change, the API will respond with the user's ID, phone number, full name, and city:
 
+## Change Contact
+
+To change a user's password, utilize the `changeContact` mutation. This mutation requires the Token, current phone, and the new contact.
+
+## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+## Sample Mutation
+
+```graphql
+mutation {
+  changeContact(
+    input: {
+      currentContact: "0536369414"
+      newContact: "0553018065"
+      password: "securePass"
+    }
+  ) {
+    id
+    phone
+    fullName
+  }
+}
+```
+
+Execute the following GraphQL mutation to change a user's phone:
+
+### Usage Notes
+
+- The `changeContact` mutation updates the password for the user associated with the provided
+  token, current phone,the new desired contact and password in the mutation input
+
+## Expected Response
+
+```json
+{
+  "data": {
+    "changeContact": {
+      "id": "23",
+      "phone": "0553018065",
+      "fullName": "Sam Kafui"
+    }
+  }
+}
+```
+
+Upon successful contant change, the API will respond with the user's ID, phone number, full name, and city:
+
+## Manage Address
+
+To change a user's password, utilize the `manageAddress` mutation. This mutation requires the Token, title,city,street, and gps.
+
+## Token Usage
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+## Sample Mutation
+
+```graphql
+mutation {
+  manageAddress(
+    input: {
+      title: "Home"
+      city: "Adenta"
+      street: "street 22"
+      gps: "Gh-02-200"
+    }
+  ) {
+    id
+    addressTitle
+    addressCity
+    addressGPS
+  }
+}
+```
+
+Execute the following GraphQL mutation to change a user's phone:
+
+### Usage Notes
+
+- The `manageAddress` mutation updates the address for the user associated with the provided
+  token
+
+## Expected Response
+
+```json
+{
+  "data": {
+    "manageAddress": {
+      "id": "23",
+      "addressTitle": "Home",
+      "addressCity": "Adenta",
+      "addressGPS": "Gh-02-200"
+    }
+  }
+}
+```
 
 ## Initiate Password Reset
 
@@ -378,7 +475,6 @@ mutation {
 - The `initiatePasswordReset` mutation initiates the password reset process for the user associated with the provided identifier (phone number or email).
 - Provide the user's identifier in the mutation input.
 
-
 ## Expected Response
 
 Upon successful initiation of the password reset process, the API will respond with a success flag and a corresponding message indicating that the OTP (One-Time Password) was sent successfully:
@@ -398,20 +494,17 @@ Upon successful initiation of the password reset process, the API will respond w
 
 After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
 
-
 ```graphql
 mutation {
   verifyOtp(input: { otp: "567633" }) {
     token
   }
 }
-
 ```
 
 ### Sample Mutation
 
 Execute the following GraphQL mutation to verify the OTP for account creation:
-
 
 ### Expected Response
 
@@ -427,29 +520,23 @@ Upon successful OTP verification, the API will respond with an authentication to
 }
 ```
 
-
 ## Reset User Password
 
 To reset a user's password, utilize the `resetUserPassword` mutation. This mutation requires the user's ID and the new desired password.
-
-
 
 ## Token Usage
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-
 ```json
 {
   "Authorization": "Bearer <token>"
 }
-
 ```
 
 ### Sample Mutation
 
 Execute the following GraphQL mutation to reset a user's password:
-
 
 ```graphql
 mutation {
@@ -466,7 +553,6 @@ mutation {
 ### Usage Notes
 
 - The `resetUserPassword` mutation resets the password for the user associated with the provided token and the new desired password in the mutation input.
-
 
 ### Expected Response
 
@@ -498,15 +584,17 @@ Execute the following GraphQL mutation to register a new seller:
 
 ```graphql
 mutation RegisterSeller {
-  registerNewSeller(input: {
-    shopName: "Test Ent.",
-    seller: {
-      firstName: "New"
-      lastName: "kwamz"
-      emailAddress: "new.seller@example.com"
-      password: "test",
+  registerNewSeller(
+    input: {
+      shopName: "Test Ent."
+      seller: {
+        firstName: "New"
+        lastName: "kwamz"
+        emailAddress: "new.seller@example.com"
+        password: "test"
+      }
     }
-  }) {
+  ) {
     id
     code
     token
@@ -515,11 +603,10 @@ mutation RegisterSeller {
 ```
 
 ### Usage Notes
+
 - The `registerNewSeller` mutation creates a new seller account and associates it with the specified shop.
 - The seller can use the provided shop name for branding and identification.
 - Vendure's Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.
-
-
 
 ## Expected Response
 
@@ -536,8 +623,6 @@ mutation RegisterSeller {
 ```
 
 Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
-
-
 
 ## Adding Items to Order
 
@@ -605,8 +690,12 @@ Execute the following GraphQL mutation to add a payment to an order:
 
 ```graphql
 mutation {
-  addPaymentToOrder(input: { method: "connected-payment-method", metadata: {} }) {
-    ... on Order { id }
+  addPaymentToOrder(
+    input: { method: "connected-payment-method", metadata: {} }
+  ) {
+    ... on Order {
+      id
+    }
     ... on ErrorResult {
       errorCode
       message
@@ -676,16 +765,18 @@ Execute the following GraphQL mutation to set the order billing address:
 
 ```graphql
 mutation {
-  setOrderBillingAddress(input: {
-    company: null
-    streetLine1: "123 james town"
-    streetLine2: ""
-    city: "accra"
-    province: "G.Accra"
-    postalCode: "12345"
-    countryCode: "GH"
-    customFields: { houseNumber: "25" }
-  }) {
+  setOrderBillingAddress(
+    input: {
+      company: null
+      streetLine1: "123 james town"
+      streetLine2: ""
+      city: "accra"
+      province: "G.Accra"
+      postalCode: "12345"
+      countryCode: "GH"
+      customFields: { houseNumber: "25" }
+    }
+  ) {
     ... on Order {
       id
     }
@@ -696,7 +787,8 @@ mutation {
 <aside class="notice">
 The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
 
- the order ID accordingly.
+the order ID accordingly.
+
 </aside>
 
 #### Expected Response
@@ -818,15 +910,17 @@ query {
   }
 }
 ```
+
 ---
+
 ## Description:
+
 - **totalItems:** Total number of product variants available.
 - **items:** List of products with their respective variant details.
   - **variantList:** List of variants for each product.
     - **items:** Individual variant details including ID, name, price, price with tax, currency code, stock level, and creation date.
 
 This query allows you to paginate through product variants, skipping the specified number of items and taking the desired number of items per page. Adjust the `skip` and `take` parameters as needed for pagination.
-
 
 ## Response:
 
@@ -848,7 +942,7 @@ This query allows you to paginate through product variants, skipping the specifi
                 "stockLevel": "IN_STOCK",
                 "createdAt": "2024-01-24T14:54:12.000Z"
               },
-               {
+              {
                 "productId": "7",
                 "name": "High Performance RAM 4GB",
                 "price": 13785,
@@ -856,16 +950,15 @@ This query allows you to paginate through product variants, skipping the specifi
                 "currencyCode": "USD",
                 "stockLevel": "IN_STOCK",
                 "createdAt": "2024-01-24T14:54:12.000Z"
-              },
+              }
             ]
           }
-        },
+        }
       ]
     }
   }
 }
 ```
-
 
 ## Search Products and Sort
 
@@ -875,12 +968,7 @@ You can use this query to search for products based on a search term and sort th
 
 ```graphql
 {
-  search(input: {
-    term: "your_search_term",
-    sort: {
-      TOP_SELLING: DESC
-    }
-  }) {
+  search(input: { term: "your_search_term", sort: { TOP_SELLING: DESC } }) {
     totalItems
     items {
       productId
@@ -912,7 +1000,7 @@ You can use this query to search for products based on a search term and sort th
         {
           "productId": "1",
           "productName": "Product 1"
-        },
+        }
       ]
     }
   }
@@ -928,13 +1016,10 @@ You can use this query to search for products based on a search term and sort th
 
 You can adjust the `term` parameter to your desired search term and choose the appropriate sorting option based on your requirements.
 
-
 <aside class="notice">
   Please note that the sort functionality is currently under development and may not be fully functional. We are working to resolve this issue as soon as possible.
 </aside>
 
-
 # Stay Tuned for More!
 
 We are continually expanding our platform's features and functionality. Stay tuned for updates, as they will be announced here. We value your feedback and are here to assist you. If you have any questions or need further assistance, please don't hesitate to reach out.
-
