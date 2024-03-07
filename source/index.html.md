@@ -102,6 +102,10 @@ mutation {
 }
 ```
 
+
+
+![initiate-account](images/signup.png)
+
 ## Usage Notes
 
 - The `initiateAccountCreation` mutation initiates the account creation process by sending an OTP (One-Time Password) to the provided phone number.
@@ -133,6 +137,11 @@ mutation {
   }
 }
 ```
+
+
+
+![verify-otp](images/verifyOtp.png)
+
 
 ### Sample Mutation
 
@@ -186,13 +195,37 @@ mutation {
   }
 }
 ```
-
 Execute the following GraphQL mutation to complete the account creation process:
+
+
+
+![complete-customer](images/completecustomer.png)
+
+
+
 
 ## Usage Notes
 
 - The `completeAccountCreation` mutation finalizes the account creation process by providing additional user details.
 - Provide the full name (`fullName`), city, street address, and GPS coordinates in the mutation input.
+
+
+## Expected Response
+
+Upon successful authentication, the API will respond with the authentication token and user details:
+
+```json
+{
+  "data": {
+    "completeAccountCreation": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqFSOIwI",
+      "user": {
+        "id": "22",
+      }
+    }
+  }
+}
+```
 
 # User Authentication: Custom Login
 
@@ -216,6 +249,12 @@ mutation {
   }
 }
 ```
+
+
+
+![login-customer](images/login.png)
+
+
 
 ## Usage Notes
 
@@ -317,8 +356,12 @@ mutation {
   }
 }
 ```
-
 Execute the following GraphQL mutation to change a user's password:
+
+
+
+![change-password](images/changePassword.png)
+
 
 ### Usage Notes
 
@@ -373,8 +416,12 @@ mutation {
   }
 }
 ```
-
 Execute the following GraphQL mutation to change a user's phone:
+
+
+
+![change-contact](images/changeContact.png)
+
 
 ### Usage Notes
 
@@ -433,6 +480,11 @@ mutation {
 
 Execute the following GraphQL mutation to change a user's phone:
 
+
+
+![manage-address](images/manageAddress.png)
+
+
 ### Usage Notes
 
 - The `manageAddress` mutation updates the address for the user associated with the provided
@@ -470,6 +522,10 @@ mutation {
 }
 ```
 
+  
+  
+  ![forgot-password](images/forgotpassword.png)
+
 ## Usage Notes
 
 - The `initiatePasswordReset` mutation initiates the password reset process for the user associated with the provided identifier (phone number or email).
@@ -489,7 +545,6 @@ Upon successful initiation of the password reset process, the API will respond w
   }
 }
 ```
-
 ## OTP Verification
 
 After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
@@ -503,8 +558,10 @@ mutation {
 ```
 
 ### Sample Mutation
-
 Execute the following GraphQL mutation to verify the OTP for account creation:
+
+  ![verify-otp](images/verifyOtp.png)
+
 
 ### Expected Response
 
@@ -550,6 +607,8 @@ mutation {
 }
 ```
 
+  ![setuppassword](images/setuppass.png)
+
 ### Usage Notes
 
 - The `resetUserPassword` mutation resets the password for the user associated with the provided token and the new desired password in the mutation input.
@@ -576,31 +635,35 @@ Upon successful password reset, the API will respond with the user's ID and othe
 
 ## Seller Registration
 
-Use the `registerNewSeller` mutation to register a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
+Use the `CreateNewSeller` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
 
 ## Sample Mutation
 
 Execute the following GraphQL mutation to register a new seller:
 
 ```graphql
-mutation RegisterSeller {
-  registerNewSeller(
-    input: {
-      shopName: "Test Ent."
-      seller: {
-        firstName: "New"
-        lastName: "kwamz"
-        emailAddress: "new.seller@example.com"
-        password: "test"
-      }
+mutation CreateNewSeller {
+    createNewSeller(
+        input: {
+            shopName: "Test ent"
+            seller: {
+                fullName: "Kay Sam"
+                phone: "0536369414"
+                TIN: "0224512"
+                emailAddress:"sam.kay@gmail.com"
+                businessRegistratonFile: null
+                profilePicture: null
+                shopAddress: "Abosokai"
+                aboutShop: "Dealer in Spare part"
+            }
+        }
+    ) {
+        message
     }
-  ) {
-    id
-    code
-    token
-  }
 }
 ```
+![CreateNewSeller](images/submitstore.png)  ![CreateNewSeller](images/bottom-storedetails.png) 
+
 
 ### Usage Notes
 
@@ -613,16 +676,259 @@ mutation RegisterSeller {
 ```json
 {
   "data": {
-    "registerNewSeller": {
-      "id": "5",
-      "code": "test-ent.",
-      "token": "test-ent.-token"
+    "createNewSeller": {
+      "message": "SUCCESS"
+    }
+  }
+}
+
+```
+Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
+
+
+
+# Home
+
+
+This is the query to fetch categories and all products:
+
+## Sample query
+
+```graphql
+query{
+  products{
+    items{
+      id
+      name
+      description
+      assets{
+        id
+        preview
+      }
+    }
+  }
+  collections{
+    items{
+      name
+      assets{
+        id
+        preview
+      }
+      productVariants{
+        totalItems
+        items{
+          id
+          name
+          price
+          assets{
+            id
+            preview
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+  ![home](images/home.png)  ![setuppassword](images/products.png)
+
+
+## Expected Response
+
+Response (summarized):
+
+```json
+{
+  "data": {
+    "collections": {
+      "items": [
+        {
+          "name": "Wheels & parts",
+          "assets": [...],
+          "productVariants": {
+            "totalItems": ...,
+            "items": [...]
+          }
+        },
+        {
+          "name": "Exterior Accessories",
+          "assets": [...],
+          "productVariants": {
+            "totalItems": ...,
+            "items": [...]
+          }
+        },
+        {...},
+        {...}
+      ]
+    },
+     "products": {
+      "items": [
+        {
+          "id": "1",
+          "name": "Toyota",
+          "description": "2015 toyota wheel",
+          "assets": [...]
+        },
+        {
+          "id": "2",
+          "name": "FORD",
+          "description": "2015  F-150 wheel",
+          "assets": [...]
+        },
+        {...},
+        {...},
+        {...}
+      ]
     }
   }
 }
 ```
 
-Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
+
+## Search Products and Sort
+
+You can use this query to search for products based on a search term and sort the results using various criteria such as top-selling, recommended, recently added, price low to high, or price high to low.
+
+### Query:
+
+```graphql
+   query Search {
+     search(input: { term: "Toyota" }) {
+       totalItems
+       items {
+         productAsset {
+           id
+           preview
+         }
+         price {
+           ... on PriceRange {
+             min
+             max
+           }
+         }
+         description
+         score
+         inStock
+       }
+       collections {
+         count
+       }
+     }
+   }
+
+```
+
+  ![home](images/search.png) 
+
+
+```json
+{
+  "data": {
+    "search": {
+      "totalItems": 10,
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Product 1"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Description:
+
+- **totalItems:** Total number of products matching the search term.
+- **items:** List of products matching the search term, sorted according to the specified criteria.
+  - **productId:** The unique identifier of the product.
+  - **productName:** The name of the product.
+
+You can adjust the `term` parameter to your desired search term and choose the appropriate sorting option based on your requirements.
+
+<aside class="notice">
+  Please note that the sort functionality is currently under development and may not be fully functional. We are working to resolve this issue as soon as possible.
+</aside>
+
+
+# Purchasing Parts
+
+## Detailed item page
+
+To fetch a single item you can use the query 
+
+## Sample query
+
+Execute the following GraphQL query to fetch sigle item:
+
+```graphql
+query{
+  product(id:1){
+    name
+    slug
+    variants{
+      price
+    }
+    assets{
+      id
+      preview
+    }
+    translations{
+      description
+    }
+    customFields{
+      Make
+      Model
+      Year
+      numStars
+      averageRating
+      CountryOfOrigin
+      Condition
+    }
+  }
+}
+  ```
+
+![product](images/detailed.png)
+
+## Expected Response
+
+Upon successfully adding items to the order, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "product": {
+      "name": "Toyota",
+      "slug": "toyota",
+      "variants": [],
+      "assets": [
+        {
+          "id": "1",
+          "preview": "http://localhost:3000/assets/preview/ea/wheelss__preview.png"
+        }
+      ],
+      "translations": [
+        {
+          "description": "2015 toyota wheel"
+        }
+      ],
+      "customFields": {
+        "Make": "Toyota",
+        "Model": "camery",
+        "Year": 2015,
+        "numStars": null,
+        "averageRating": null,
+        "CountryOfOrigin": "Japan",
+        "Condition": "New"
+      }
+    }
+  }
+}
+```
 
 ## Adding Items to Order
 
@@ -659,6 +965,9 @@ mutation {
 The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
 </aside>
 
+
+  ![home](images/addToCart.png)  ![setuppassword](images/checkout.png)
+
 ## Expected Response
 
 Upon successfully adding items to the order, the API will respond with the order ID:
@@ -679,6 +988,143 @@ Upon successfully adding items to the order, the API will respond with the order
 ```
 
 In a multi-vendor setup, SpePas allows customers to add items from different sellers to their cart and proceed to checkout. This section covers the process of adding items to the cart and setting up order fulfillment.
+
+## Set Order Billing Address
+
+To provide a billing address for the order, use the `setOrderBillingAddress` mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.
+
+#### Sample Mutation
+
+Execute the following GraphQL mutation to set the order billing address:
+
+```graphql
+mutation {
+  setOrderBillingAddress(
+    input: {
+      company: null
+      streetLine1: "123 james town"
+      streetLine2: ""
+      city: "accra"
+      province: "G.Accra"
+      postalCode: "12345"
+      countryCode: "GH"
+      customFields: { houseNumber: "25" }
+    }
+  ) {
+    ... on Order {
+      id
+    }
+  }
+}
+```
+
+  ![home](images/addAddress.png) 
+
+<aside class="notice">
+The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
+
+the order ID accordingly.
+
+</aside>
+
+#### Expected Response
+
+Upon successfully setting the order billing address, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "setOrderBillingAddress": {
+      "id": "4"
+    }
+  }
+}
+```
+
+
+
+
+## Eligible Shipping Methods
+
+To determine eligible shipping methods for the order, use the `eligibleShippingMethods` query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.
+
+## Sample Query
+
+Execute the following GraphQL query to retrieve eligible shipping methods:
+
+```graphql
+query Elig {
+  eligibleShippingMethods {
+    id
+    name
+    priceWithTax
+  }
+}
+```
+
+## Expected Response
+
+The API will respond with a list of eligible shipping methods:
+
+```json
+{
+  "data": {
+    "eligibleShippingMethods": [
+      {
+        "id": "1",
+        "name": "Standard Shipping",
+        "priceWithTax": 500
+      },
+      {
+        "id": "2",
+        "name": "Express Shipping",
+        "priceWithTax": 1000
+      }
+    ]
+  }
+}
+```
+
+
+
+## Assign Shipping Method to Order
+
+To assign shipping methods to the order, use the `setOrderShippingMethod` mutation. This mutation allows customers to specify the shipping method IDs for their order.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to assign shipping methods to the order:
+
+```graphql
+mutation AssignShipping {
+  setOrderShippingMethod(shippingMethodId: ["1", "2"]) {
+    ... on Order {
+      id
+    }
+  }
+}
+```
+
+  ![home](images/addShipping.png) 
+
+
+<aside class="notice">
+The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
+</aside>
+
+## Expected Response
+
+Upon successfully assigning shipping methods to the order, the API will respond with the order ID:
+
+```json
+{
+  "data": {
+    "setOrderShippingMethod": {
+      "id": "4"
+    }
+  }
+}
+```
 
 ## Adding payment to Order
 
@@ -706,6 +1152,8 @@ mutation {
   }
 }
 ```
+
+  ![home](images/addPayment.png) 
 
 ### Usage Notes
 
@@ -754,271 +1202,6 @@ The API will respond based on the outcome of the payment addition:
   }
 }
 ```
-
-## Set Order Billing Address
-
-To provide a billing address for the order, use the `setOrderBillingAddress` mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.
-
-#### Sample Mutation
-
-Execute the following GraphQL mutation to set the order billing address:
-
-```graphql
-mutation {
-  setOrderBillingAddress(
-    input: {
-      company: null
-      streetLine1: "123 james town"
-      streetLine2: ""
-      city: "accra"
-      province: "G.Accra"
-      postalCode: "12345"
-      countryCode: "GH"
-      customFields: { houseNumber: "25" }
-    }
-  ) {
-    ... on Order {
-      id
-    }
-  }
-}
-```
-
-<aside class="notice">
-The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
-
-the order ID accordingly.
-
-</aside>
-
-#### Expected Response
-
-Upon successfully setting the order billing address, the API will respond with the order ID:
-
-```json
-{
-  "data": {
-    "setOrderBillingAddress": {
-      "id": "4"
-    }
-  }
-}
-```
-
-## Eligible Shipping Methods
-
-To determine eligible shipping methods for the order, use the `eligibleShippingMethods` query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.
-
-## Sample Query
-
-Execute the following GraphQL query to retrieve eligible shipping methods:
-
-```graphql
-query Elig {
-  eligibleShippingMethods {
-    id
-    name
-    priceWithTax
-  }
-}
-```
-
-## Expected Response
-
-The API will respond with a list of eligible shipping methods:
-
-```json
-{
-  "data": {
-    "eligibleShippingMethods": [
-      {
-        "id": "1",
-        "name": "Standard Shipping",
-        "priceWithTax": 500
-      },
-      {
-        "id": "2",
-        "name": "Express Shipping",
-        "priceWithTax": 1000
-      }
-    ]
-  }
-}
-```
-
-## Assign Shipping Method to Order
-
-To assign shipping methods to the order, use the `setOrderShippingMethod` mutation. This mutation allows customers to specify the shipping method IDs for their order.
-
-## Sample Mutation
-
-Execute the following GraphQL mutation to assign shipping methods to the order:
-
-```graphql
-mutation AssignShipping {
-  setOrderShippingMethod(shippingMethodId: ["1", "2"]) {
-    ... on Order {
-      id
-    }
-  }
-}
-```
-
-<aside class="notice">
-The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
-</aside>
-
-## Expected Response
-
-Upon successfully assigning shipping methods to the order, the API will respond with the order ID:
-
-```json
-{
-  "data": {
-    "setOrderShippingMethod": {
-      "id": "4"
-    }
-  }
-}
-```
-
-# Products
-
-## Retrieve Product Variants with Pagination
-
-Use this query to fetch a subset of product variants with pagination.
-
-## Query:
-
-```graphql
-query {
-  products(options: { skip: 5, take: 10 }) {
-    totalItems
-    items {
-      variantList {
-        items {
-          productId
-          name
-          price
-          priceWithTax
-          currencyCode
-          stockLevel
-          createdAt
-        }
-      }
-    }
-  }
-}
-```
-
----
-
-## Description:
-
-- **totalItems:** Total number of product variants available.
-- **items:** List of products with their respective variant details.
-  - **variantList:** List of variants for each product.
-    - **items:** Individual variant details including ID, name, price, price with tax, currency code, stock level, and creation date.
-
-This query allows you to paginate through product variants, skipping the specified number of items and taking the desired number of items per page. Adjust the `skip` and `take` parameters as needed for pagination.
-
-## Response:
-
-```json
-{
-  "data": {
-    "products": {
-      "totalItems": 58,
-      "items": [
-        {
-          "variantList": {
-            "items": [
-              {
-                "productId": "6",
-                "name": "High Performance RAM 4GB",
-                "price": 13785,
-                "priceWithTax": 16542,
-                "currencyCode": "USD",
-                "stockLevel": "IN_STOCK",
-                "createdAt": "2024-01-24T14:54:12.000Z"
-              },
-              {
-                "productId": "7",
-                "name": "High Performance RAM 4GB",
-                "price": 13785,
-                "priceWithTax": 16542,
-                "currencyCode": "USD",
-                "stockLevel": "IN_STOCK",
-                "createdAt": "2024-01-24T14:54:12.000Z"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-## Search Products and Sort
-
-You can use this query to search for products based on a search term and sort the results using various criteria such as top-selling, recommended, recently added, price low to high, or price high to low.
-
-### Query:
-
-```graphql
-{
-  search(input: { term: "your_search_term", sort: { TOP_SELLING: DESC } }) {
-    totalItems
-    items {
-      productId
-      productName
-    }
-  }
-}
-```
-
-### Parameters:
-
-- **input:** Specifies the search term and sorting criteria.
-  - **term:** The search term you want to use to filter products.
-  - **sort:** Specifies the sorting criteria. You can choose from the following options:
-    - **TOP_SELLING:** Sort by top-selling items.
-    - **RECOMMENDED:** Sort by recommended items.
-    - **RECENTLY_ADDED:** Sort by recently added items.
-    - **PRICE_LOW_TO_HIGH:** Sort by price from low to high.
-    - **PRICE_HIGH_TO_LOW:** Sort by price from high to low.
-
-### Response:
-
-```json
-{
-  "data": {
-    "search": {
-      "totalItems": 10,
-      "items": [
-        {
-          "productId": "1",
-          "productName": "Product 1"
-        }
-      ]
-    }
-  }
-}
-```
-
-## Description:
-
-- **totalItems:** Total number of products matching the search term.
-- **items:** List of products matching the search term, sorted according to the specified criteria.
-  - **productId:** The unique identifier of the product.
-  - **productName:** The name of the product.
-
-You can adjust the `term` parameter to your desired search term and choose the appropriate sorting option based on your requirements.
-
-<aside class="notice">
-  Please note that the sort functionality is currently under development and may not be fully functional. We are working to resolve this issue as soon as possible.
-</aside>
 
 # Stay Tuned for More!
 
