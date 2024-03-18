@@ -32,9 +32,9 @@ The SpePas API is built using [**vendure**](https://docs.vendure.io/guides/devel
 
 Vendure exposes all of its functionality via APIs. Specifically, featuring two GraphQL APIs
 
-[**Shop API**](https://spare-part-server.onrender.com/shop-api)
+[**Shop API**](https://spepa-server.onrender.com/shop-api)
 
-[**Admin API**](https://spare-part-server.onrender.com/admin-api)
+[**Admin API**](https://spepa-server.onrender.com/admin-api/)
 
 # Key Features
 
@@ -651,8 +651,6 @@ mutation CreateNewSeller {
                 phone: "0536369414"
                 TIN: "0224512"
                 emailAddress:"sam.kay@gmail.com"
-                businessRegistratonFile: null
-                profilePicture: null
                 shopAddress: "Abosokai"
                 aboutShop: "Dealer in Spare part"
             }
@@ -666,10 +664,13 @@ mutation CreateNewSeller {
 
 
 ### Usage Notes
-
-- The `registerNewSeller` mutation creates a new seller account and associates it with the specified shop.
-- The seller can use the provided shop name for branding and identification.
-- Vendure's Admin UI can be utilized for sellers to manage their inventory, eliminating the need for a separate seller login mechanism.
+{ 
+  businessRegistrationFile: null,
+  profilePicture: null
+} can be ignored for now. 
+- The `CreateNewSeller` mutation submits a new seller account for review.
+- You need to provide valid information, as invalid data will be disregarded.
+- Upon successful review, the seller receives a message with temporary credentials to log in as a seller with all necessary permissions.
 
 ## Expected Response
 
@@ -683,12 +684,69 @@ mutation CreateNewSeller {
 }
 
 ```
-Upon successful registration, the API will respond with the newly created seller's information, including the ID, shop code, and authentication token.
+Upon successful submission, the API will respond with a success message.
 
+
+## Adding new product
+
+  using 
+ [**Admin API**](https://spepa-server.onrender.com/admin-api/)
+
+
+## Token Usage
+
+Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
+
+```json
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to register a new seller:
+
+```graphql
+mutation CreateProduct {
+    createProduct(
+        input: {
+            enabled: true
+            assetIds: 1
+            translations: { 
+              languageCode: en,
+              name:"part name"
+              description: "product description", 
+            }
+            customFields: {
+                Make: "toyota"
+                Model: "Camery"
+                Year: 2015
+                CountryOfOrigin: "Japan"
+                PiecesInStock: "20"
+                Price: 20.5
+                Condition: "NEW"
+                Category: "Wheels "
+                Subcategory: "wheels"
+            }
+        }
+    ) {
+        name
+        id
+        createdAt
+        languageCode
+        description
+    }
+}
+```
+![CreateNewSeller](images/addProduct.png) ![CreateNewSeller](images/bottom-addproduct.png)  
+ 
+
+
+## Expected Response
 
 
 # Home
-
 
 This is the query to fetch categories and all products:
 
