@@ -156,7 +156,7 @@ Upon successful OTP verification, the API will respond with an authentication to
 }
 ```
 
-## completeAccountCreation
+# completeAccountCreation
 
 complete the account creation process by uploading profile picture using the `completeAccountCreation` mutation. This mutation requires the Bearer token , file.
 
@@ -170,64 +170,6 @@ complete the account creation process by uploading profile picture using the `co
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-## Create Customer Account
-
-```graphql
-mutation createCustomerAccount($file: Upload!) {
-  createAccount(
-    input: {
-      role: CUSTOMER
-      customer: {
-        fullName: "test 3"
-        city: "Accra"
-        street: "STR-20"
-        gps: "GH-20-ASH"
-        profilePicture: $file
-      }
-    }
-  ) {
-    success
-    message
-    token
-  }
-}
-```
-
-Execute the following GraphQL mutation to complete the account creation process:
-
-![Complete Customer Account](images/completecustomer.png)
-
-## Usage Notes
-
-- The `createAccount` mutation is used to finalize the account creation process by providing comprehensive user details.
-- The `role` parameter should be set to `CUSTOMER` to specify the type of account being created.
-- Ensure to include the following information in the mutation input:
-  - **Full Name (`fullName`)**: The complete name of the customer.
-  - **City**: The city where the customer resides.
-  - **Street Address (`street`)**: The street address of the customer's residence.
-  - **GPS Coordinates (`gps`)**: The GPS coordinates for the customer's location.
-  - **Profile Picture (`profilePicture`)**: The profile picture file for the customer, uploaded using the `$file` variable.
-- The response will contain:
-  - **Success (`success`)**: A boolean indicating whether the account creation was successful.
-  - **Message (`message`)**: A message providing additional information about the account creation process.
-  - **Token (`token`)**: An authentication token for the newly created customer account.
-
-## Expected Response
-
-Upon successful authentication, the API will respond with the authentication token and user details:
-
-```json
-{
-  "data": {
-    "completeAccountCreation": {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqFSOIwI",
-      "user": {
-        "id": "22"
-      }
-    }
-  }
-}
-```
 
 ## Rider Registration
 
@@ -294,6 +236,7 @@ mutation createRiderAccount(
 
 - It is important to provide valid and accurate information. Invalid data will be disregarded.
 - Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.
+
 
 ## Seller Registration
 
@@ -363,6 +306,67 @@ mutation createSellerAccount(
 ```
 
 Upon successful submission, the API will respond with a success message.
+
+
+## Create Customer Account
+
+```graphql
+mutation createCustomerAccount($file: Upload!) {
+  createAccount(
+    input: {
+      role: CUSTOMER
+      customer: {
+        fullName: "test 3"
+        city: "Accra"
+        street: "STR-20"
+        gps: "GH-20-ASH"
+        profilePicture: $file
+      }
+    }
+  ) {
+    success
+    message
+    token
+  }
+}
+```
+
+Execute the following GraphQL mutation to complete the account creation process:
+
+![Complete Customer Account](images/completecustomer.png)
+
+## Usage Notes
+
+- The `createAccount` mutation is used to finalize the account creation process by providing comprehensive user details.
+- The `role` parameter should be set to `CUSTOMER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Full Name (`fullName`)**: The complete name of the customer.
+  - **City**: The city where the customer resides.
+  - **Street Address (`street`)**: The street address of the customer's residence.
+  - **GPS Coordinates (`gps`)**: The GPS coordinates for the customer's location.
+  - **Profile Picture (`profilePicture`)**: The profile picture file for the customer, uploaded using the `$file` variable.
+- The response will contain:
+  - **Success (`success`)**: A boolean indicating whether the account creation was successful.
+  - **Message (`message`)**: A message providing additional information about the account creation process.
+  - **Token (`token`)**: An authentication token for the newly created customer account.
+
+## Expected Response
+
+Upon successful authentication, the API will respond with the authentication token and user details:
+
+```json
+{
+  "data": {
+    "completeAccountCreation": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqFSOIwI",
+      "user": {
+        "id": "22"
+      }
+    }
+  }
+}
+```
+
 
 # User Authentication: Login
 
