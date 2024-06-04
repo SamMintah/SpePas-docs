@@ -93,14 +93,14 @@ Execute the following GraphQL mutation to initiate the account creation process:
 
 ```graphql
 mutation getStarted {
-    initiateAccountCreation(input: {  phone: "0201234567890", password: "tryPass" }) {
-        success
-        message
-    }
+  initiateAccountCreation(
+    input: { phone: "0201234567890", password: "tryPass" }
+  ) {
+    success
+    message
+  }
 }
 ```
-
-
 
 ![initiate-account](images/signup.png)
 
@@ -136,10 +136,7 @@ mutation {
 }
 ```
 
-
-
 ![verify-otp](images/verifyOtp.png)
-
 
 ### Sample Mutation
 
@@ -173,26 +170,26 @@ complete the account creation process by uploading profile picture using the `co
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-# Create Customer Account
+## Create Customer Account
 
 ```graphql
 mutation createCustomerAccount($file: Upload!) {
-    createAccount(
-        input: {
-            role: CUSTOMER
-            customer: {
-                fullName: "test 3"
-                city: "Accra"
-                street: "STR-20"
-                gps: "GH-20-ASH"
-                profilePicture: $file
-            }
-        }
-    ) {
-        success
-        message
-        token
+  createAccount(
+    input: {
+      role: CUSTOMER
+      customer: {
+        fullName: "test 3"
+        city: "Accra"
+        street: "STR-20"
+        gps: "GH-20-ASH"
+        profilePicture: $file
+      }
     }
+  ) {
+    success
+    message
+    token
+  }
 }
 ```
 
@@ -215,7 +212,6 @@ Execute the following GraphQL mutation to complete the account creation process:
   - **Message (`message`)**: A message providing additional information about the account creation process.
   - **Token (`token`)**: An authentication token for the newly created customer account.
 
-
 ## Expected Response
 
 Upon successful authentication, the API will respond with the authentication token and user details:
@@ -226,14 +222,14 @@ Upon successful authentication, the API will respond with the authentication tok
     "completeAccountCreation": {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqFSOIwI",
       "user": {
-        "id": "22",
+        "id": "22"
       }
     }
   }
 }
 ```
 
-# Rider Registration
+## Rider Registration
 
 Use the `createAccount` mutation to request a new rider account. Provide details such as the rider's full name, phone number, vehicle type, and other relevant information.
 
@@ -242,23 +238,27 @@ Use the `createAccount` mutation to request a new rider account. Provide details
 Execute the following GraphQL mutation to register a new rider:
 
 ```graphql
-mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: Upload, $nationalIdCard: Upload!) {
-    createAccount(
-        input: {
-            role: RIDER,
-            rider: {
-                fullName: "Sam-MIntah",
-                phone: "0536369414",
-                vehicleRegistrationFile: $vehicleRegistrationFile,
-                profilePicture: $profilePicture,
-                vehicleType: "two wheel",
-                nationalIdCard: $nationalIdCard
-            }
-        }
-    ) {
-        success
-        message
+mutation createRiderAccount(
+  $vehicleRegistrationFile: Upload!
+  $profilePicture: Upload
+  $nationalIdCard: Upload!
+) {
+  createAccount(
+    input: {
+      role: RIDER
+      rider: {
+        fullName: "Sam-MIntah"
+        phone: "0536369414"
+        vehicleRegistrationFile: $vehicleRegistrationFile
+        profilePicture: $profilePicture
+        vehicleType: "two wheel"
+        nationalIdCard: $nationalIdCard
+      }
     }
+  ) {
+    success
+    message
+  }
 }
 ```
 
@@ -269,6 +269,7 @@ mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: 
 - The `createAccount` mutation is used to submit a new rider account for review.
 - The `role` parameter should be set to `RIDER` to specify the type of account being created.
 - Ensure to include the following information in the mutation input:
+
   - **Full Name (`fullName`)**: The rider's full name.
   - **Phone Number (`phone`)**: The rider's phone number.
   - **Vehicle Registration File (`vehicleRegistrationFile`)**: A file containing the vehicle registration details, uploaded using the `$vehicleRegistrationFile` variable.
@@ -284,19 +285,17 @@ mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: 
 {
   "data": {
     "createaccont": {
-       "success": true,
-      "message": 'submitted successfully'
+      "success": true,
+      "message": "submitted successfully"
     }
   }
 }
-
 ```
 
 - It is important to provide valid and accurate information. Invalid data will be disregarded.
 - Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.
 
-
-# Seller Registration
+## Seller Registration
 
 Use the `createAccount` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
 
@@ -305,7 +304,10 @@ Use the `createAccount` mutation to request a new seller. Provide details such a
 Execute the following GraphQL mutation to register a new seller:
 
 ```graphql
-mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture: Upload!) {
+mutation createSellerAccount(
+  $businessRegistrationFile: Upload!
+  $profilePicture: Upload!
+) {
   createAccount(
     input: {
       role: SELLER
@@ -329,7 +331,8 @@ mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture
   }
 }
 ```
-![CreateNewSeller](images/submitstore.png)  ![CreateNewSeller](images/bottom-storedetails.png) 
+
+![CreateNewSeller](images/submitstore.png) ![CreateNewSeller](images/bottom-storedetails.png)
 
 ### Usage Notes
 
@@ -352,17 +355,16 @@ mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture
 {
   "data": {
     "createaccont": {
-       "success": true,
-      "message": 'submitted successfully'
+      "success": true,
+      "message": "submitted successfully"
     }
   }
 }
-
 ```
+
 Upon successful submission, the API will respond with a success message.
 
-
-# User Authentication: Custom Login
+# User Authentication: Login
 
 To authenticate a user and obtain an authentication token, use the `customLogin` mutation. This mutation requires the user's identifier (email or phone number) and password.
 
@@ -372,13 +374,13 @@ Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
 mutation customLogin {
-  customLogin(input:{identifier:"0501234589",password:"newpas1234"}){
+  customLogin(input: { identifier: "0501234589", password: "newpas1234" }) {
     token
-    user{
+    user {
       id
       phone
       fullName
-      avatar{
+      avatar {
         preview
       }
       roles
@@ -386,8 +388,6 @@ mutation customLogin {
   }
 }
 ```
-
-
 
 ![login-customer](images/login.png)
 
@@ -413,9 +413,7 @@ Upon successful authentication, the API will respond with the authentication tok
         "avatar": {
           "preview": "http://localhost:3000/assets/preview/d4/image_picker_8a1fe57e-8abe-4c50-9027-ba0789f9093a-78441-0000006ac34e2af6__preview.jpg"
         },
-        "roles": [
-          "CUSTOMER"
-        ]
+        "roles": ["CUSTOMER"]
       }
     }
   }
@@ -490,12 +488,10 @@ mutation {
   }
 }
 ```
+
 Execute the following GraphQL mutation to change a user's password:
 
-
-
 ![change-password](images/changePassword.png)
-
 
 ### Usage Notes
 
@@ -550,12 +546,10 @@ mutation {
   }
 }
 ```
+
 Execute the following GraphQL mutation to change a user's phone:
 
-
-
 ![change-contact](images/changeContact.png)
-
 
 ### Usage Notes
 
@@ -614,10 +608,7 @@ mutation {
 
 Execute the following GraphQL mutation to change a user's phone:
 
-
-
 ![manage-address](images/manageAddress.png)
-
 
 ### Usage Notes
 
@@ -656,9 +647,7 @@ mutation {
 }
 ```
 
-  
-  
-  ![forgot-password](images/forgotpassword.png)
+![forgot-password](images/forgotpassword.png)
 
 ## Usage Notes
 
@@ -679,6 +668,7 @@ Upon successful initiation of the password reset process, the API will respond w
   }
 }
 ```
+
 ## OTP Verification
 
 After initiating the account creation process, a one-time password (OTP) will be sent to the user's phone number. The user needs to verify this OTP to complete the account creation process.
@@ -692,10 +682,10 @@ mutation {
 ```
 
 ### Sample Mutation
+
 Execute the following GraphQL mutation to verify the OTP for account creation:
 
-  ![verify-otp](images/verifyOtp.png)
-
+![verify-otp](images/verifyOtp.png)
 
 ### Expected Response
 
@@ -741,7 +731,7 @@ mutation {
 }
 ```
 
-  ![setuppassword](images/setuppass.png)
+![setuppassword](images/setuppass.png)
 
 ### Usage Notes
 
@@ -767,9 +757,8 @@ Upon successful password reset, the API will respond with the user's ID and othe
 
 ## Adding new product
 
-  using 
- [**Admin API**](https://spepa-server.onrender.com/admin-api/)
-
+using
+[**Admin API**](https://spepa-server.onrender.com/admin-api/)
 
 ## Token Usage
 
@@ -787,42 +776,40 @@ Execute the following GraphQL mutation to add a product:
 
 ```graphql
 mutation CreateProduct {
-    createProduct(
-        input: {
-            enabled: true
-            assetIds: 1
-            translations: { 
-              languageCode: en,
-              name:"part name"
-              description: "product description", 
-            }
-            customFields: {
-                Make: "toyota"
-                Model: "Camery"
-                Year: 2015
-                CountryOfOrigin: "Japan"
-                PiecesInStock: "20"
-                Price: 20.5
-                Condition: "NEW"
-                Category: "Wheels "
-                Subcategory: "wheels"
-            }
-        }
-    ) {
-        name
-        id
-        createdAt
-        languageCode
-        description
+  createProduct(
+    input: {
+      enabled: true
+      assetIds: 1
+      translations: {
+        languageCode: en
+        name: "part name"
+        description: "product description"
+      }
+      customFields: {
+        Make: "toyota"
+        Model: "Camery"
+        Year: 2015
+        CountryOfOrigin: "Japan"
+        PiecesInStock: "20"
+        Price: 20.5
+        Condition: "NEW"
+        Category: "Wheels "
+        Subcategory: "wheels"
+      }
     }
+  ) {
+    name
+    id
+    createdAt
+    languageCode
+    description
+  }
 }
 ```
-![CreateNewSeller](images/addProduct.png) ![CreateNewSeller](images/bottom-addproduct.png)  
- 
 
+![CreateNewSeller](images/addProduct.png) ![CreateNewSeller](images/bottom-addproduct.png)
 
 ## Expected Response
-
 
 # Home
 
@@ -831,32 +818,65 @@ This is the query to fetch categories and all products:
 ## Sample query
 
 ```graphql
-query{
-  products{
-    items{
-      id
-      name
-      description
-      assets{
-        id
-        preview
+query {
+  query
+  Products {
+    products {
+      totalItems
+      items {
+        variants {
+          id
+          name
+          priceWithTax
+          price
+          currencyCode
+          sku
+          stockLevel
+        }
+        name
+        slug
+        assets {
+          id
+          name
+          source
+          preview
+        }
+        customFields {
+          Description
+          Make
+          Year
+          CountryOfOrigin
+          Condition
+          Category
+          reviewCount
+        }
+        reviews {
+          totalItems
+          items {
+            id
+            rating
+            body
+            summary
+            response
+          }
+        }
       }
     }
   }
-  collections{
-    items{
+  collections {
+    items {
       name
-      assets{
+      assets {
         id
         preview
       }
-      productVariants{
+      productVariants {
         totalItems
-        items{
+        items {
           id
           name
           price
-          assets{
+          assets {
             id
             preview
           }
@@ -865,11 +885,9 @@ query{
     }
   }
 }
-
 ```
 
-  ![home](images/home.png)  ![setuppassword](images/products.png)
-
+![home](images/home.png) ![setuppassword](images/products.png)
 
 ## Expected Response
 
@@ -923,7 +941,6 @@ Response (summarized):
 }
 ```
 
-
 ## Search Products and Sort
 
 You can use this query to search for products based on a search term and sort the results using various criteria such as top-selling, recommended, recently added, price low to high, or price high to low.
@@ -931,34 +948,32 @@ You can use this query to search for products based on a search term and sort th
 ### Query:
 
 ```graphql
-   query Search {
-     search(input: { term: "Toyota" }) {
-       totalItems
-       items {
-         productAsset {
-           id
-           preview
-         }
-         price {
-           ... on PriceRange {
-             min
-             max
-           }
-         }
-         description
-         score
-         inStock
-       }
-       collections {
-         count
-       }
-     }
-   }
-
+query Search {
+  search(input: { term: "Toyota" }) {
+    totalItems
+    items {
+      productAsset {
+        id
+        preview
+      }
+      price {
+        ... on PriceRange {
+          min
+          max
+        }
+      }
+      description
+      score
+      inStock
+    }
+    collections {
+      count
+    }
+  }
+}
 ```
 
-  ![home](images/search.png) 
-
+![home](images/search.png)
 
 ```json
 {
@@ -989,33 +1004,32 @@ You can adjust the `term` parameter to your desired search term and choose the a
   Please note that the sort functionality is currently under development and may not be fully functional. We are working to resolve this issue as soon as possible.
 </aside>
 
-
 # Purchasing Parts
 
 ## Detailed item page
 
-To fetch a single item you can use the query 
+To fetch a single item you can use the query
 
 ## Sample query
 
 Execute the following GraphQL query to fetch sigle item:
 
 ```graphql
-query{
-  product(id:1){
+query {
+  product(id: 1) {
     name
     slug
-    variants{
+    variants {
       price
     }
-    assets{
+    assets {
       id
       preview
     }
-    translations{
+    translations {
       description
     }
-    customFields{
+    customFields {
       Make
       Model
       Year
@@ -1026,7 +1040,7 @@ query{
     }
   }
 }
-  ```
+```
 
 ![product](images/detailed.png)
 
@@ -1101,8 +1115,7 @@ mutation {
 The <code>addItemToOrder</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID or error code accordingly.
 </aside>
 
-
-  ![home](images/addToCart.png)  ![setuppassword](images/checkout.png)
+![home](images/addToCart.png) ![setuppassword](images/checkout.png)
 
 ## Expected Response
 
@@ -1154,7 +1167,7 @@ mutation {
 }
 ```
 
-  ![home](images/addAddress.png) 
+![home](images/addAddress.png)
 
 <aside class="notice">
 The <code>setOrderBillingAddress</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for
@@ -1176,7 +1189,6 @@ Upon successfully setting the order billing address, the API will respond with t
   }
 }
 ```
-
 
 ## Eligible Shipping Methods
 
@@ -1219,8 +1231,6 @@ The API will respond with a list of eligible shipping methods:
 }
 ```
 
-
-
 ## Assign Shipping Method to Order
 
 To assign shipping methods to the order, use the `setOrderShippingMethod` mutation. This mutation allows customers to specify the shipping method IDs for their order.
@@ -1239,8 +1249,7 @@ mutation AssignShipping {
 }
 ```
 
-  ![home](images/addShipping.png) 
-
+![home](images/addShipping.png)
 
 <aside class="notice">
 The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</code> field to differentiate between the order type and potential error results. Check the response for the order ID accordingly.
@@ -1287,7 +1296,7 @@ mutation {
 }
 ```
 
-  ![home](images/addPayment.png) 
+![home](images/addPayment.png)
 
 ### Usage Notes
 
@@ -1337,8 +1346,6 @@ The API will respond based on the outcome of the payment addition:
 }
 ```
 
-
-
 Certainly! Here is the updated and formatted documentation for each of the provided mutations and queries, with additional explanations and usage notes for clarity:
 
 ---
@@ -1351,13 +1358,13 @@ Use the `addToWishlist` mutation to add a product variant to the customer's wish
 
 ```graphql
 mutation AddToWishlist {
-    addToWishlist(productVariantId: "2") {
-        id
-        productVariant {
-            id
-            name
-        }
+  addToWishlist(productVariantId: "2") {
+    id
+    productVariant {
+      id
+      name
     }
+  }
 }
 ```
 
@@ -1367,34 +1374,33 @@ Use the `activeCustomerWishlist` query to retrieve the current customer's wishli
 
 ```graphql
 query activeCustomerWishlist {
-    activeCustomerWishlist {
-        id
-        productVariantId
-        productVariant {
-            product {
-                name
-                slug
-                assets {
-                    preview
-                }
-                customFields {
-                    Make
-                    Model
-                    Description
-                    Year
-                    CountryOfOrigin
-                    Condition
-                    reviewRating
-                    reviewCount
-                }
-            }
+  activeCustomerWishlist {
+    id
+    productVariantId
+    productVariant {
+      product {
+        name
+        slug
+        assets {
+          preview
         }
+        customFields {
+          Make
+          Model
+          Description
+          Year
+          CountryOfOrigin
+          Condition
+          reviewRating
+          reviewCount
+        }
+      }
     }
+  }
 }
 ```
 
-  ![setuppassword](images/wishlist.png)
-
+![setuppassword](images/wishlist.png)
 
 ### Remove from Wishlist
 
@@ -1402,14 +1408,14 @@ Use the `removeFromWishlist` mutation to remove an item from the customer's wish
 
 ```graphql
 mutation removeFromWishlist {
-    removeFromWishlist(itemId: "9") {
-        productVariant {
-            product {
-                id
-                name
-            }
-        }
+  removeFromWishlist(itemId: "9") {
+    productVariant {
+      product {
+        id
+        name
+      }
     }
+  }
 }
 ```
 
@@ -1421,22 +1427,21 @@ Use the `reportIssue` mutation to report an issue with an order, such as missing
 
 ```graphql
 mutation reportIssue($file: Upload!) {
-    reportIssue(
-        input: {
-            orderNumber: "123456",
-            issueType: "Missing Items",
-            description: "I received my order but some items are missing."
-        }
-        file: $file
-    ) {
-        success
-        message
+  reportIssue(
+    input: {
+      orderNumber: "123456"
+      issueType: "Missing Items"
+      description: "I received my order but some items are missing."
     }
+    file: $file
+  ) {
+    success
+    message
+  }
 }
 ```
 
-  ![setuppassword](images/reportissue.png)
-
+![setuppassword](images/reportissue.png)
 
 ## Product Requests
 
@@ -1446,27 +1451,27 @@ Use the `submitProductRequest` mutation to request a new product to be added to 
 
 ```graphql
 mutation SubmitProductRequest($file: Upload!) {
-    submitProductRequest(
-        input: {
-            productName: "Test",
-            quantity: 20,
-            make: "Honda",
-            model: "Civic",
-            description: "Test",
-            year: "2022",
-            countryOfOrigin: "Japan",
-            condition: "New"
-        }
-        file: $file
-    ) {
-        success
-        message
+  submitProductRequest(
+    input: {
+      productName: "Test"
+      quantity: 20
+      make: "Honda"
+      model: "Civic"
+      description: "Test"
+      year: "2022"
+      countryOfOrigin: "Japan"
+      condition: "New"
     }
+    file: $file
+  ) {
+    success
+    message
+  }
 }
 ```
 
-  ![setuppassword](images/proRequst.png)
-  ![setuppassword](images/request.png)
+![setuppassword](images/proRequst.png)
+![setuppassword](images/request.png)
 
 ### Edit Product Request
 
@@ -1474,30 +1479,30 @@ Use the `editProductRequest` mutation to edit an existing product request.
 
 ```graphql
 mutation EditProductRequest($file: Upload!) {
-    editProductRequest(
-        input: {
-            id: "1",
-            productName: "Test",
-            quantity: 20,
-            make: "Honda",
-            model: "Civic",
-            description: "Test",
-            year: "2022",
-            countryOfOrigin: "Japan",
-            condition: "New"
-        }
-        file: $file
-    ) {
-        id
-        productName
-        quantity
-        make
-        model
-        description
-        year
-        countryOfOrigin
-        condition
+  editProductRequest(
+    input: {
+      id: "1"
+      productName: "Test"
+      quantity: 20
+      make: "Honda"
+      model: "Civic"
+      description: "Test"
+      year: "2022"
+      countryOfOrigin: "Japan"
+      condition: "New"
     }
+    file: $file
+  ) {
+    id
+    productName
+    quantity
+    make
+    model
+    description
+    year
+    countryOfOrigin
+    condition
+  }
 }
 ```
 
@@ -1507,21 +1512,21 @@ Use the `deleteProductRequest` mutation to delete a product request.
 
 ```graphql
 mutation DeleteProductRequest {
-    deleteProductRequest(itemId: "2") {
-        id
-        productName
-        quantity
-        make
-        model
-        description
-        year
-        countryOfOrigin
-        condition
-        productRequestImage {
-            id
-            preview
-        }
+  deleteProductRequest(itemId: "2") {
+    id
+    productName
+    quantity
+    make
+    model
+    description
+    year
+    countryOfOrigin
+    condition
+    productRequestImage {
+      id
+      preview
     }
+  }
 }
 ```
 
@@ -1533,22 +1538,23 @@ Use the `submitProductReview` mutation to submit a review for a product.
 
 ```graphql
 mutation submitProductReview {
-    submitProductReview(input: {
-        productId: 4,
-        summary: "new-review",
-        body: "Great product!",
-        rating: 5,
-        authorName: "sam kay",
-        authorLocation: "Accra"
-    }) {
-        id
-        state
+  submitProductReview(
+    input: {
+      productId: 4
+      summary: "new-review"
+      body: "Great product!"
+      rating: 5
+      authorName: "sam kay"
+      authorLocation: "Accra"
     }
+  ) {
+    id
+    state
+  }
 }
 ```
 
-
-  ![setuppassword](images/review.png)
+![setuppassword](images/review.png)
 
 ---
 
@@ -1564,7 +1570,6 @@ mutation submitProductReview {
   - **Deleting a Request**: The `deleteProductRequest` mutation deletes a specified product request, returning the details of the deleted request.
 - **Submitting a Product Review**: The `submitProductReview` mutation allows customers to submit a review for a product, including a rating, summary, body, author name, and location. The response includes the ID and state of the review.
 
-
 ## User Operations
 
 ### Get Current User
@@ -1573,12 +1578,12 @@ Use the `getCurrentUser` query to retrieve the details of the currently logged-i
 
 ```graphql
 query getCurrentUser {
-    getCurrentUser {
-        id
-        phone
-        fullName
-        roles
-    }
+  getCurrentUser {
+    id
+    phone
+    fullName
+    roles
+  }
 }
 ```
 
@@ -1588,22 +1593,21 @@ Use the `switchAccount` mutation to switch the current user's role to a differen
 
 ```graphql
 mutation switchAccount {
-    switchAccount(newRole: RIDER)
+  switchAccount(newRole: RIDER)
 }
 ```
 
-
-  ![setuppassword](images/switch.png)
+![setuppassword](images/switch.png)
 
 ### Usage Notes
 
 - **Get Current User**: The `getCurrentUser` query retrieves the details of the currently logged-in user. The response includes:
+
   - **ID (`id`)**: The unique identifier of the user.
   - **Phone (`phone`)**: The user's phone number.
   - **Full Name (`fullName`)**: The user's full name.
   - **Roles (`roles`)**: The list of roles assigned to the user.
 
 - **Switch Account Role**: The `switchAccount` mutation allows the current user to switch their role to a specified new role. In this example, the role is switched to `RIDER`. The mutation does not return any fields, but typically, a successful mutation would update the user's session or permissions to reflect the new role.
-
 
 # Stay Tuned for More!
