@@ -173,7 +173,7 @@ complete the account creation process by uploading profile picture using the `co
 
 Use the obtained authentication token (`token`) in the `Authorization` header of your GraphQL requests to authenticate the user and access protected resources.
 
-## Sample Mutation
+# Create Customer Account
 
 ```graphql
 mutation createCustomerAccount($file: Upload!) {
@@ -233,6 +233,135 @@ Upon successful authentication, the API will respond with the authentication tok
 }
 ```
 
+# Rider Registration
+
+Use the `createAccount` mutation to request a new rider account. Provide details such as the rider's full name, phone number, vehicle type, and other relevant information.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to register a new rider:
+
+```graphql
+mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: Upload, $nationalIdCard: Upload!) {
+    createAccount(
+        input: {
+            role: RIDER,
+            rider: {
+                fullName: "Sam-MIntah",
+                phone: "0536369414",
+                vehicleRegistrationFile: $vehicleRegistrationFile,
+                profilePicture: $profilePicture,
+                vehicleType: "two wheel",
+                nationalIdCard: $nationalIdCard
+            }
+        }
+    ) {
+        success
+        message
+    }
+}
+```
+
+![Create New Rider](images/rider1.png) ![Create New Rider](images/rider.png)
+
+### Usage Notes
+
+- The `createAccount` mutation is used to submit a new rider account for review.
+- The `role` parameter should be set to `RIDER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Full Name (`fullName`)**: The rider's full name.
+  - **Phone Number (`phone`)**: The rider's phone number.
+  - **Vehicle Registration File (`vehicleRegistrationFile`)**: A file containing the vehicle registration details, uploaded using the `$vehicleRegistrationFile` variable.
+  - **Profile Picture (`profilePicture`)**: A profile picture for the rider, uploaded using the `$profilePicture` variable.
+  - **Vehicle Type (`vehicleType`)**: The type of vehicle (e.g., "two wheel").
+  - **National ID Card (`nationalIdCard`)**: A file containing the rider's national ID card, uploaded using the `$nationalIdCard` variable.
+
+- Fields such as `vehicleRegistrationFile`, `profilePicture`, and `nationalIdCard` are mandatory and must be provided for successful registration:
+
+## Expected Response
+
+```json
+{
+  "data": {
+    "createaccont": {
+       "success": true,
+      "message": 'submitted successfully'
+    }
+  }
+}
+
+```
+
+- It is important to provide valid and accurate information. Invalid data will be disregarded.
+- Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.
+
+
+# Seller Registration
+
+Use the `createAccount` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to register a new seller:
+
+```graphql
+mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture: Upload!) {
+  createAccount(
+    input: {
+      role: SELLER
+      seller: {
+        shopName: "Shop_ent"
+        seller: {
+          fullName: "sam Jan"
+          emailAddress: "owner@email.com"
+          phone: "0536369414"
+          businessRegistrationFile: $businessRegistrationFile
+          TIN: "5241254"
+          profilePicture: $profilePicture
+          shopAddress: "No.10 potato strt"
+          aboutShop: "about my shop"
+        }
+      }
+    }
+  ) {
+    success
+    message
+  }
+}
+```
+![CreateNewSeller](images/submitstore.png)  ![CreateNewSeller](images/bottom-storedetails.png) 
+
+### Usage Notes
+
+- The `createAccount` mutation is used to submit a new seller account for review.
+- The `role` parameter should be set to `SELLER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Shop Name (`shopName`)**: The name of the shop.
+  - **Full Name (`fullName`)**: The seller's full name.
+  - **Email Address (`emailAddress`)**: The seller's email address.
+  - **Phone Number (`phone`)**: The seller's phone number.
+  - **Business Registration File (`businessRegistrationFile`)**: A file containing the business registration details, uploaded using the `$businessRegistrationFile` variable.
+  - **Tax Identification Number (`TIN`)**: The seller's Tax Identification Number.
+  - **Profile Picture (`profilePicture`)**: A profile picture for the seller, uploaded using the `$profilePicture` variable.
+  - **Shop Address (`shopAddress`)**: The address of the shop.
+  - **About Shop (`aboutShop`)**: A brief description of the shop.
+
+## Expected Response
+
+```json
+{
+  "data": {
+    "createaccont": {
+       "success": true,
+      "message": 'submitted successfully'
+    }
+  }
+}
+
+```
+Upon successful submission, the API will respond with a success message.
+
+
 # User Authentication: Custom Login
 
 To authenticate a user and obtain an authentication token, use the `customLogin` mutation. This mutation requires the user's identifier (email or phone number) and password.
@@ -261,8 +390,6 @@ mutation customLogin {
 
 
 ![login-customer](images/login.png)
-
-
 
 ## Usage Notes
 
@@ -637,132 +764,6 @@ Upon successful password reset, the API will respond with the user's ID and othe
   }
 }
 ```
-
-## Rider Registration
-
-Use the `createAccount` mutation to request a new rider account. Provide details such as the rider's full name, phone number, vehicle type, and other relevant information.
-
-## Sample Mutation
-
-Execute the following GraphQL mutation to register a new rider:
-
-```graphql
-mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: Upload, $nationalIdCard: Upload!) {
-    createAccount(
-        input: {
-            role: RIDER,
-            rider: {
-                fullName: "Sam-MIntah",
-                phone: "0536369414",
-                vehicleRegistrationFile: $vehicleRegistrationFile,
-                profilePicture: $profilePicture,
-                vehicleType: "two wheel",
-                nationalIdCard: $nationalIdCard
-            }
-        }
-    ) {
-        success
-        message
-    }
-}
-```
-
-![Create New Rider](images/rider1.png) ![Create New Rider](images/rider.png)
-
-### Usage Notes
-
-- The `createAccount` mutation is used to submit a new rider account for review.
-- The `role` parameter should be set to `RIDER` to specify the type of account being created.
-- Ensure to include the following information in the mutation input:
-  - **Full Name (`fullName`)**: The rider's full name.
-  - **Phone Number (`phone`)**: The rider's phone number.
-  - **Vehicle Registration File (`vehicleRegistrationFile`)**: A file containing the vehicle registration details, uploaded using the `$vehicleRegistrationFile` variable.
-  - **Profile Picture (`profilePicture`)**: A profile picture for the rider, uploaded using the `$profilePicture` variable.
-  - **Vehicle Type (`vehicleType`)**: The type of vehicle (e.g., "two wheel").
-  - **National ID Card (`nationalIdCard`)**: A file containing the rider's national ID card, uploaded using the `$nationalIdCard` variable.
-
-- Fields such as `vehicleRegistrationFile`, `profilePicture`, and `nationalIdCard` are mandatory and must be provided for successful registration:
-
-```json
-{
-  vehicleRegistrationFile: null,
-  profilePicture: null,
-  nationalIdCard: null
-}
-```
-
-- It is important to provide valid and accurate information. Invalid data will be disregarded.
-- Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.
-
-
-
-# Multi-Vendor Support
-
-## Seller Registration
-
-Use the `createAccount` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
-
-## Sample Mutation
-
-Execute the following GraphQL mutation to register a new seller:
-
-```graphql
-mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture: Upload!) {
-  createAccount(
-    input: {
-      role: SELLER
-      seller: {
-        shopName: "Shop_ent"
-        seller: {
-          fullName: "sam Jan"
-          emailAddress: "owner@email.com"
-          phone: "0536369414"
-          businessRegistrationFile: $businessRegistrationFile
-          TIN: "5241254"
-          profilePicture: $profilePicture
-          shopAddress: "No.10 potato strt"
-          aboutShop: "about my shop"
-        }
-      }
-    }
-  ) {
-    success
-    message
-  }
-}
-```
-![CreateNewSeller](images/submitstore.png)  ![CreateNewSeller](images/bottom-storedetails.png) 
-
-### Usage Notes
-
-- The `createAccount` mutation is used to submit a new seller account for review.
-- The `role` parameter should be set to `SELLER` to specify the type of account being created.
-- Ensure to include the following information in the mutation input:
-  - **Shop Name (`shopName`)**: The name of the shop.
-  - **Full Name (`fullName`)**: The seller's full name.
-  - **Email Address (`emailAddress`)**: The seller's email address.
-  - **Phone Number (`phone`)**: The seller's phone number.
-  - **Business Registration File (`businessRegistrationFile`)**: A file containing the business registration details, uploaded using the `$businessRegistrationFile` variable.
-  - **Tax Identification Number (`TIN`)**: The seller's Tax Identification Number.
-  - **Profile Picture (`profilePicture`)**: A profile picture for the seller, uploaded using the `$profilePicture` variable.
-  - **Shop Address (`shopAddress`)**: The address of the shop.
-  - **About Shop (`aboutShop`)**: A brief description of the shop.
-
-## Expected Response
-
-```json
-{
-  "data": {
-    "createaccont": {
-       "success": true,
-      "message": 'submitted successfully'
-    }
-  }
-}
-
-```
-Upon successful submission, the API will respond with a success message.
-
 
 ## Adding new product
 
@@ -1606,5 +1607,3 @@ mutation switchAccount {
 
 
 # Stay Tuned for More!
-
-We are continually expanding our platform's features and functionality. Stay tuned for updates, as they will be announced here. We value your feedback and are here to assist you. If you have any questions or need further assistance, please don't hesitate to reach out.
