@@ -32,9 +32,9 @@ The SpePas API is built using [**vendure**](https://docs.vendure.io/guides/devel
 
 Vendure exposes all of its functionality via APIs. Specifically, featuring two GraphQL APIs
 
-[**Shop API**](https://spepa-server.onrender.com/shop-api)
+[**Shop API**](https://spepas-api.onrender.com/shop-api)
 
-[**Admin API**](https://spepa-server.onrender.com/admin-api/)
+[**Admin API**](https://spepas-api.onrender.com/admin-api/)
 
 # Key Features
 
@@ -92,13 +92,11 @@ To create a user account, initiate the account creation process using the `initi
 Execute the following GraphQL mutation to initiate the account creation process:
 
 ```graphql
-mutation {
-  initiateAccountCreation(
-    input: { phone: "0246215478", password: "securePassword" }
-  ) {
-    success
-    message
-  }
+mutation getStarted {
+    initiateAccountCreation(input: {  phone: "0201234567890", password: "tryPass" }) {
+        success
+        message
+    }
 }
 ```
 
@@ -178,36 +176,44 @@ Use the obtained authentication token (`token`) in the `Authorization` header of
 ## Sample Mutation
 
 ```graphql
-mutation {
-  completeAccountCreation(
-    input: {
-      fullName: "Sam Kafui"
-      city: "Accra"
-      street: "123 Street"
-      gps: "40.7128° N, 74.0060° W"
+mutation createCustomerAccount($file: Upload!) {
+    createAccount(
+        input: {
+            role: CUSTOMER
+            customer: {
+                fullName: "test 3"
+                city: "Accra"
+                street: "STR-20"
+                gps: "GH-20-ASH"
+                profilePicture: $file
+            }
+        }
+    ) {
+        success
+        message
+        token
     }
-  ) {
-    token
-    user {
-      id
-      phone
-    }
-  }
 }
 ```
+
 Execute the following GraphQL mutation to complete the account creation process:
 
-
-
-![complete-customer](images/completecustomer.png)
-
-
-
+![Complete Customer Account](images/completecustomer.png)
 
 ## Usage Notes
 
-- The `completeAccountCreation` mutation finalizes the account creation process by providing additional user details.
-- Provide the full name (`fullName`), city, street address, and GPS coordinates in the mutation input.
+- The `createAccount` mutation is used to finalize the account creation process by providing comprehensive user details.
+- The `role` parameter should be set to `CUSTOMER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Full Name (`fullName`)**: The complete name of the customer.
+  - **City**: The city where the customer resides.
+  - **Street Address (`street`)**: The street address of the customer's residence.
+  - **GPS Coordinates (`gps`)**: The GPS coordinates for the customer's location.
+  - **Profile Picture (`profilePicture`)**: The profile picture file for the customer, uploaded using the `$file` variable.
+- The response will contain:
+  - **Success (`success`)**: A boolean indicating whether the account creation was successful.
+  - **Message (`message`)**: A message providing additional information about the account creation process.
+  - **Token (`token`)**: An authentication token for the newly created customer account.
 
 
 ## Expected Response
@@ -236,15 +242,17 @@ To authenticate a user and obtain an authentication token, use the `customLogin`
 Execute the following GraphQL mutation to perform a custom login:
 
 ```graphql
-mutation {
-  customLogin(input: { identifier: "0246215478", password: "securePass" }) {
+mutation customLogin {
+  customLogin(input:{identifier:"0501234589",password:"newpas1234"}){
     token
-    user {
+    user{
       id
-      email
+      phone
       fullName
-      city
-      gps
+      avatar{
+        preview
+      }
+      roles
     }
   }
 }
@@ -270,13 +278,17 @@ Upon successful authentication, the API will respond with the authentication tok
 {
   "data": {
     "customLogin": {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqF_Uoo7MI33lSOIwI",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MTc0NTM5MTYsImV4cCI6MTcxNzU0MDMxNn0.jW4chMlJw5HNPPPzGVuziXGZOCbguhUgLT-9t2LWYTQ",
       "user": {
-        "id": "22",
-        "email": null,
-        "fullName": "John Doe",
-        "city": "New York",
-        "gps": "40.7128° N, 74.0060° W"
+        "id": "5",
+        "phone": "052255483",
+        "fullName": "John",
+        "avatar": {
+          "preview": "http://localhost:3000/assets/preview/d4/image_picker_8a1fe57e-8abe-4c50-9027-ba0789f9093a-78441-0000006ac34e2af6__preview.jpg"
+        },
+        "roles": [
+          "CUSTOMER"
+        ]
       }
     }
   }
@@ -302,10 +314,7 @@ Use the obtained authentication token (`token`) in the `Authorization` header of
 ```graphql
 mutation UploadProfilePicture($file: Upload!) {
   uploadProfilePicture(file: $file) {
-    id
-    phone
-    email
-    fullName
+    preview
   }
 }
 ```
@@ -319,9 +328,7 @@ Upon successful upload of the picture, the API will respond with image-url:
 ```json
 {
   "data": {
-    "UploadProfilePicture": {
-      "avater": "url"
-    }
+    "preview": "http://localhost:3000/assets/preview/d4/image_picker_8a1fe57e-8abe-4c50-9027-ba0789f9093a-78441-0000006ac34e2af6__preview.jpg"
   }
 }
 ```
@@ -631,54 +638,124 @@ Upon successful password reset, the API will respond with the user's ID and othe
 }
 ```
 
+## Rider Registration
+
+Use the `createAccount` mutation to request a new rider account. Provide details such as the rider's full name, phone number, vehicle type, and other relevant information.
+
+## Sample Mutation
+
+Execute the following GraphQL mutation to register a new rider:
+
+```graphql
+mutation createRiderAccount($vehicleRegistrationFile: Upload!, $profilePicture: Upload, $nationalIdCard: Upload!) {
+    createAccount(
+        input: {
+            role: RIDER,
+            rider: {
+                fullName: "Sam-MIntah",
+                phone: "0536369414",
+                vehicleRegistrationFile: $vehicleRegistrationFile,
+                profilePicture: $profilePicture,
+                vehicleType: "two wheel",
+                nationalIdCard: $nationalIdCard
+            }
+        }
+    ) {
+        success
+        message
+    }
+}
+```
+
+![Create New Rider](images/rider1.png) ![Create New Rider](images/rider.png)
+
+### Usage Notes
+
+- The `createAccount` mutation is used to submit a new rider account for review.
+- The `role` parameter should be set to `RIDER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Full Name (`fullName`)**: The rider's full name.
+  - **Phone Number (`phone`)**: The rider's phone number.
+  - **Vehicle Registration File (`vehicleRegistrationFile`)**: A file containing the vehicle registration details, uploaded using the `$vehicleRegistrationFile` variable.
+  - **Profile Picture (`profilePicture`)**: A profile picture for the rider, uploaded using the `$profilePicture` variable.
+  - **Vehicle Type (`vehicleType`)**: The type of vehicle (e.g., "two wheel").
+  - **National ID Card (`nationalIdCard`)**: A file containing the rider's national ID card, uploaded using the `$nationalIdCard` variable.
+
+- Fields such as `vehicleRegistrationFile`, `profilePicture`, and `nationalIdCard` are mandatory and must be provided for successful registration:
+
+```json
+{
+  vehicleRegistrationFile: null,
+  profilePicture: null,
+  nationalIdCard: null
+}
+```
+
+- It is important to provide valid and accurate information. Invalid data will be disregarded.
+- Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.
+
+
+
 # Multi-Vendor Support
 
 ## Seller Registration
 
-Use the `CreateNewSeller` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
+Use the `createAccount` mutation to request a new seller. Provide details such as the shop name, seller's first and last name, email address, and password.
 
 ## Sample Mutation
 
 Execute the following GraphQL mutation to register a new seller:
 
 ```graphql
-mutation CreateNewSeller {
-    createNewSeller(
-        input: {
-            shopName: "Test ent"
-            seller: {
-                fullName: "Kay Sam"
-                phone: "0536369414"
-                TIN: "0224512"
-                emailAddress:"sam.kay@gmail.com"
-                shopAddress: "Abosokai"
-                aboutShop: "Dealer in Spare part"
-            }
+mutation createSellerAccount($businessRegistrationFile: Upload!, $profilePicture: Upload!) {
+  createAccount(
+    input: {
+      role: SELLER
+      seller: {
+        shopName: "Shop_ent"
+        seller: {
+          fullName: "sam Jan"
+          emailAddress: "owner@email.com"
+          phone: "0536369414"
+          businessRegistrationFile: $businessRegistrationFile
+          TIN: "5241254"
+          profilePicture: $profilePicture
+          shopAddress: "No.10 potato strt"
+          aboutShop: "about my shop"
         }
-    ) {
-        message
+      }
     }
+  ) {
+    success
+    message
+  }
 }
 ```
 ![CreateNewSeller](images/submitstore.png)  ![CreateNewSeller](images/bottom-storedetails.png) 
 
-
 ### Usage Notes
-{ 
-  businessRegistrationFile: null,
-  profilePicture: null
-} can be ignored for now. 
-- The `CreateNewSeller` mutation submits a new seller account for review.
-- You need to provide valid information, as invalid data will be disregarded.
-- Upon successful review, the seller receives a message with temporary credentials to log in as a seller with all necessary permissions.
+
+- The `createAccount` mutation is used to submit a new seller account for review.
+- The `role` parameter should be set to `SELLER` to specify the type of account being created.
+- Ensure to include the following information in the mutation input:
+  - **Shop Name (`shopName`)**: The name of the shop.
+  - **Full Name (`fullName`)**: The seller's full name.
+  - **Email Address (`emailAddress`)**: The seller's email address.
+  - **Phone Number (`phone`)**: The seller's phone number.
+  - **Business Registration File (`businessRegistrationFile`)**: A file containing the business registration details, uploaded using the `$businessRegistrationFile` variable.
+  - **Tax Identification Number (`TIN`)**: The seller's Tax Identification Number.
+  - **Profile Picture (`profilePicture`)**: A profile picture for the seller, uploaded using the `$profilePicture` variable.
+  - **Shop Address (`shopAddress`)**: The address of the shop.
+  - **About Shop (`aboutShop`)**: A brief description of the shop.
 
 ## Expected Response
 
 ```json
 {
   "data": {
-    "createNewSeller": {
-      "message": "SUCCESS"
+    "createaccont": {
+       "success": true,
+      "message": 'submitted successfully'
     }
   }
 }
@@ -705,7 +782,7 @@ Use the obtained authentication token (`token`) in the `Authorization` header of
 
 ## Sample Mutation
 
-Execute the following GraphQL mutation to register a new seller:
+Execute the following GraphQL mutation to add a product:
 
 ```graphql
 mutation CreateProduct {
@@ -1100,8 +1177,6 @@ Upon successfully setting the order billing address, the API will respond with t
 ```
 
 
-
-
 ## Eligible Shipping Methods
 
 To determine eligible shipping methods for the order, use the `eligibleShippingMethods` query. This query returns a list of available shipping methods, including their IDs, names, and prices with tax.
@@ -1260,6 +1335,272 @@ The API will respond based on the outcome of the payment addition:
   }
 }
 ```
+
+
+
+Certainly! Here is the updated and formatted documentation for each of the provided mutations and queries, with additional explanations and usage notes for clarity:
+
+---
+
+## Wishlist Operations
+
+### Add to Wishlist
+
+Use the `addToWishlist` mutation to add a product variant to the customer's wishlist.
+
+```graphql
+mutation AddToWishlist {
+    addToWishlist(productVariantId: "2") {
+        id
+        productVariant {
+            id
+            name
+        }
+    }
+}
+```
+
+### Query Active Customer Wishlist
+
+Use the `activeCustomerWishlist` query to retrieve the current customer's wishlist, including detailed product information.
+
+```graphql
+query activeCustomerWishlist {
+    activeCustomerWishlist {
+        id
+        productVariantId
+        productVariant {
+            product {
+                name
+                slug
+                assets {
+                    preview
+                }
+                customFields {
+                    Make
+                    Model
+                    Description
+                    Year
+                    CountryOfOrigin
+                    Condition
+                    reviewRating
+                    reviewCount
+                }
+            }
+        }
+    }
+}
+```
+
+### Remove from Wishlist
+
+Use the `removeFromWishlist` mutation to remove an item from the customer's wishlist.
+
+```graphql
+mutation removeFromWishlist {
+    removeFromWishlist(itemId: "9") {
+        productVariant {
+            product {
+                id
+                name
+            }
+        }
+    }
+}
+```
+
+## Issue Reporting
+
+### Report an Issue
+
+Use the `reportIssue` mutation to report an issue with an order, such as missing items.
+
+```graphql
+mutation reportIssue($file: Upload!) {
+    reportIssue(
+        input: {
+            orderNumber: "123456",
+            issueType: "Missing Items",
+            description: "I received my order but some items are missing."
+        }
+        file: $file
+    ) {
+        success
+        message
+    }
+}
+```
+
+  ![setuppassword](images/reportissue.png)
+
+
+## Product Requests
+
+### Submit Product Request
+
+Use the `submitProductRequest` mutation to request a new product to be added to the catalog.
+
+```graphql
+mutation SubmitProductRequest($file: Upload!) {
+    submitProductRequest(
+        input: {
+            productName: "Test",
+            quantity: 20,
+            make: "Honda",
+            model: "Civic",
+            description: "Test",
+            year: "2022",
+            countryOfOrigin: "Japan",
+            condition: "New"
+        }
+        file: $file
+    ) {
+        success
+        message
+    }
+}
+```
+
+  ![setuppassword](images/proRequest.png)
+  ![setuppassword](images/request.png)
+
+### Edit Product Request
+
+Use the `editProductRequest` mutation to edit an existing product request.
+
+```graphql
+mutation EditProductRequest($file: Upload!) {
+    editProductRequest(
+        input: {
+            id: "1",
+            productName: "Test",
+            quantity: 20,
+            make: "Honda",
+            model: "Civic",
+            description: "Test",
+            year: "2022",
+            countryOfOrigin: "Japan",
+            condition: "New"
+        }
+        file: $file
+    ) {
+        id
+        productName
+        quantity
+        make
+        model
+        description
+        year
+        countryOfOrigin
+        condition
+    }
+}
+```
+
+### Delete Product Request
+
+Use the `deleteProductRequest` mutation to delete a product request.
+
+```graphql
+mutation DeleteProductRequest {
+    deleteProductRequest(itemId: "2") {
+        id
+        productName
+        quantity
+        make
+        model
+        description
+        year
+        countryOfOrigin
+        condition
+        productRequestImage {
+            id
+            preview
+        }
+    }
+}
+```
+
+## Product Reviews
+
+### Submit Product Review
+
+Use the `submitProductReview` mutation to submit a review for a product.
+
+```graphql
+mutation submitProductReview {
+    submitProductReview(input: {
+        productId: 4,
+        summary: "new-review",
+        body: "Great product!",
+        rating: 5,
+        authorName: "sam kay",
+        authorLocation: "Accra"
+    }) {
+        id
+        state
+    }
+}
+```
+
+
+  ![setuppassword](images/review.png)
+
+---
+
+### Usage Notes
+
+- **Adding to Wishlist**: The `addToWishlist` mutation adds a specified product variant to the customer's wishlist. The response includes the ID of the wishlist item and the product variant details.
+- **Querying Wishlist**: The `activeCustomerWishlist` query retrieves all items in the customer's wishlist, including detailed product information such as name, slug, preview image, and custom fields.
+- **Removing from Wishlist**: The `removeFromWishlist` mutation removes a specified item from the customer's wishlist. The response includes the details of the removed product variant.
+- **Reporting an Issue**: The `reportIssue` mutation allows customers to report issues with their orders, including uploading a supporting file. The response indicates the success of the issue report and provides a message.
+- **Product Requests**:
+  - **Submitting a Request**: The `submitProductRequest` mutation submits a request for a new product to be added to the catalog, including detailed product information and an optional file.
+  - **Editing a Request**: The `editProductRequest` mutation edits an existing product request, allowing changes to all product details and an optional file.
+  - **Deleting a Request**: The `deleteProductRequest` mutation deletes a specified product request, returning the details of the deleted request.
+- **Submitting a Product Review**: The `submitProductReview` mutation allows customers to submit a review for a product, including a rating, summary, body, author name, and location. The response includes the ID and state of the review.
+
+
+## User Operations
+
+### Get Current User
+
+Use the `getCurrentUser` query to retrieve the details of the currently logged-in user.
+
+```graphql
+query getCurrentUser {
+    getCurrentUser {
+        id
+        phone
+        fullName
+        roles
+    }
+}
+```
+
+### Switch Account Role
+
+Use the `switchAccount` mutation to switch the current user's role to a different role (e.g., RIDER).
+
+```graphql
+mutation switchAccount {
+    switchAccount(newRole: RIDER)
+}
+```
+
+
+  ![setuppassword](images/switch.png)
+
+### Usage Notes
+
+- **Get Current User**: The `getCurrentUser` query retrieves the details of the currently logged-in user. The response includes:
+  - **ID (`id`)**: The unique identifier of the user.
+  - **Phone (`phone`)**: The user's phone number.
+  - **Full Name (`fullName`)**: The user's full name.
+  - **Roles (`roles`)**: The list of roles assigned to the user.
+
+- **Switch Account Role**: The `switchAccount` mutation allows the current user to switch their role to a specified new role. In this example, the role is switched to `RIDER`. The mutation does not return any fields, but typically, a successful mutation would update the user's session or permissions to reflect the new role.
+
 
 # Stay Tuned for More!
 
