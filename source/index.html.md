@@ -1392,6 +1392,9 @@ query activeCustomerWishlist {
 }
 ```
 
+  ![setuppassword](images/wishlist.png)
+
+
 ### Remove from Wishlist
 
 Use the `removeFromWishlist` mutation to remove an item from the customer's wishlist.
