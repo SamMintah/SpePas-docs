@@ -458,6 +458,12 @@
                   <li>
                     <a href="#token-usage-6" class="toc-h2 toc-link" data-title="Token Usage">Token Usage</a>
                   </li>
+                  <li>
+                    <a href="#rider-registration" class="toc-h2 toc-link" data-title="Rider Registration">Rider Registration</a>
+                  </li>
+                  <li>
+                    <a href="#sample-mutation-12" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -467,7 +473,7 @@
                     <a href="#seller-registration" class="toc-h2 toc-link" data-title="Seller Registration">Seller Registration</a>
                   </li>
                   <li>
-                    <a href="#sample-mutation-12" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                    <a href="#sample-mutation-13" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
                     <a href="#expected-response-12" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
@@ -479,7 +485,7 @@
                     <a href="#token-usage-7" class="toc-h2 toc-link" data-title="Token Usage">Token Usage</a>
                   </li>
                   <li>
-                    <a href="#sample-mutation-13" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                    <a href="#sample-mutation-14" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
                     <a href="#expected-response-13" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
@@ -519,7 +525,7 @@
                     <a href="#adding-items-to-order" class="toc-h2 toc-link" data-title="Adding Items to Order">Adding Items to Order</a>
                   </li>
                   <li>
-                    <a href="#sample-mutation-14" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                    <a href="#sample-mutation-15" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
                     <a href="#expected-response-16" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
@@ -540,7 +546,7 @@
                     <a href="#assign-shipping-method-to-order" class="toc-h2 toc-link" data-title="Assign Shipping Method to Order">Assign Shipping Method to Order</a>
                   </li>
                   <li>
-                    <a href="#sample-mutation-16" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
+                    <a href="#sample-mutation-17" class="toc-h2 toc-link" data-title="Sample Mutation">Sample Mutation</a>
                   </li>
                   <li>
                     <a href="#expected-response-19" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
@@ -553,6 +559,21 @@
                   </li>
                   <li>
                     <a href="#expected-response-20" class="toc-h2 toc-link" data-title="Expected Response">Expected Response</a>
+                  </li>
+                  <li>
+                    <a href="#wishlist-operations" class="toc-h2 toc-link" data-title="Wishlist Operations">Wishlist Operations</a>
+                  </li>
+                  <li>
+                    <a href="#issue-reporting" class="toc-h2 toc-link" data-title="Issue Reporting">Issue Reporting</a>
+                  </li>
+                  <li>
+                    <a href="#product-requests" class="toc-h2 toc-link" data-title="Product Requests">Product Requests</a>
+                  </li>
+                  <li>
+                    <a href="#product-reviews" class="toc-h2 toc-link" data-title="Product Reviews">Product Reviews</a>
+                  </li>
+                  <li>
+                    <a href="#user-operations" class="toc-h2 toc-link" data-title="User Operations">User Operations</a>
                   </li>
               </ul>
           </li>
@@ -579,9 +600,9 @@
 <h2 id='apis'>APIs</h2>
 <p>Vendure exposes all of its functionality via APIs. Specifically, featuring two GraphQL APIs</p>
 
-<p><a href="https://spepa-server.onrender.com/shop-api"><strong>Shop API</strong></a></p>
+<p><a href="https://spepas-api.onrender.com/shop-api"><strong>Shop API</strong></a></p>
 
-<p><a href="https://spepa-server.onrender.com/admin-api/"><strong>Admin API</strong></a></p>
+<p><a href="https://spepas-api.onrender.com/admin-api/"><strong>Admin API</strong></a></p>
 <h1 id='key-features'>Key Features</h1><h2 id='communication-architecture'>Communication Architecture</h2>
 <ol>
 <li><p><strong>Real-Time Interaction:</strong>
@@ -624,13 +645,11 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <p>To create a user account, initiate the account creation process using the <code>initiateAccountCreation</code> mutation. This mutation requires the user&#39;s phone number and desired password.</p>
 <h2 id='sample-mutation'>Sample Mutation</h2>
 <p>Execute the following GraphQL mutation to initiate the account creation process:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">initiateAccountCreation</span><span class="p">(</span><span class="w">
-    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0246215478"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePassword"</span><span class="w"> </span><span class="p">}</span><span class="w">
-  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">success</span><span class="w">
-    </span><span class="n">message</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">getStarted</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">initiateAccountCreation</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0201234567890"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"tryPass"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">success</span><span class="w">
+        </span><span class="n">message</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><img src="images/signup-99fa9104.png" alt="initiate-account" /></p>
@@ -676,30 +695,48 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Use the obtained authentication token (<code>token</code>) in the <code>Authorization</code> header of your GraphQL requests to authenticate the user and access protected resources.</p>
-<h2 id='sample-mutation-3'>Sample Mutation</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">completeAccountCreation</span><span class="p">(</span><span class="w">
-    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">fullName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sam Kafui"</span><span class="w">
-      </span><span class="n">city</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accra"</span><span class="w">
-      </span><span class="n">street</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Street"</span><span class="w">
-      </span><span class="n">gps</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.7128° N, 74.0060° W"</span><span class="w">
+<h2 id='sample-mutation-3'>Sample Mutation</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">createCustomerAccount</span><span class="p">(</span><span class="nv">$file</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">createAccount</span><span class="p">(</span><span class="w">
+        </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">CUSTOMER</span><span class="w">
+            </span><span class="n">customer</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">fullName</span><span class="p">:</span><span class="w"> </span><span class="s2">"test 3"</span><span class="w">
+                </span><span class="n">city</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accra"</span><span class="w">
+                </span><span class="n">street</span><span class="p">:</span><span class="w"> </span><span class="s2">"STR-20"</span><span class="w">
+                </span><span class="n">gps</span><span class="p">:</span><span class="w"> </span><span class="s2">"GH-20-ASH"</span><span class="w">
+                </span><span class="n">profilePicture</span><span class="p">:</span><span class="w"> </span><span class="nv">$file</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">success</span><span class="w">
+        </span><span class="n">message</span><span class="w">
+        </span><span class="n">token</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">token</span><span class="w">
-    </span><span class="n">user</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="n">id</span><span class="w">
-      </span><span class="n">phone</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Execute the following GraphQL mutation to complete the account creation process:</p>
 
-<p><img src="images/completecustomer-dd33c37e.png" alt="complete-customer" /></p>
+<p><img src="images/completecustomer-dd33c37e.png" alt="Complete Customer Account" /></p>
 <h2 id='usage-notes-2'>Usage Notes</h2>
 <ul>
-<li>The <code>completeAccountCreation</code> mutation finalizes the account creation process by providing additional user details.</li>
-<li>Provide the full name (<code>fullName</code>), city, street address, and GPS coordinates in the mutation input.</li>
+<li>The <code>createAccount</code> mutation is used to finalize the account creation process by providing comprehensive user details.</li>
+<li>The <code>role</code> parameter should be set to <code>CUSTOMER</code> to specify the type of account being created.</li>
+<li>Ensure to include the following information in the mutation input:
+
+<ul>
+<li><strong>Full Name (<code>fullName</code>)</strong>: The complete name of the customer.</li>
+<li><strong>City</strong>: The city where the customer resides.</li>
+<li><strong>Street Address (<code>street</code>)</strong>: The street address of the customer&#39;s residence.</li>
+<li><strong>GPS Coordinates (<code>gps</code>)</strong>: The GPS coordinates for the customer&#39;s location.</li>
+<li><strong>Profile Picture (<code>profilePicture</code>)</strong>: The profile picture file for the customer, uploaded using the <code>$file</code> variable.</li>
+</ul></li>
+<li>The response will contain:
+
+<ul>
+<li><strong>Success (<code>success</code>)</strong>: A boolean indicating whether the account creation was successful.</li>
+<li><strong>Message (<code>message</code>)</strong>: A message providing additional information about the account creation process.</li>
+<li><strong>Token (<code>token</code>)</strong>: An authentication token for the newly created customer account.</li>
+</ul></li>
 </ul>
 <h2 id='expected-response-3'>Expected Response</h2>
 <p>Upon successful authentication, the API will respond with the authentication token and user details:</p>
@@ -717,20 +754,22 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <p>To authenticate a user and obtain an authentication token, use the <code>customLogin</code> mutation. This mutation requires the user&#39;s identifier (email or phone number) and password.</p>
 <h2 id='sample-mutation-4'>Sample Mutation</h2>
 <p>Execute the following GraphQL mutation to perform a custom login:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">customLogin</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">"0246215478"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"securePass"</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">customLogin</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">customLogin</span><span class="p">(</span><span class="n">input</span><span class="p">:{</span><span class="n">identifier</span><span class="p">:</span><span class="s2">"0501234589"</span><span class="p">,</span><span class="n">password</span><span class="p">:</span><span class="s2">"newpas1234"</span><span class="p">}){</span><span class="w">
     </span><span class="n">token</span><span class="w">
-    </span><span class="n">user</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">user</span><span class="p">{</span><span class="w">
       </span><span class="n">id</span><span class="w">
-      </span><span class="n">email</span><span class="w">
+      </span><span class="n">phone</span><span class="w">
       </span><span class="n">fullName</span><span class="w">
-      </span><span class="n">city</span><span class="w">
-      </span><span class="n">gps</span><span class="w">
+      </span><span class="n">avatar</span><span class="p">{</span><span class="w">
+        </span><span class="n">preview</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="n">roles</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><img src="images/login-c3283d4c.png" alt="login-customer" /></p>
+<p><img src="images/login-73ea6744.png" alt="login-customer" /></p>
 <h2 id='usage-notes-3'>Usage Notes</h2>
 <ul>
 <li>The <code>customLogin</code> mutation returns an authentication token (<code>token</code>) and user details (<code>user</code>) upon successful login.</li>
@@ -742,13 +781,17 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"customLogin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNzA4MDEyNjIzLCJleHAiOjE3MDg2MTc0MjN9.f5t7Wl3dVWcIILl0v3uCDwwl0eqF_Uoo7MI33lSOIwI"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE3MTc0NTM5MTYsImV4cCI6MTcxNzU0MDMxNn0.jW4chMlJw5HNPPPzGVuziXGZOCbguhUgLT-9t2LWYTQ"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New York"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"gps"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.7128° N, 74.0060° W"</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"052255483"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"avatar"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"preview"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:3000/assets/preview/d4/image_picker_8a1fe57e-8abe-4c50-9027-ba0789f9093a-78441-0000006ac34e2af6__preview.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"CUSTOMER"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -762,10 +805,7 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <p>Use the obtained authentication token (<code>token</code>) in the <code>Authorization</code> header of your GraphQL requests to authenticate the user and access protected resources.</p>
 <h2 id='sample-mutation-5'>Sample Mutation</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">UploadProfilePicture</span><span class="p">(</span><span class="nv">$file</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">uploadProfilePicture</span><span class="p">(</span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="nv">$file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">id</span><span class="w">
-    </span><span class="n">phone</span><span class="w">
-    </span><span class="n">email</span><span class="w">
-    </span><span class="n">fullName</span><span class="w">
+    </span><span class="n">preview</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -774,9 +814,7 @@ Enable a multi-vendor ecosystem akin to platforms like Amazon. Vendors can seaml
 <p>Upon successful upload of the picture, the API will respond with image-url:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"UploadProfilePicture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"avater"</span><span class="p">:</span><span class="w"> </span><span class="s2">"url"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"preview"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:3000/assets/preview/d4/image_picker_8a1fe57e-8abe-4c50-9027-ba0789f9093a-78441-0000006ac34e2af6__preview.jpg"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='usage-notes-4'>Usage Notes</h2>
@@ -982,41 +1020,108 @@ token</li>
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='seller-registration'>Seller Registration</h2>
-<p>Use the <code>CreateNewSeller</code> mutation to request a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
+</span></code></pre></div><h2 id='rider-registration'>Rider Registration</h2>
+<p>Use the <code>createAccount</code> mutation to request a new rider account. Provide details such as the rider&#39;s full name, phone number, vehicle type, and other relevant information.</p>
 <h2 id='sample-mutation-12'>Sample Mutation</h2>
-<p>Execute the following GraphQL mutation to register a new seller:</p>
-<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">CreateNewSeller</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">createNewSeller</span><span class="p">(</span><span class="w">
+<p>Execute the following GraphQL mutation to register a new rider:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">createRiderAccount</span><span class="p">(</span><span class="nv">$vehicleRegistrationFile</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!,</span><span class="w"> </span><span class="nv">$profilePicture</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">,</span><span class="w"> </span><span class="nv">$nationalIdCard</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">createAccount</span><span class="p">(</span><span class="w">
         </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test ent"</span><span class="w">
-            </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="n">fullName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kay Sam"</span><span class="w">
-                </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="w">
-                </span><span class="n">TIN</span><span class="p">:</span><span class="w"> </span><span class="s2">"0224512"</span><span class="w">
-                </span><span class="n">emailAddress</span><span class="p">:</span><span class="s2">"sam.kay@gmail.com"</span><span class="w">
-                </span><span class="n">shopAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abosokai"</span><span class="w">
-                </span><span class="n">aboutShop</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dealer in Spare part"</span><span class="w">
+            </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">RIDER</span><span class="p">,</span><span class="w">
+            </span><span class="n">rider</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">fullName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sam-MIntah"</span><span class="p">,</span><span class="w">
+                </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="p">,</span><span class="w">
+                </span><span class="n">vehicleRegistrationFile</span><span class="p">:</span><span class="w"> </span><span class="nv">$vehicleRegistrationFile</span><span class="p">,</span><span class="w">
+                </span><span class="n">profilePicture</span><span class="p">:</span><span class="w"> </span><span class="nv">$profilePicture</span><span class="p">,</span><span class="w">
+                </span><span class="n">vehicleType</span><span class="p">:</span><span class="w"> </span><span class="s2">"two wheel"</span><span class="p">,</span><span class="w">
+                </span><span class="n">nationalIdCard</span><span class="p">:</span><span class="w"> </span><span class="nv">$nationalIdCard</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">success</span><span class="w">
         </span><span class="n">message</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><img src="images/submitstore-d20059a0.png" alt="CreateNewSeller" />  <img src="images/bottom-storedetails-e4a7e9b2.png" alt="CreateNewSeller" /> </p>
+<p><img src="images/rider1-28d0fa39.png" alt="Create New Rider" /> <img src="images/rider-b47d40b4.png" alt="Create New Rider" /></p>
 <h3 id='usage-notes-10'>Usage Notes</h3>
-<p>{ 
-  businessRegistrationFile: null,
-  profilePicture: null
-} can be ignored for now. 
-- The <code>CreateNewSeller</code> mutation submits a new seller account for review.
-- You need to provide valid information, as invalid data will be disregarded.
-- Upon successful review, the seller receives a message with temporary credentials to log in as a seller with all necessary permissions.</p>
+<ul>
+<li>The <code>createAccount</code> mutation is used to submit a new rider account for review.</li>
+<li>The <code>role</code> parameter should be set to <code>RIDER</code> to specify the type of account being created.</li>
+<li><p>Ensure to include the following information in the mutation input:</p>
+
+<ul>
+<li><strong>Full Name (<code>fullName</code>)</strong>: The rider&#39;s full name.</li>
+<li><strong>Phone Number (<code>phone</code>)</strong>: The rider&#39;s phone number.</li>
+<li><strong>Vehicle Registration File (<code>vehicleRegistrationFile</code>)</strong>: A file containing the vehicle registration details, uploaded using the <code>$vehicleRegistrationFile</code> variable.</li>
+<li><strong>Profile Picture (<code>profilePicture</code>)</strong>: A profile picture for the rider, uploaded using the <code>$profilePicture</code> variable.</li>
+<li><strong>Vehicle Type (<code>vehicleType</code>)</strong>: The type of vehicle (e.g., &quot;two wheel&quot;).</li>
+<li><strong>National ID Card (<code>nationalIdCard</code>)</strong>: A file containing the rider&#39;s national ID card, uploaded using the <code>$nationalIdCard</code> variable.</li>
+</ul></li>
+<li><p>Fields such as <code>vehicleRegistrationFile</code>, <code>profilePicture</code>, and <code>nationalIdCard</code> are mandatory and must be provided for successful registration:</p></li>
+</ul>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">vehicleRegistrationFile:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="err">profilePicture:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="err">nationalIdCard:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<ul>
+<li>It is important to provide valid and accurate information. Invalid data will be disregarded.</li>
+<li>Upon successful review of the provided information, the rider will receive a message with temporary credentials to log in and access their rider account with all necessary permissions.</li>
+</ul>
+<h1 id='multi-vendor-support'>Multi-Vendor Support</h1><h2 id='seller-registration'>Seller Registration</h2>
+<p>Use the <code>createAccount</code> mutation to request a new seller. Provide details such as the shop name, seller&#39;s first and last name, email address, and password.</p>
+<h2 id='sample-mutation-13'>Sample Mutation</h2>
+<p>Execute the following GraphQL mutation to register a new seller:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">createSellerAccount</span><span class="p">(</span><span class="nv">$businessRegistrationFile</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!,</span><span class="w"> </span><span class="nv">$profilePicture</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">createAccount</span><span class="p">(</span><span class="w">
+    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">role</span><span class="p">:</span><span class="w"> </span><span class="n">SELLER</span><span class="w">
+      </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">shopName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shop_ent"</span><span class="w">
+        </span><span class="n">seller</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="n">fullName</span><span class="p">:</span><span class="w"> </span><span class="s2">"sam Jan"</span><span class="w">
+          </span><span class="n">emailAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner@email.com"</span><span class="w">
+          </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s2">"0536369414"</span><span class="w">
+          </span><span class="n">businessRegistrationFile</span><span class="p">:</span><span class="w"> </span><span class="nv">$businessRegistrationFile</span><span class="w">
+          </span><span class="n">TIN</span><span class="p">:</span><span class="w"> </span><span class="s2">"5241254"</span><span class="w">
+          </span><span class="n">profilePicture</span><span class="p">:</span><span class="w"> </span><span class="nv">$profilePicture</span><span class="w">
+          </span><span class="n">shopAddress</span><span class="p">:</span><span class="w"> </span><span class="s2">"No.10 potato strt"</span><span class="w">
+          </span><span class="n">aboutShop</span><span class="p">:</span><span class="w"> </span><span class="s2">"about my shop"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">success</span><span class="w">
+    </span><span class="n">message</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><img src="images/submitstore-d20059a0.png" alt="CreateNewSeller" />  <img src="images/bottom-storedetails-e4a7e9b2.png" alt="CreateNewSeller" /> </p>
+<h3 id='usage-notes-11'>Usage Notes</h3>
+<ul>
+<li>The <code>createAccount</code> mutation is used to submit a new seller account for review.</li>
+<li>The <code>role</code> parameter should be set to <code>SELLER</code> to specify the type of account being created.</li>
+<li>Ensure to include the following information in the mutation input:
+
+<ul>
+<li><strong>Shop Name (<code>shopName</code>)</strong>: The name of the shop.</li>
+<li><strong>Full Name (<code>fullName</code>)</strong>: The seller&#39;s full name.</li>
+<li><strong>Email Address (<code>emailAddress</code>)</strong>: The seller&#39;s email address.</li>
+<li><strong>Phone Number (<code>phone</code>)</strong>: The seller&#39;s phone number.</li>
+<li><strong>Business Registration File (<code>businessRegistrationFile</code>)</strong>: A file containing the business registration details, uploaded using the <code>$businessRegistrationFile</code> variable.</li>
+<li><strong>Tax Identification Number (<code>TIN</code>)</strong>: The seller&#39;s Tax Identification Number.</li>
+<li><strong>Profile Picture (<code>profilePicture</code>)</strong>: A profile picture for the seller, uploaded using the <code>$profilePicture</code> variable.</li>
+<li><strong>Shop Address (<code>shopAddress</code>)</strong>: The address of the shop.</li>
+<li><strong>About Shop (<code>aboutShop</code>)</strong>: A brief description of the shop.</li>
+</ul></li>
+</ul>
 <h2 id='expected-response-12'>Expected Response</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"createNewSeller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
+    </span><span class="nl">"createaccont"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="err">'submitted</span><span class="w"> </span><span class="err">successfully'</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1031,8 +1136,8 @@ token</li>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer &lt;token&gt;"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='sample-mutation-13'>Sample Mutation</h2>
-<p>Execute the following GraphQL mutation to register a new seller:</p>
+</span></code></pre></div><h2 id='sample-mutation-14'>Sample Mutation</h2>
+<p>Execute the following GraphQL mutation to add a product:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">CreateProduct</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">createProduct</span><span class="p">(</span><span class="w">
         </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1272,7 +1377,7 @@ token</li>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='adding-items-to-order'>Adding Items to Order</h2>
 <p>To add items to the order from different sellers, utilize the <code>addItemToOrder</code> mutation. This mutation allows customers to specify the product variant ID and quantity for each item they want to purchase.</p>
-<h2 id='sample-mutation-14'>Sample Mutation</h2>
+<h2 id='sample-mutation-15'>Sample Mutation</h2>
 <p>Execute the following GraphQL mutation to add items to the order:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">addItemToOrder</span><span class="p">(</span><span class="n">productVariantId</span><span class="p">:</span><span class="w"> </span><span class="s2">"56"</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1318,7 +1423,7 @@ The <code>addItemToOrder</code> mutation includes the <code>__typename</code> fi
 <p>In a multi-vendor setup, SpePas allows customers to add items from different sellers to their cart and proceed to checkout. This section covers the process of adding items to the cart and setting up order fulfillment.</p>
 <h2 id='set-order-billing-address'>Set Order Billing Address</h2>
 <p>To provide a billing address for the order, use the <code>setOrderBillingAddress</code> mutation. This mutation allows customers to specify the billing address details, including company, street lines, city, province, postal code, and custom fields.</p>
-<h4 id='sample-mutation-15'>Sample Mutation</h4>
+<h4 id='sample-mutation-16'>Sample Mutation</h4>
 <p>Execute the following GraphQL mutation to set the order billing address:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">setOrderBillingAddress</span><span class="p">(</span><span class="w">
@@ -1387,7 +1492,7 @@ the order ID accordingly.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='assign-shipping-method-to-order'>Assign Shipping Method to Order</h2>
 <p>To assign shipping methods to the order, use the <code>setOrderShippingMethod</code> mutation. This mutation allows customers to specify the shipping method IDs for their order.</p>
-<h2 id='sample-mutation-16'>Sample Mutation</h2>
+<h2 id='sample-mutation-17'>Sample Mutation</h2>
 <p>Execute the following GraphQL mutation to assign shipping methods to the order:</p>
 <div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">AssignShipping</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">setOrderShippingMethod</span><span class="p">(</span><span class="n">shippingMethodId</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1433,7 +1538,7 @@ The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><img src="images/addPayment-4f592ee9.png" alt="home" /> </p>
-<h3 id='usage-notes-11'>Usage Notes</h3>
+<h3 id='usage-notes-12'>Usage Notes</h3>
 <ul>
 <li>The <code>addPaymentToOrder</code> mutation associates the specified payment method with the order.</li>
 <li>Check the response to determine the success or failure of the payment addition.</li>
@@ -1476,7 +1581,211 @@ The <code>setOrderShippingMethod</code> mutation includes the <code>__typename</
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='stay-tuned-for-more'>Stay Tuned for More!</h1>
+</span></code></pre></div>
+<p>Certainly! Here is the updated and formatted documentation for each of the provided mutations and queries, with additional explanations and usage notes for clarity:</p>
+
+<hr>
+<h2 id='wishlist-operations'>Wishlist Operations</h2><h3 id='add-to-wishlist'>Add to Wishlist</h3>
+<p>Use the <code>addToWishlist</code> mutation to add a product variant to the customer&#39;s wishlist.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">AddToWishlist</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">addToWishlist</span><span class="p">(</span><span class="n">productVariantId</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">productVariant</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">id</span><span class="w">
+            </span><span class="n">name</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='query-active-customer-wishlist'>Query Active Customer Wishlist</h3>
+<p>Use the <code>activeCustomerWishlist</code> query to retrieve the current customer&#39;s wishlist, including detailed product information.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">activeCustomerWishlist</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">activeCustomerWishlist</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">productVariantId</span><span class="w">
+        </span><span class="n">productVariant</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">product</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">name</span><span class="w">
+                </span><span class="n">slug</span><span class="w">
+                </span><span class="n">assets</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="n">preview</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="n">customFields</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="n">Make</span><span class="w">
+                    </span><span class="n">Model</span><span class="w">
+                    </span><span class="n">Description</span><span class="w">
+                    </span><span class="n">Year</span><span class="w">
+                    </span><span class="n">CountryOfOrigin</span><span class="w">
+                    </span><span class="n">Condition</span><span class="w">
+                    </span><span class="n">reviewRating</span><span class="w">
+                    </span><span class="n">reviewCount</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='remove-from-wishlist'>Remove from Wishlist</h3>
+<p>Use the <code>removeFromWishlist</code> mutation to remove an item from the customer&#39;s wishlist.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">removeFromWishlist</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">removeFromWishlist</span><span class="p">(</span><span class="n">itemId</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">productVariant</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">product</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">id</span><span class="w">
+                </span><span class="n">name</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='issue-reporting'>Issue Reporting</h2><h3 id='report-an-issue'>Report an Issue</h3>
+<p>Use the <code>reportIssue</code> mutation to report an issue with an order, such as missing items.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">reportIssue</span><span class="p">(</span><span class="nv">$file</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">reportIssue</span><span class="p">(</span><span class="w">
+        </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">orderNumber</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+            </span><span class="n">issueType</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing Items"</span><span class="p">,</span><span class="w">
+            </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"I received my order but some items are missing."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="nv">$file</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">success</span><span class="w">
+        </span><span class="n">message</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><img src="images/reportissue-5ec94ae1.png" alt="setuppassword" /></p>
+<h2 id='product-requests'>Product Requests</h2><h3 id='submit-product-request'>Submit Product Request</h3>
+<p>Use the <code>submitProductRequest</code> mutation to request a new product to be added to the catalog.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">SubmitProductRequest</span><span class="p">(</span><span class="nv">$file</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">submitProductRequest</span><span class="p">(</span><span class="w">
+        </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">productName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+            </span><span class="n">make</span><span class="p">:</span><span class="w"> </span><span class="s2">"Honda"</span><span class="p">,</span><span class="w">
+            </span><span class="n">model</span><span class="p">:</span><span class="w"> </span><span class="s2">"Civic"</span><span class="p">,</span><span class="w">
+            </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="n">year</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022"</span><span class="p">,</span><span class="w">
+            </span><span class="n">countryOfOrigin</span><span class="p">:</span><span class="w"> </span><span class="s2">"Japan"</span><span class="p">,</span><span class="w">
+            </span><span class="n">condition</span><span class="p">:</span><span class="w"> </span><span class="s2">"New"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="nv">$file</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">success</span><span class="w">
+        </span><span class="n">message</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><img src="images/images/proRequest.png" alt="setuppassword" />
+  <img src="images/request-9e310bbf.png" alt="setuppassword" /></p>
+<h3 id='edit-product-request'>Edit Product Request</h3>
+<p>Use the <code>editProductRequest</code> mutation to edit an existing product request.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">EditProductRequest</span><span class="p">(</span><span class="nv">$file</span><span class="p">:</span><span class="w"> </span><span class="n">Upload</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">editProductRequest</span><span class="p">(</span><span class="w">
+        </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="n">productName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+            </span><span class="n">make</span><span class="p">:</span><span class="w"> </span><span class="s2">"Honda"</span><span class="p">,</span><span class="w">
+            </span><span class="n">model</span><span class="p">:</span><span class="w"> </span><span class="s2">"Civic"</span><span class="p">,</span><span class="w">
+            </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="n">year</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022"</span><span class="p">,</span><span class="w">
+            </span><span class="n">countryOfOrigin</span><span class="p">:</span><span class="w"> </span><span class="s2">"Japan"</span><span class="p">,</span><span class="w">
+            </span><span class="n">condition</span><span class="p">:</span><span class="w"> </span><span class="s2">"New"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="nv">$file</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">productName</span><span class="w">
+        </span><span class="n">quantity</span><span class="w">
+        </span><span class="n">make</span><span class="w">
+        </span><span class="n">model</span><span class="w">
+        </span><span class="n">description</span><span class="w">
+        </span><span class="n">year</span><span class="w">
+        </span><span class="n">countryOfOrigin</span><span class="w">
+        </span><span class="n">condition</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='delete-product-request'>Delete Product Request</h3>
+<p>Use the <code>deleteProductRequest</code> mutation to delete a product request.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">DeleteProductRequest</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">deleteProductRequest</span><span class="p">(</span><span class="n">itemId</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">productName</span><span class="w">
+        </span><span class="n">quantity</span><span class="w">
+        </span><span class="n">make</span><span class="w">
+        </span><span class="n">model</span><span class="w">
+        </span><span class="n">description</span><span class="w">
+        </span><span class="n">year</span><span class="w">
+        </span><span class="n">countryOfOrigin</span><span class="w">
+        </span><span class="n">condition</span><span class="w">
+        </span><span class="n">productRequestImage</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">id</span><span class="w">
+            </span><span class="n">preview</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='product-reviews'>Product Reviews</h2><h3 id='submit-product-review'>Submit Product Review</h3>
+<p>Use the <code>submitProductReview</code> mutation to submit a review for a product.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">submitProductReview</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">submitProductReview</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">productId</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+        </span><span class="n">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">"new-review"</span><span class="p">,</span><span class="w">
+        </span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="s2">"Great product!"</span><span class="p">,</span><span class="w">
+        </span><span class="n">rating</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="n">authorName</span><span class="p">:</span><span class="w"> </span><span class="s2">"sam kay"</span><span class="p">,</span><span class="w">
+        </span><span class="n">authorLocation</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accra"</span><span class="w">
+    </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">state</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><img src="images/review-a6c904cf.png" alt="setuppassword" /></p>
+
+<hr>
+<h3 id='usage-notes-13'>Usage Notes</h3>
+<ul>
+<li><strong>Adding to Wishlist</strong>: The <code>addToWishlist</code> mutation adds a specified product variant to the customer&#39;s wishlist. The response includes the ID of the wishlist item and the product variant details.</li>
+<li><strong>Querying Wishlist</strong>: The <code>activeCustomerWishlist</code> query retrieves all items in the customer&#39;s wishlist, including detailed product information such as name, slug, preview image, and custom fields.</li>
+<li><strong>Removing from Wishlist</strong>: The <code>removeFromWishlist</code> mutation removes a specified item from the customer&#39;s wishlist. The response includes the details of the removed product variant.</li>
+<li><strong>Reporting an Issue</strong>: The <code>reportIssue</code> mutation allows customers to report issues with their orders, including uploading a supporting file. The response indicates the success of the issue report and provides a message.</li>
+<li><strong>Product Requests</strong>:
+
+<ul>
+<li><strong>Submitting a Request</strong>: The <code>submitProductRequest</code> mutation submits a request for a new product to be added to the catalog, including detailed product information and an optional file.</li>
+<li><strong>Editing a Request</strong>: The <code>editProductRequest</code> mutation edits an existing product request, allowing changes to all product details and an optional file.</li>
+<li><strong>Deleting a Request</strong>: The <code>deleteProductRequest</code> mutation deletes a specified product request, returning the details of the deleted request.</li>
+</ul></li>
+<li><strong>Submitting a Product Review</strong>: The <code>submitProductReview</code> mutation allows customers to submit a review for a product, including a rating, summary, body, author name, and location. The response includes the ID and state of the review.</li>
+</ul>
+<h2 id='user-operations'>User Operations</h2><h3 id='get-current-user'>Get Current User</h3>
+<p>Use the <code>getCurrentUser</code> query to retrieve the details of the currently logged-in user.</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">getCurrentUser</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">getCurrentUser</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">phone</span><span class="w">
+        </span><span class="n">fullName</span><span class="w">
+        </span><span class="n">roles</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='switch-account-role'>Switch Account Role</h3>
+<p>Use the <code>switchAccount</code> mutation to switch the current user&#39;s role to a different role (e.g., RIDER).</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">switchAccount</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">switchAccount</span><span class="p">(</span><span class="n">newRole</span><span class="p">:</span><span class="w"> </span><span class="n">RIDER</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><img src="images/switch-d2cf780e.png" alt="setuppassword" /></p>
+<h3 id='usage-notes-14'>Usage Notes</h3>
+<ul>
+<li><p><strong>Get Current User</strong>: The <code>getCurrentUser</code> query retrieves the details of the currently logged-in user. The response includes:</p>
+
+<ul>
+<li><strong>ID (<code>id</code>)</strong>: The unique identifier of the user.</li>
+<li><strong>Phone (<code>phone</code>)</strong>: The user&#39;s phone number.</li>
+<li><strong>Full Name (<code>fullName</code>)</strong>: The user&#39;s full name.</li>
+<li><strong>Roles (<code>roles</code>)</strong>: The list of roles assigned to the user.</li>
+</ul></li>
+<li><p><strong>Switch Account Role</strong>: The <code>switchAccount</code> mutation allows the current user to switch their role to a specified new role. In this example, the role is switched to <code>RIDER</code>. The mutation does not return any fields, but typically, a successful mutation would update the user&#39;s session or permissions to reflect the new role.</p></li>
+</ul>
+<h1 id='stay-tuned-for-more'>Stay Tuned for More!</h1>
 <p>We are continually expanding our platform&#39;s features and functionality. Stay tuned for updates, as they will be announced here. We value your feedback and are here to assist you. If you have any questions or need further assistance, please don&#39;t hesitate to reach out.</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
