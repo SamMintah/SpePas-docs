@@ -1464,7 +1464,7 @@ mutation SubmitProductRequest($file: Upload!) {
 }
 ```
 
-  ![setuppassword](images/proRequest.png)
+  ![setuppassword](images/proRequst.png)
   ![setuppassword](images/request.png)
 
 ### Edit Product Request
